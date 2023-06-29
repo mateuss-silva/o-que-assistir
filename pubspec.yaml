@@ -7,13 +7,22 @@ environment:
   sdk: '>=3.0.5 <4.0.0'
 
 dependencies:
+  dartz: ^0.10.1
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
+  flutter_mobx: ^2.0.6+5
+  flutter_modular: ^6.0.0-beta.3
+  http: ^1.1.0
+  mobx: ^2.2.0
+  mocktail: ^0.3.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  mobx_codegen: ^2.3.0
+  build_runner: ^2.4.5
 
 flutter:
   uses-material-design: true
