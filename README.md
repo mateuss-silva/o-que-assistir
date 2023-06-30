@@ -5,7 +5,9 @@ O aplicativo tem como objetivo mostrar filmes, series e afins. Contendo informa√
 ## Arquitetura
 
 O aplicativo foi desenvolvido utilizando Clean Architecture.
+
 <img src="/assets/images/clean-arch.png" alt="Clean Architecture" style="height: 400px; "/>
+
 <img src="/assets/images/clean-arch-call-flow.png" alt="Clean Architecture" style="height: 400px; "/>
 
 ## Detalhes T√©cnicos
