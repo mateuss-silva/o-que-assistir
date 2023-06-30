@@ -1,22 +1,12 @@
-import 'package:dartz/dartz.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
-import 'package:o_que_assistir/app/features/home/data/models/gender_model.dart';
-import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
-import 'package:o_que_assistir/app/features/home/domain/repositories/movie_repository.dart';
-import 'package:o_que_assistir/app/features/home/domain/usecases/get_movie_usecase.dart';
+import 'dart:convert';
 
-class MockMovieRepository extends Mock implements MovieRepository {}
+import 'package:flutter_test/flutter_test.dart';
+import 'package:o_que_assistir/app/features/home/data/models/gender_model.dart';
+import 'package:o_que_assistir/app/features/home/data/models/movie_model.dart';
+
+import '../../../../fixtures/fixture_render.dart';
 
 void main() {
-  late GetMovieUsecase usecase;
-  late MockMovieRepository mockMovieRepository;
-
-  setUp(() {
-    mockMovieRepository = MockMovieRepository();
-    usecase = GetMovieUsecase(mockMovieRepository);
-  });
-
   const tId = "550";
   const tTitle = 'Fight Club';
   const tOriginalTitle = 'Fight Club';
@@ -40,7 +30,7 @@ aggression into a shocking new form of therapy. Their concept catches on, with
 underground "fight clubs" forming in every town, until an eccentric gets in the 
 way and ignites an out-of-control spiral toward oblivion.''';
 
-  final tMovie = MovieEntity(
+  final movieModel = MovieModel(
     id: tId,
     title: tTitle,
     originalTitle: tOriginalTitle,
@@ -56,17 +46,43 @@ way and ignites an out-of-control spiral toward oblivion.''';
     genres: tGenres,
     imdbId: tImdbId,
   );
+  test('should be a subclass of Entity', () async {
+    expect(movieModel, isA<MovieModel>());
+  });
 
-  test('should get movie details from the repository', () async {
-    when(() => mockMovieRepository.getMovie(any()))
-        .thenAnswer((_) async => Right(tMovie));
+  test('should return a valid model for the JSON movie', () {
+    // arrange
+    final Map<String, dynamic> jsonMap = json.decode(fixture("movie.json"));
 
-    final result = await usecase(GetMovieParams(int.parse(tId)));
+    // act
+    final result = MovieModel.fromJson(jsonMap);
 
-    expect(result, Right(tMovie));
+    // assert
+    expect(result, movieModel);
+  });
 
-    verify(() => mockMovieRepository.getMovie(int.parse(tId)));
+  test('should return a JSON map containing the proper data', () {
+    // act
+    final result = movieModel.toJson();
 
-    verifyNoMoreInteractions(mockMovieRepository);
+    // assert
+    final expectedMap = {
+      "id": tId,
+      "title": tTitle,
+      "original_title": tOriginalTitle,
+      "backdrop_path": tBackdropPath,
+      "homepage": tHomepage.toString(),
+      "overview": tOverview,
+      "popularity": tPopularity,
+      "poster_path": tPosterPath,
+      "release_date": tReleaseDate,
+      "status": tStatus,
+      "vote_average": tVoteAverage,
+      "vote_count": tVoteCount,
+      "genres": tGenres.map((e) => e.toJson()).toList(),
+      "imdb_id": tImdbId,
+    };
+
+    expect(result, expectedMap);
   });
 }

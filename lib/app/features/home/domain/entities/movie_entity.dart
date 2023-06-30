@@ -1,5 +1,5 @@
 import 'package:o_que_assistir/app/core/entities/entity.dart';
-import 'package:o_que_assistir/app/features/home/domain/entities/gender_entity.dart';
+import 'package:o_que_assistir/app/features/home/data/models/gender_model.dart';
 
 base class MovieEntity extends Entity {
   final String title;
@@ -7,9 +7,9 @@ base class MovieEntity extends Entity {
   final Uri homepage;
   final String backdropPath;
   final String posterPath;
-  final List<GenderEntity> genres;
+  final List<GenderModel> genres;
   final String overview;
-  final String status; // todo enum
+  final String status;
   final DateTime releaseDate;
   final double popularity;
   final double voteAverage;
