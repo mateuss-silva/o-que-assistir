@@ -34,4 +34,10 @@ base class MovieEntity extends Entity {
     required this.imdbId,
     required this.runtime,
   });
+
+  String movieDuration() {
+    final hours = runtime ~/ 60;
+    final minutes = runtime % 60;
+    return '${hours}h ${minutes}m';
+  }
 }

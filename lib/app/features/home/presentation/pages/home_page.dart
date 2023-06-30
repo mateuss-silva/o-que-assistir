@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                     fit: BoxFit.fitWidth,
                   ),
                   Positioned(
-                    bottom: 0,
+                    bottom: 10,
                     right: 0,
                     left: 0,
                     child: Center(
@@ -75,6 +75,17 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ],
+              ),
+              Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  store.movie.title,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -112,12 +123,49 @@ class _HomePageState extends State<HomePage> {
                       style:
                           TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(width: 8),
-
-            
+                    const SizedBox(width: 16),
+                    Text(
+                      store.movie.releaseDate.year.toString(),
+                      style: const TextStyle(
+                          fontSize: 12, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(width: 16),
+                    Text(
+                      store.movie.movieDuration(),
+                      style: const TextStyle(
+                          fontSize: 12, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(width: 16),
+                    Text(
+                      store.movie.genres.first.name,
+                      style: const TextStyle(
+                          fontSize: 12, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(width: 16),
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Sinopse",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      store.movie.overview,
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 32),
             ],
           );
         },
