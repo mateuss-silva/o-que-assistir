@@ -33,6 +33,7 @@ void main() {
     popularity: 1,
     status: "Released",
     voteCount: 10,
+    runtime: 10,
   );
 
   test('should return remote data source when is success', () async {

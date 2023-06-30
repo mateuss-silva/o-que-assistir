@@ -15,6 +15,7 @@ base class MovieEntity extends Entity {
   final double voteAverage;
   final int voteCount;
   final String imdbId;
+  final int runtime;
 
   const MovieEntity({
     required super.id,
@@ -31,5 +32,6 @@ base class MovieEntity extends Entity {
     required this.voteAverage,
     required this.voteCount,
     required this.imdbId,
+    required this.runtime,
   });
 }

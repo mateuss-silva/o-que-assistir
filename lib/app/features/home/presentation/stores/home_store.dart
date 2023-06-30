@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:mobx/mobx.dart';
 import 'package:o_que_assistir/app/core/error/failure.dart';
 import 'package:o_que_assistir/app/core/error/failure_extension.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
 import 'package:o_que_assistir/app/features/home/domain/usecases/get_movie_usecase.dart';
+import 'package:rxdart/rxdart.dart';
 
 part 'home_store.g.dart';
 
@@ -23,13 +26,10 @@ abstract class HomeStoreBase with Store {
   MovieEntity? _movie;
 
   @computed
-  MovieEntity? get movie => _movie;
+  MovieEntity get movie => _movie!;
 
-  @observable
-  String? _errorMessage;
-
-  @computed
-  String? get errorMessage => _errorMessage;
+  // ignore: prefer_final_fields
+  BehaviorSubject<String?> errorMessageStream = BehaviorSubject();
 
   @action
   Future<void> getMovie(int id) async {
@@ -49,13 +49,12 @@ abstract class HomeStoreBase with Store {
   @action
   void setLoading(bool value) => _loading = value;
 
-  @action
-  void setErrorMessage(String? value) => _errorMessage = value;
+  void setErrorMessage(String? value) => errorMessageStream.add(value);
 
   @action
   void setMovie(MovieEntity value) => _movie = value;
 
   @action
   _setErrorMessageFromFailure(Failure failure) =>
-      _errorMessage = failure.message;
+      setErrorMessage(failure.message);
 }

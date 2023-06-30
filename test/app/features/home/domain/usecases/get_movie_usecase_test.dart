@@ -34,6 +34,7 @@ void main() {
   const tStatus = 'Released';
   const tVoteAverage = 8.435;
   const tVoteCount = 26651;
+  const tRuntime = 139;
   const tOverview = '''
 A ticking-time-bomb insomniac and a slippery soap salesman channel primal male 
 aggression into a shocking new form of therapy. Their concept catches on, with 
@@ -55,6 +56,7 @@ way and ignites an out-of-control spiral toward oblivion.''';
     voteCount: tVoteCount,
     genres: tGenres,
     imdbId: tImdbId,
+    runtime: tRuntime,
   );
 
   test('should get movie details from the repository', () async {

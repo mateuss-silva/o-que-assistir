@@ -17,6 +17,7 @@ final class MovieModel extends MovieEntity {
     required super.voteAverage,
     required super.voteCount,
     required super.imdbId,
+    required super.runtime,
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
@@ -36,6 +37,7 @@ final class MovieModel extends MovieEntity {
       voteAverage: json['vote_average'].toDouble(),
       voteCount: json['vote_count'],
       imdbId: json['imdb_id'],
+      runtime: json['runtime'],
     );
   }
 
@@ -55,6 +57,7 @@ final class MovieModel extends MovieEntity {
       'vote_average': voteAverage,
       'vote_count': voteCount,
       'imdb_id': imdbId,
+      'runtime': runtime,
     };
   }
 }

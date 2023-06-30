@@ -24,6 +24,7 @@ void main() {
   const tStatus = 'Released';
   const tVoteAverage = 8.435;
   const tVoteCount = 26651;
+  const tRuntime = 139;
   const tOverview = '''
 A ticking-time-bomb insomniac and a slippery soap salesman channel primal male 
 aggression into a shocking new form of therapy. Their concept catches on, with 
@@ -45,6 +46,7 @@ way and ignites an out-of-control spiral toward oblivion.''';
     voteCount: tVoteCount,
     genres: tGenres,
     imdbId: tImdbId,
+    runtime: tRuntime,
   );
   test('should be a subclass of Entity', () async {
     expect(movieModel, isA<MovieModel>());
@@ -81,6 +83,7 @@ way and ignites an out-of-control spiral toward oblivion.''';
       "vote_count": tVoteCount,
       "genres": tGenres.map((e) => e.toJson()).toList(),
       "imdb_id": tImdbId,
+      "runtime": tRuntime,
     };
 
     expect(result, expectedMap);

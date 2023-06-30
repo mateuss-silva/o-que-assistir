@@ -15,20 +15,12 @@ mixin _$HomeStore on HomeStoreBase, Store {
   bool get loading => (_$loadingComputed ??=
           Computed<bool>(() => super.loading, name: 'HomeStoreBase.loading'))
       .value;
-  Computed<MovieEntity?>? _$movieComputed;
+  Computed<MovieEntity>? _$movieComputed;
 
   @override
-  MovieEntity? get movie =>
-      (_$movieComputed ??= Computed<MovieEntity?>(() => super.movie,
-              name: 'HomeStoreBase.movie'))
-          .value;
-  Computed<String?>? _$errorMessageComputed;
-
-  @override
-  String? get errorMessage =>
-      (_$errorMessageComputed ??= Computed<String?>(() => super.errorMessage,
-              name: 'HomeStoreBase.errorMessage'))
-          .value;
+  MovieEntity get movie => (_$movieComputed ??=
+          Computed<MovieEntity>(() => super.movie, name: 'HomeStoreBase.movie'))
+      .value;
 
   late final _$_loadingAtom =
       Atom(name: 'HomeStoreBase._loading', context: context);
@@ -62,22 +54,6 @@ mixin _$HomeStore on HomeStoreBase, Store {
     });
   }
 
-  late final _$_errorMessageAtom =
-      Atom(name: 'HomeStoreBase._errorMessage', context: context);
-
-  @override
-  String? get _errorMessage {
-    _$_errorMessageAtom.reportRead();
-    return super._errorMessage;
-  }
-
-  @override
-  set _errorMessage(String? value) {
-    _$_errorMessageAtom.reportWrite(value, super._errorMessage, () {
-      super._errorMessage = value;
-    });
-  }
-
   late final _$getMovieAsyncAction =
       AsyncAction('HomeStoreBase.getMovie', context: context);
 
@@ -95,17 +71,6 @@ mixin _$HomeStore on HomeStoreBase, Store {
         name: 'HomeStoreBase.setLoading');
     try {
       return super.setLoading(value);
-    } finally {
-      _$HomeStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setErrorMessage(String? value) {
-    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
-        name: 'HomeStoreBase.setErrorMessage');
-    try {
-      return super.setErrorMessage(value);
     } finally {
       _$HomeStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -137,8 +102,7 @@ mixin _$HomeStore on HomeStoreBase, Store {
   String toString() {
     return '''
 loading: ${loading},
-movie: ${movie},
-errorMessage: ${errorMessage}
+movie: ${movie}
     ''';
   }
 }

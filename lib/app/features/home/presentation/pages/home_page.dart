@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:o_que_assistir/app/core/common/extensions/string_extension.dart';
 import '../stores/home_store.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,14 +19,26 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     store = Modular.get<HomeStore>();
+
+    store.getMovie(550);
+
+    store.errorMessageStream.listen(_showErrorMessage);
+  }
+
+  _showErrorMessage(String? message) {
+    if (message != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Colors.red[500],
+        ),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Counter'),
-      ),
       body: Observer(
         builder: (_) {
           if (store.loading) {
@@ -35,31 +47,80 @@ class _HomePageState extends State<HomePage> {
             );
           }
 
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Visibility(
-                  visible: store.movie != null,
-                  child: Image.network(
-                    "https://image.tmdb.org/t/p/w500${store.movie?.posterPath}",
-                    width: 300,
-                    height: 300,
+          return ListView(
+            physics: const BouncingScrollPhysics(),
+            children: [
+              Stack(
+                children: [
+                  Image.network(
+                    store.movie.posterPath.imageUrl,
+                    height: 512,
+                    width: double.maxFinite,
+                    fit: BoxFit.fitWidth,
                   ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    left: 0,
+                    child: Center(
+                      child: OutlinedButton(
+                          onPressed: () {},
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.black,
+                            side:
+                                const BorderSide(color: Colors.white, width: 1),
+                          ),
+                          child: const Text('ir para site')),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      height: 34,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          SizedBox(
+                            height: 34,
+                            width: 34,
+                            child: CircularProgressIndicator(
+                              value: store.movie.popularity / 100,
+                              strokeWidth: 4,
+                              backgroundColor: Colors.grey,
+                              valueColor:
+                                  const AlwaysStoppedAnimation(Colors.green),
+                            ),
+                          ),
+                          Text(
+                            '${store.movie.popularity.toStringAsFixed(0)}%',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    const Text(
+                      "Popularidade",
+                      style:
+                          TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(width: 8),
+
+            
+                  ],
                 ),
-                const SizedBox(height: 20),
-                CupertinoButton.filled(
-                  child: const Text("Get movie 'Fight Club'"),
-                  onPressed: () => store.getMovie(550),
-                ),
-              ],
-            ),
+              ),
+            ],
           );
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
       ),
     );
   }
