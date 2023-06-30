@@ -5,11 +5,8 @@ O aplicativo tem como objetivo mostrar filmes, series e afins. Contendo informa�
 ## Arquitetura
 
 O aplicativo foi desenvolvido utilizando Clean Architecture.
-<img src="/assets/images/clean-arch.png" alt="Clean Architecture" style="height: 500px; "/>
-## Design Patterns
-
-- Factory: utilizado na injeção de dependência.
-<img src="/assets/images/factory.png" alt="Factory" style="height: 300px; "/>
+<img src="/assets/images/clean-arch.png" alt="Clean Architecture" style="height: 400px; "/>
+<img src="/assets/images/clean-arch-call-flow.png" alt="Clean Architecture" style="height: 400px; "/>
 
 ## Detalhes Técnicos
 
@@ -17,6 +14,7 @@ O aplicativo foi desenvolvido em Flutter e Dart 3. Nele foi utilizada a API do [
  Também foi utilizada o desenvolvimento orientado a testes (TDD).
 
 <img src="/assets/images/tdd.png" alt="TDD" style="height: 200px; " />
+
 
 ## Gerenciamento de estado
 O gerenciamento de estado foi feito utilizando Mobx.

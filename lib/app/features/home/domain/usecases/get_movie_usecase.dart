@@ -4,7 +4,7 @@ import 'package:o_que_assistir/app/core/usecase/usecase.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
 import 'package:o_que_assistir/app/features/home/domain/repositories/movie_repository.dart';
 
-base class GetMovieUsecase extends Usecase<MovieEntity, GetMovieParams> {
+class GetMovieUsecase implements Usecase<MovieEntity, GetMovieParams> {
   final MovieRepository repository;
 
   GetMovieUsecase(this.repository);
