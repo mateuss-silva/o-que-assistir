@@ -15,18 +15,22 @@ O aplicativo foi desenvolvido utilizando Clean Architecture.
 
 O aplicativo foi desenvolvido em Flutter e Dart 3. Nele foi utilizada a API do [The Movie Database](https://www.themoviedb.org/).
  Também foi utilizada o desenvolvimento orientado a testes (TDD).
+
 <img src="/assets/images/tdd.png" alt="TDD" style="height: 200px; " />
 
 ## Gerenciamento de estado
 O gerenciamento de estado foi feito utilizando Mobx.
 
 <img src="/assets/images/mobx.png" alt="Mobx" style="height: 200px; "/>
+
 ## Injeção de dependência: Modular
+
 ## Testes de unidade: Mocktail
 
 - Testes de models
 - Testes de Usecases
 - Testes de repositories
+- Testes de datasources
 
 ## Testes de integração: integration_test
 
