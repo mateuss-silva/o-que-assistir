@@ -53,28 +53,13 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
             children: [
               Stack(
                 children: [
-                  Image.network(
-                    store.movie.posterPath.imageUrl,
-                    height: 512,
-                    width: double.maxFinite,
-                    fit: BoxFit.fitWidth,
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    right: 0,
-                    left: 0,
-                    child: Center(
-                      child: OutlinedButton(
-                          onPressed: () {
-                            //snackbar de site nao informado
-                          },
-                          style: OutlinedButton.styleFrom(
-                            foregroundColor: Colors.white,
-                            backgroundColor: Colors.black,
-                            side:
-                                const BorderSide(color: Colors.white, width: 1),
-                          ),
-                          child: const Text('ir para site')),
+                  Hero(
+                    tag: store.movie.id,
+                    child: Image.network(
+                      store.movie.posterPath.imageUrl,
+                      height: 512,
+                      width: double.maxFinite,
+                      fit: BoxFit.fitWidth,
                     ),
                   ),
                   CupertinoButton(
@@ -112,25 +97,22 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                 child: Row(
                   children: [
                     SizedBox(
-                      height: 34,
+                      height: 28,
+                      width: 28,
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
-                          SizedBox(
-                            height: 34,
-                            width: 34,
-                            child: CircularProgressIndicator(
-                              value: store.movie.popularity / 100,
-                              strokeWidth: 4,
-                              backgroundColor: Colors.grey,
-                              valueColor:
-                                  const AlwaysStoppedAnimation(Colors.green),
-                            ),
+                          CircularProgressIndicator(
+                            value: store.movie.voteAverage / 10,
+                            strokeWidth: 2,
+                            backgroundColor: Colors.grey,
+                            valueColor:
+                                const AlwaysStoppedAnimation(Colors.green),
                           ),
                           Text(
-                            '${store.movie.popularity.toStringAsFixed(0)}%',
+                            '${(store.movie.voteAverage * 10).floor()}%',
                             style: const TextStyle(
-                              fontSize: 12,
+                              fontSize: 10,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
