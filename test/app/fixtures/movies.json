@@ -1,0 +1,407 @@
+{
+    "page": 1,
+    "results": [
+        {
+            "adult": false,
+            "backdrop_path": "/e2Jd0sYMCe6qvMbswGQbM0Mzxt0.jpg",
+            "genre_ids": [
+                28,
+                80,
+                53
+            ],
+            "id": 385687,
+            "original_language": "en",
+            "original_title": "Fast X",
+            "overview": "O fim da estrada está chegando. Velozes & Furiosos 10, é o décimo filme da franquia Velozes & Furiosos, lança os capítulos finais de uma grande saga, uma das mais famosas e populares do cinema, agora com sua terceira década e ainda mais forte. Com o mesmo elenco e personagens principais de quando começou. Ao longo de muitas missões e lutando contra todos os obstáculos impossíveis, Dom Toretto (Vin Diesel) e sua família foram mais espertos, mais furiosos e mais rápidos do que todos os inimigos em seu caminho. Agora, eles enfrentam o seu oponente mais letal: uma ameaça terrível das sombras do passado, alimentada por sede de vingança e determinada a destruir esta família.",
+            "popularity": 3980.086,
+            "poster_path": "/wDWAA5QApz5L5BKfFaaj8HJCAQM.jpg",
+            "release_date": "2023-05-17",
+            "title": "Velozes & Furiosos 10",
+            "video": false,
+            "vote_average": 7.3,
+            "vote_count": 2226
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/fhquRW28vRZHr26orSaFFnhYIA0.jpg",
+            "genre_ids": [
+                28,
+                53
+            ],
+            "id": 697843,
+            "original_language": "en",
+            "original_title": "Extraction 2",
+            "overview": "Depois de escapar da morte por um triz, o mercenário Tyler Rake encara mais uma missão perigosa: resgatar a família de um criminoso implacável.",
+            "popularity": 1939.316,
+            "poster_path": "/AfwqKLQwjgPu8bIL1mqhHTlnQv0.jpg",
+            "release_date": "2023-06-09",
+            "title": "Resgate 2",
+            "video": false,
+            "vote_average": 7.6,
+            "vote_count": 1013
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/nGxUxi3PfXDRm7Vg95VBNgNM8yc.jpg",
+            "genre_ids": [
+                28,
+                12,
+                16,
+                878
+            ],
+            "id": 569094,
+            "original_language": "en",
+            "original_title": "Spider-Man: Across the Spider-Verse",
+            "overview": "Miles Morales retorna para o próximo capítulo da saga do Aranhaverso, uma aventura épica que transportará o Homem-Aranha em tempo integral e amigável do bairro do Brooklyn através do Multiverso para unir forças com Gwen Stacy e uma nova equipe de Homens-Aranha para enfrentar com um vilão mais poderoso do que qualquer coisa que eles já encontraram.",
+            "popularity": 1803.035,
+            "poster_path": "/xxPXsL8V95dTwL5vHWIIQALkJQS.jpg",
+            "release_date": "2023-05-31",
+            "title": "Homem-Aranha: Através do Aranhaverso",
+            "video": false,
+            "vote_average": 8.6,
+            "vote_count": 1875
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/fgw4rFs4XMWdJTWp1eMacHKQqbZ.jpg",
+            "genre_ids": [
+                28,
+                53,
+                80
+            ],
+            "id": 603692,
+            "original_language": "en",
+            "original_title": "John Wick: Chapter 4",
+            "overview": "Com o preço por sua cabeça cada vez maior, John Wick leva sua luta contra a alta mesa global enquanto procura os jogadores mais poderosos do submundo, de Nova York a Paris, de Osaka a Berlim.",
+            "popularity": 1690.22,
+            "poster_path": "/rXTqhpkpj6E0YilQ49PK1SSqLhm.jpg",
+            "release_date": "2023-03-22",
+            "title": "John Wick 4: Baba Yaga",
+            "video": false,
+            "vote_average": 7.9,
+            "vote_count": 3405
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/nniZPBIfrep9wbx0l1529RHXeD8.jpg",
+            "genre_ids": [
+                16,
+                10751,
+                12,
+                14,
+                35
+            ],
+            "id": 502356,
+            "original_language": "en",
+            "original_title": "The Super Mario Bros. Movie",
+            "overview": "Os irmãos Mario e Luigi, de ascendência italiana, vivem em Brooklyn (Nova Iorque), onde trabalham como canalizadores. Certo dia, durante um serviço de reparação de uma conduta de água, são sugados por um tubo e transportados para o Reino Cogumelo, um universo paralelo governado pela Princesa Peach. Sem saber do paradeiro do irmão, Mario vai ter de aprender a sobreviver naquele lugar, adquirindo capacidades bizarras mas que serão grandes mais-valias para destruir os planos de Bowser, um verdadeiro vilão que tenciona dominar o mundo.",
+            "popularity": 1513.9,
+            "poster_path": "/ktU3MIeZtuEVRlMftgp0HMX2WR7.jpg",
+            "release_date": "2023-04-05",
+            "title": "Super Mario Bros.: O Filme",
+            "video": false,
+            "vote_average": 7.8,
+            "vote_count": 5259
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/qWQSnedj0LCUjWNp9fLcMtfgadp.jpg",
+            "genre_ids": [
+                28,
+                12,
+                878
+            ],
+            "id": 667538,
+            "original_language": "en",
+            "original_title": "Transformers: Rise of the Beasts",
+            "overview": "Transformers: O Despertar das Feras traz mais uma aventura épica pelo universo dos transformers. Ambientada nos anos 1990, o filme apresentará os Maximals, Predacons e Terrorcons à batalha existente na Terra entre Autobots e Decepticons.",
+            "popularity": 1382.686,
+            "poster_path": "/zEqwfO5R2LrrLgV61xm8M9TmNTG.jpg",
+            "release_date": "2023-06-06",
+            "title": "Transformers: O Despertar das Feras",
+            "video": false,
+            "vote_average": 7.2,
+            "vote_count": 512
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/osnvZffaZymubHiBkOsIFd8Y3Re.jpg",
+            "genre_ids": [
+                28,
+                27,
+                53
+            ],
+            "id": 986070,
+            "original_language": "en",
+            "original_title": "The Wrath of Becky",
+            "overview": "",
+            "popularity": 1312.736,
+            "poster_path": "/3LShl6EwqptKIVq6NWOZ0FbZHEe.jpg",
+            "release_date": "2023-05-26",
+            "title": "The Wrath of Becky",
+            "video": false,
+            "vote_average": 6.6,
+            "vote_count": 50
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/pNOccytgkGuyofTLmh1sqEfTJuE.jpg",
+            "genre_ids": [
+                10749,
+                18
+            ],
+            "id": 1010581,
+            "original_language": "es",
+            "original_title": "Culpa mía",
+            "overview": "Noah é obrigada a mudar de cidade, deixando seus amigos e namorado para trás, após sua mãe se casar com um novo marido rico. Lá ela conhece Nick, seu novo meio-irmão, e os dois se apaixonam loucamente, vivendo um grande romance proibido.",
+            "popularity": 1244.503,
+            "poster_path": "/a59iGvF609yAZ5tfZUoQ3XipeQH.jpg",
+            "release_date": "2023-06-08",
+            "title": "Minha Culpa",
+            "video": false,
+            "vote_average": 8.3,
+            "vote_count": 965
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/xDEVdWduhRdNS4PzA6wif6FjUQb.jpg",
+            "genre_ids": [
+                28,
+                14,
+                53
+            ],
+            "id": 1036561,
+            "original_language": "en",
+            "original_title": "Shadow Master",
+            "overview": "Depois de ser morto por um grupo de criminosos, um homem renasce com superpoderes semelhantes a animais e tem como missão corrigir os erros de sua cidade.",
+            "popularity": 1223.885,
+            "poster_path": "/yFQ3mmGtZsNluNwfbh8i35b8up.jpg",
+            "release_date": "2022-11-03",
+            "title": "O Mestre das Sombras",
+            "video": false,
+            "vote_average": 7.1,
+            "vote_count": 47
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/cSYLX73WskxCgvpN3MtRkYUSj1T.jpg",
+            "genre_ids": [
+                16,
+                35,
+                10751,
+                14,
+                10749
+            ],
+            "id": 976573,
+            "original_language": "en",
+            "original_title": "Elemental",
+            "overview": "Em uma cidade onde moradores do fogo, da água, da terra e do ar vivem juntos, uma jovem impetuosa e um homem tranquilo estão prestes a descobrir algo elementar: o quanto realmente têm em comum.",
+            "popularity": 1181.444,
+            "poster_path": "/88OGFOcFI04CL4uucb6I7ZzUqD6.jpg",
+            "release_date": "2023-06-14",
+            "title": "Elementos",
+            "video": false,
+            "vote_average": 7.5,
+            "vote_count": 249
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/5YZbUmjbMa3ClvSW1Wj3D6XGolb.jpg",
+            "genre_ids": [
+                28,
+                878,
+                12
+            ],
+            "id": 447365,
+            "original_language": "en",
+            "original_title": "Guardians of the Galaxy Vol. 3",
+            "overview": "Peter Quill, que ainda está a recuperar da perda de Gamora, tem que reunir a sua equipa para defender o universo e proteger um dos seus. Uma missão que, se não for concluída com sucesso, pode levar ao fim dos Guardiões como os conhecemos.",
+            "popularity": 884.405,
+            "poster_path": "/3yum4eL013NesiXjsGkaMVQecJn.jpg",
+            "release_date": "2023-05-03",
+            "title": "Guardiões da Galáxia: Vol. 3",
+            "video": false,
+            "vote_average": 8.1,
+            "vote_count": 2135
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/fEe2csLOUsTyaLdCccVJfFeJzhx.jpg",
+            "genre_ids": [
+                878,
+                28,
+                12
+            ],
+            "id": 298618,
+            "original_language": "en",
+            "original_title": "The Flash",
+            "overview": "Quando Barry usa seus superpoderes para viajar no tempo e mudar os eventos do passado. Mas quando tenta salvar sua família e acaba, sem querer, alterando o futuro, Barry fica preso em uma realidade na qual o General Zod está de volta, ameaçando colocar o mundo em risco, e não há super-heróis a quem recorrer.",
+            "popularity": 869.816,
+            "poster_path": "/itYONYDHpJqTuu8BCXAtHxgpglq.jpg",
+            "release_date": "2023-06-13",
+            "title": "The Flash",
+            "video": false,
+            "vote_average": 6.7,
+            "vote_count": 683
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/4pNlHx6ytdYBDs94PgcS0wQkbc4.jpg",
+            "genre_ids": [
+                878,
+                12,
+                28
+            ],
+            "id": 76600,
+            "original_language": "en",
+            "original_title": "Avatar: The Way of Water",
+            "overview": "12 anos depois de explorar Pandora e se juntar aos Na'vi, Jake Sully formou uma família com Neytiri e se estabeleceu entre os clãs do novo mundo. Porém, a paz não durará para sempre.",
+            "popularity": 855.275,
+            "poster_path": "/mbYQLLluS651W89jO7MOZcLSCUw.jpg",
+            "release_date": "2022-12-14",
+            "title": "Avatar: O Caminho da Água",
+            "video": false,
+            "vote_average": 7.7,
+            "vote_count": 8902
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/vQ5T84t8h4N2xAswNFW9fkVIyZq.jpg",
+            "genre_ids": [
+                9648,
+                53,
+                878
+            ],
+            "id": 536437,
+            "original_language": "en",
+            "original_title": "Hypnotic",
+            "overview": "Um detetive se envolve em um mistério envolvendo sua filha desaparecida e um programa secreto do governo enquanto investiga uma série de crimes que distorcem a realidade.",
+            "popularity": 849.239,
+            "poster_path": "/3IhGkkalwXguTlceGSl8XUJZOVI.jpg",
+            "release_date": "2023-05-11",
+            "title": "Hipnótico",
+            "video": false,
+            "vote_average": 6.4,
+            "vote_count": 263
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/ribiMu3iINPxDkofErPxe8jQ8L0.jpg",
+            "genre_ids": [
+                12,
+                10751,
+                14,
+                10749
+            ],
+            "id": 447277,
+            "original_language": "en",
+            "original_title": "The Little Mermaid",
+            "overview": "Ariel é uma curiosa sereia que deseja experimentar a vida em terra firme e, contra a vontade de seu pai, visita a superfície. Ariel se vê em uma inesperada jornada de autodescoberta ao encontrar um príncipe, uma bruxa do mar e um novo mundo incrível.",
+            "popularity": 817.482,
+            "poster_path": "/85u2q8iUBDq2gj5iJrdD4lzckRq.jpg",
+            "release_date": "2023-05-18",
+            "title": "A Pequena Sereia",
+            "video": false,
+            "vote_average": 6.2,
+            "vote_count": 799
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/zPcuuhwZFDzBTc66wtrLZ2qX5y4.jpg",
+            "genre_ids": [
+                12,
+                28
+            ],
+            "id": 335977,
+            "original_language": "en",
+            "original_title": "Indiana Jones and the Dial of Destiny",
+            "overview": "Encontrando-se em uma nova era, aproximando-se da aposentadoria, Indy luta para se encaixar em um mundo que parece tê-lo superado. Mas quando os tentáculos de um mal muito familiar retornam na forma de um antigo rival, Indy deve colocar seu chapéu e pegar seu chicote mais uma vez para garantir que um antigo e poderoso artefato não caia nas mãos erradas.",
+            "popularity": 683.771,
+            "poster_path": "/9EnfMH0nTPCna87Mh3G8Q6W2wze.jpg",
+            "release_date": "2023-06-28",
+            "title": "Indiana Jones e A Relíquia do Destino",
+            "video": false,
+            "vote_average": 6.5,
+            "vote_count": 149
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/sWulI556AJZ1DAQnxyAvnAAY6nd.jpg",
+            "genre_ids": [
+                16,
+                10751
+            ],
+            "id": 73723,
+            "original_language": "en",
+            "original_title": "The Lorax",
+            "overview": "O menino Ted (Zac Efron) descobriu que o sonho de sua paixão, a bela Audrey (Taylor Swift), é ver uma árvore de verdade, algo em extinção. Disposto a realizar este desejo, ele embarca numa aventura por uma terra desconhecida, cheia de cor, natureza e árvores. É lá que conhece também o simpático e ao mesmo tempo rabugento Lorax (Danny DeVito), uma criatura curiosa preocupada com o futuro de seu próprio mundo.",
+            "popularity": 662.485,
+            "poster_path": "/3rfClKuMmhFawkdCJXMEV3OGOJ3.jpg",
+            "release_date": "2012-03-01",
+            "title": "O Lorax: Em Busca da Trúfula Perdida",
+            "video": false,
+            "vote_average": 6.5,
+            "vote_count": 3078
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/sFGENDTUNOuDbVufxksCkrDtuaT.jpg",
+            "genre_ids": [
+                53,
+                27
+            ],
+            "id": 713704,
+            "original_language": "en",
+            "original_title": "Evil Dead Rise",
+            "overview": "Duas irmãs distantes cujo reencontro é interrompido por demônios devoradores de carne que aparecem de repente, levando-as a uma batalha primal pela sobrevivência, enfrentando a versão mais assustadora que se possa imaginar de uma família.",
+            "popularity": 648.025,
+            "poster_path": "/5E4nVa3dXTHG2zx9iO7b0UIMsa7.jpg",
+            "release_date": "2023-04-12",
+            "title": "A Morte do Demônio: A Ascensão",
+            "video": false,
+            "vote_average": 7,
+            "vote_count": 1791
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/9t0tJXcOdWwwxmGTk112HGDaT0Q.jpg",
+            "genre_ids": [
+                27,
+                53
+            ],
+            "id": 890771,
+            "original_language": "en",
+            "original_title": "The Black Demon",
+            "overview": "O petroleiro Paul Sturges leva sua família de férias para a Bahia Azul. Lá, ele percebe que a cidade costeira desmoronou misteriosamente. Paul começa o dia com uma visita de rotina, com sua família, para inspecionar uma plataforma de petróleo nas proximidades. A situação se torna um pesadelo quando, das profundezas do oceano, um tubarão gigante surge: o demônio negro. Sob a ameaça constante do tubarão primitivo, Paul terá que encontrar um jeito de levar sua família de volta para a costa de forma segura.",
+            "popularity": 641.342,
+            "poster_path": "/w6urr1Bo8R4XEOBJDW0j1fNYWH0.jpg",
+            "release_date": "2023-04-26",
+            "title": "O Demônio dos Mares",
+            "video": false,
+            "vote_average": 6.3,
+            "vote_count": 245
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/b8tX15xHPai3bYeKYgAZikANTGl.jpg",
+            "genre_ids": [
+                10752,
+                28,
+                53
+            ],
+            "id": 882569,
+            "original_language": "en",
+            "original_title": "Guy Ritchie's The Covenant",
+            "overview": "Um sargento do Exército é resgatado de uma missão no Afeganistão pelo seu intérprete. Naquela que seria a sua última missão no estrangeiro, Kinley fica à beira da morte mas sobrevive graças a Ahmed, que o protege e o carrega por quilometros a fim de garantir a sua segurança. Sem se lembrar muito bem do que aconteceu, o sargento apenas sabe que quando o homem se encontra em risco de vida, como a sua família, é a sua verdadeira missão retribuir o favor e ajudá-lo a sobreviver.",
+            "popularity": 626.795,
+            "poster_path": "/pTQZT9R6YjKrweJ0llPtq57j1Z0.jpg",
+            "release_date": "2023-04-19",
+            "title": "O Pacto",
+            "video": false,
+            "vote_average": 7.8,
+            "vote_count": 848
+        }
+    ],
+    "total_pages": 38935,
+    "total_results": 778691
+}

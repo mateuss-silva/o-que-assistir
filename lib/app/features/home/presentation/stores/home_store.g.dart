@@ -15,11 +15,12 @@ mixin _$HomeStore on HomeStoreBase, Store {
   bool get loading => (_$loadingComputed ??=
           Computed<bool>(() => super.loading, name: 'HomeStoreBase.loading'))
       .value;
-  Computed<MovieEntity>? _$movieComputed;
+  Computed<ObservableList<MovieEntity>>? _$moviesComputed;
 
   @override
-  MovieEntity get movie => (_$movieComputed ??=
-          Computed<MovieEntity>(() => super.movie, name: 'HomeStoreBase.movie'))
+  ObservableList<MovieEntity> get movies => (_$moviesComputed ??=
+          Computed<ObservableList<MovieEntity>>(() => super.movies,
+              name: 'HomeStoreBase.movies'))
       .value;
 
   late final _$_loadingAtom =
@@ -38,28 +39,28 @@ mixin _$HomeStore on HomeStoreBase, Store {
     });
   }
 
-  late final _$_movieAtom =
-      Atom(name: 'HomeStoreBase._movie', context: context);
+  late final _$_moviesAtom =
+      Atom(name: 'HomeStoreBase._movies', context: context);
 
   @override
-  MovieEntity? get _movie {
-    _$_movieAtom.reportRead();
-    return super._movie;
+  ObservableList<MovieEntity> get _movies {
+    _$_moviesAtom.reportRead();
+    return super._movies;
   }
 
   @override
-  set _movie(MovieEntity? value) {
-    _$_movieAtom.reportWrite(value, super._movie, () {
-      super._movie = value;
+  set _movies(ObservableList<MovieEntity> value) {
+    _$_moviesAtom.reportWrite(value, super._movies, () {
+      super._movies = value;
     });
   }
 
-  late final _$getMovieAsyncAction =
-      AsyncAction('HomeStoreBase.getMovie', context: context);
+  late final _$getMoviesAsyncAction =
+      AsyncAction('HomeStoreBase.getMovies', context: context);
 
   @override
-  Future<void> getMovie(int id) {
-    return _$getMovieAsyncAction.run(() => super.getMovie(id));
+  Future<void> getMovies() {
+    return _$getMoviesAsyncAction.run(() => super.getMovies());
   }
 
   late final _$HomeStoreBaseActionController =
@@ -77,11 +78,11 @@ mixin _$HomeStore on HomeStoreBase, Store {
   }
 
   @override
-  void setMovie(MovieEntity value) {
+  void setMovies(List<MovieEntity> value) {
     final _$actionInfo = _$HomeStoreBaseActionController.startAction(
-        name: 'HomeStoreBase.setMovie');
+        name: 'HomeStoreBase.setMovies');
     try {
-      return super.setMovie(value);
+      return super.setMovies(value);
     } finally {
       _$HomeStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -102,7 +103,7 @@ mixin _$HomeStore on HomeStoreBase, Store {
   String toString() {
     return '''
 loading: ${loading},
-movie: ${movie}
+movies: ${movies}
     ''';
   }
 }

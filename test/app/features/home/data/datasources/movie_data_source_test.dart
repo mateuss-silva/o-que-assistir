@@ -19,11 +19,17 @@ void main() {
   setUp(() {
     mockHttpClient = MockHttpClient();
     movieDataSource = MovieDataSourceImpl(mockHttpClient);
-    registerFallbackValue(Uri.parse('https://api.themoviedb.org/3/movie'));
+    registerFallbackValue(Uri.parse(baseUrl));
   });
-  void setupHttpClientSuccess200() {
+
+  void setupHttpClientGetMovieSuccess200() {
     when(() => mockHttpClient.get(any(), headers: any(named: 'headers')))
         .thenAnswer((_) async => http.Response(fixture("movie.json"), 200));
+  }
+
+  void setupHttpClientGetMoviesSuccess200() {
+    when(() => mockHttpClient.get(any(), headers: any(named: 'headers')))
+        .thenAnswer((_) async => http.Response(fixture("movies.json"), 200));
   }
 
   void setupHttpClientFailure404() {
@@ -31,49 +37,103 @@ void main() {
         .thenAnswer((_) async => http.Response('Something went wrong', 404));
   }
 
-  const tMovieId = 550;
-  final tMovieModel = MovieModel.fromJson(json.decode(fixture("movie.json")));
+  group("Get movie by id", () {
+    const tMovieId = 550;
+    final tMovieModel = MovieModel.fromJson(json.decode(fixture("movie.json")));
+    test('should perform a GET on a url with movie by id being the endpoint',
+        () async {
+      // arrange
+      setupHttpClientGetMovieSuccess200();
 
-  test('should perform a GET on a url with movie being the endpoint', () async {
-    // arrange
-    setupHttpClientSuccess200();
+      // act
+      movieDataSource.getMovie(tMovieId);
 
-    // act
-    movieDataSource.getMovie(tMovieId);
+      // assert
+      verify(() => mockHttpClient.get(
+            Uri.parse(
+                '$baseUrl/movie/$tMovieId?api_key=$apiKey&language=$language'),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          ));
 
-    // assert
-    verify(() => mockHttpClient.get(
-          Uri.parse(
-              'https://api.themoviedb.org/3/movie/$tMovieId?api_key=$apiKey'),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        ));
+      verifyNoMoreInteractions(mockHttpClient);
+    });
 
-    verifyNoMoreInteractions(mockHttpClient);
+    test('should return MovieModel when the response code is 200 (success)',
+        () async {
+      // arrange
+      setupHttpClientGetMovieSuccess200();
+
+      // act
+      final result = await movieDataSource.getMovie(tMovieId);
+
+      // assert
+      expect(result, equals(tMovieModel));
+    });
+
+    test(
+        'should throw a ServerException when the response of get movie code is 404 or other',
+        () async {
+      // arrange
+      setupHttpClientFailure404();
+
+      // act
+      final call = movieDataSource.getMovie;
+
+      // assert
+      expect(
+          () => call(tMovieId), throwsA(const TypeMatcher<ServerException>()));
+    });
   });
 
-  test('should return MovieModel when the response code is 200 (success)',
-      () async {
-    // arrange
-    setupHttpClientSuccess200();
+  group("Get movies", () {
+    final tMoviesModels =
+        MovieModel.fromJsonList(json.decode(fixture("movies.json"))['results']);
+    test('should perform a GET on a url with movies being the endpoint',
+        () async {
+      // arrange
+      setupHttpClientGetMoviesSuccess200();
 
-    // act
-    final result = await movieDataSource.getMovie(tMovieId);
+      // act
+      movieDataSource.getMovies();
 
-    // assert
-    expect(result, equals(tMovieModel));
-  });
+      // assert
+      verify(() => mockHttpClient.get(
+            Uri.parse(
+                '$baseUrl/movie/popular?api_key=$apiKey&language=$language'),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          ));
 
-  test('should throw a ServerException when the response code is 404 or other',
-      () async {
-    // arrange
-    setupHttpClientFailure404();
+      verifyNoMoreInteractions(mockHttpClient);
+    });
 
-    // act
-    final call = movieDataSource.getMovie;
+    test(
+        'should return List<MovieModel> when the response code is 200 (success)',
+        () async {
+      // arrange
+      setupHttpClientGetMoviesSuccess200();
 
-    // assert
-    expect(() => call(tMovieId), throwsA(const TypeMatcher<ServerException>()));
+      // act
+      final result = await movieDataSource.getMovies();
+
+      // assert
+      expect(result, equals(tMoviesModels));
+    });
+
+    test(
+        'should throw a ServerException when the response of get movies code is 404 or other',
+        () async {
+      // arrange
+      setupHttpClientFailure404();
+
+      // act
+      final call = movieDataSource.getMovies;
+
+      // assert
+      expect(() => call(), throwsA(const TypeMatcher<ServerException>()));
+    });
   });
 }

@@ -1,7 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:o_que_assistir/app/core/common/extensions/string_extension.dart';
 import '../stores/home_store.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     store = Modular.get<HomeStore>();
 
-    store.getMovie(550);
+    store.getMovies();
 
     store.errorMessageStream.listen(_showErrorMessage);
   }
@@ -50,120 +50,27 @@ class _HomePageState extends State<HomePage> {
           return ListView(
             physics: const BouncingScrollPhysics(),
             children: [
-              Stack(
-                children: [
-                  Image.network(
-                    store.movie.posterPath.imageUrl,
-                    height: 512,
-                    width: double.maxFinite,
-                    fit: BoxFit.fitWidth,
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    right: 0,
-                    left: 0,
-                    child: Center(
-                      child: OutlinedButton(
-                          onPressed: () {},
-                          style: OutlinedButton.styleFrom(
-                            foregroundColor: Colors.white,
-                            backgroundColor: Colors.black,
-                            side:
-                                const BorderSide(color: Colors.white, width: 1),
-                          ),
-                          child: const Text('ir para site')),
-                    ),
-                  ),
-                ],
-              ),
-              Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Text(
-                  store.movie.title,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+              const SizedBox(height: 32),
+              SizedBox(
+                height: 200,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: store.movies.length,
+                  separatorBuilder: (context, index) => const Divider(),
+                  itemBuilder: (context, index) {
+                    final movie = store.movies[index];
+                    return Card(
+                      child: Text(movie.title),
+                    );
+                  },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      height: 34,
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          SizedBox(
-                            height: 34,
-                            width: 34,
-                            child: CircularProgressIndicator(
-                              value: store.movie.popularity / 100,
-                              strokeWidth: 4,
-                              backgroundColor: Colors.grey,
-                              valueColor:
-                                  const AlwaysStoppedAnimation(Colors.green),
-                            ),
-                          ),
-                          Text(
-                            '${store.movie.popularity.toStringAsFixed(0)}%',
-                            style: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    const Text(
-                      "Popularidade",
-                      style:
-                          TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(width: 16),
-                    Text(
-                      store.movie.releaseDate.year.toString(),
-                      style: const TextStyle(
-                          fontSize: 12, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(width: 16),
-                    Text(
-                      store.movie.movieDuration(),
-                      style: const TextStyle(
-                          fontSize: 12, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(width: 16),
-                    Text(
-                      store.movie.genres.first.name,
-                      style: const TextStyle(
-                          fontSize: 12, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(width: 16),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Sinopse",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      store.movie.overview,
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                  ],
-                ),
+              const SizedBox(height: 32),
+              CupertinoButton(
+                child: const Text("Fight Club Details"),
+                onPressed: () {
+                  Modular.to.pushNamed("/movie-details/550");
+                },
               ),
               const SizedBox(height: 32),
             ],

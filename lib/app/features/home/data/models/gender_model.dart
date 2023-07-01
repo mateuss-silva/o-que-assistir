@@ -19,4 +19,8 @@ final class GenderModel extends GenderEntity {
       'name': super.name,
     };
   }
+
+  static  List<GenderModel> fromJsonList(List jsonList) {
+    return jsonList.map((e) => GenderModel.fromJson(e)).toList();
+  }
 }

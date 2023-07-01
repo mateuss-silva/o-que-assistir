@@ -11,8 +11,6 @@ void main() {
     voteAverage: 1,
     releaseDate: DateTime.now(),
     genres: const [],
-    homepage: Uri.parse('https://www.google.com'),
-    imdbId: "23t",
     originalTitle: 'originalTitle',
     popularity: 1,
     status: "Released",

@@ -3,19 +3,18 @@ import 'dart:async';
 import 'package:mobx/mobx.dart';
 import 'package:o_que_assistir/app/core/error/failure.dart';
 import 'package:o_que_assistir/app/core/error/failure_extension.dart';
-import 'package:o_que_assistir/app/core/usecase/usecase.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
-import 'package:o_que_assistir/app/features/home/domain/usecases/get_movies_usecase.dart';
+import 'package:o_que_assistir/app/features/home/domain/usecases/get_movie_usecase.dart';
 import 'package:rxdart/rxdart.dart';
 
-part 'home_store.g.dart';
+part 'movie_details_store.g.dart';
 
-class HomeStore = HomeStoreBase with _$HomeStore;
+class MovieDetailsStore = MovieDetailsStoreBase with _$MovieDetailsStore;
 
-abstract class HomeStoreBase with Store {
-  final GetMoviesUsecase getMoviesUsecase;
+abstract class MovieDetailsStoreBase with Store {
+  final GetMovieUsecase getMovieUsecase;
 
-  HomeStoreBase(this.getMoviesUsecase);
+  MovieDetailsStoreBase(this.getMovieUsecase);
 
   @observable
   bool _loading = false;
@@ -24,24 +23,24 @@ abstract class HomeStoreBase with Store {
   bool get loading => _loading;
 
   @observable
-  ObservableList<MovieEntity> _movies = ObservableList();
+  MovieEntity? _movie;
 
   @computed
-  ObservableList<MovieEntity> get movies => _movies;
+  MovieEntity get movie => _movie!;
 
   // ignore: prefer_final_fields
   BehaviorSubject<String?> errorMessageStream = BehaviorSubject();
 
   @action
-  Future<void> getMovies() async {
+  Future<void> getMovie(int id) async {
     setLoading(true);
     setErrorMessage(null);
 
-    final moviesResponse = await getMoviesUsecase(NoParams());
+    final movieResponse = await getMovieUsecase(GetMovieParams(id));
 
-    moviesResponse.fold(
+    movieResponse.fold(
       _setErrorMessageFromFailure,
-      setMovies,
+      setMovie,
     );
 
     setLoading(false);
@@ -53,7 +52,7 @@ abstract class HomeStoreBase with Store {
   void setErrorMessage(String? value) => errorMessageStream.add(value);
 
   @action
-  void setMovies(List<MovieEntity> value) => _movies = value.asObservable();
+  void setMovie(MovieEntity value) => _movie = value;
 
   @action
   _setErrorMessageFromFailure(Failure failure) =>

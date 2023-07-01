@@ -6,7 +6,6 @@ final class MovieModel extends MovieEntity {
     required super.id,
     required super.title,
     required super.originalTitle,
-    required super.homepage,
     required super.backdropPath,
     required super.posterPath,
     required super.genres,
@@ -16,7 +15,6 @@ final class MovieModel extends MovieEntity {
     required super.status,
     required super.voteAverage,
     required super.voteCount,
-    required super.imdbId,
     required super.runtime,
   });
 
@@ -25,18 +23,15 @@ final class MovieModel extends MovieEntity {
       id: json['id'].toString(),
       title: json['title'],
       originalTitle: json['original_title'],
-      homepage: Uri.parse(json['homepage']),
       backdropPath: json['backdrop_path'],
       posterPath: json['poster_path'],
-      genres:
-          (json['genres'] as List).map((e) => GenderModel.fromJson(e)).toList(),
+      genres: GenderModel.fromJsonList((json['genres'] as List?) ?? []),
       overview: json['overview'],
       popularity: json['popularity'],
       releaseDate: DateTime.parse(json['release_date']),
       status: json['status'],
       voteAverage: json['vote_average'].toDouble(),
       voteCount: json['vote_count'],
-      imdbId: json['imdb_id'],
       runtime: json['runtime'],
     );
   }
@@ -46,7 +41,6 @@ final class MovieModel extends MovieEntity {
       'id': id,
       'title': title,
       'original_title': originalTitle,
-      'homepage': homepage.toString(),
       'backdrop_path': backdropPath,
       'poster_path': posterPath,
       'genres': genres.map((e) => e.toJson()).toList(),
@@ -56,8 +50,11 @@ final class MovieModel extends MovieEntity {
       'status': status,
       'vote_average': voteAverage,
       'vote_count': voteCount,
-      'imdb_id': imdbId,
       'runtime': runtime,
     };
+  }
+
+  static List<MovieModel> fromJsonList(List list) {
+    return list.map((item) => MovieModel.fromJson(item)).toList();
   }
 }

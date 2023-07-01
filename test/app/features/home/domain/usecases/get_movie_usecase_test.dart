@@ -3,10 +3,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:o_que_assistir/app/features/home/data/models/gender_model.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
-import 'package:o_que_assistir/app/features/home/domain/repositories/movie_repository.dart';
 import 'package:o_que_assistir/app/features/home/domain/usecases/get_movie_usecase.dart';
 
-class MockMovieRepository extends Mock implements MovieRepository {}
+import 'mock_movie_repository.dart';
+
 
 void main() {
   late GetMovieUsecase usecase;
@@ -21,13 +21,11 @@ void main() {
   const tTitle = 'Fight Club';
   const tOriginalTitle = 'Fight Club';
   const tBackdropPath = "/hZkgoQYus5vegHoetLkCJzb17zJ.jpg";
-  final tHomepage = Uri.parse('http://www.foxmovies.com/movies/fight-club');
   const tGenres = <GenderModel>[
     GenderModel(id: "1", name: 'Drama'),
     GenderModel(id: "2", name: 'Thriller'),
     GenderModel(id: "3", name: 'Comedy')
   ];
-  const tImdbId = 'tt0137523';
   const tPopularity = 73.566;
   const tPosterPath = '/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg';
   final tReleaseDate = DateTime(1999, 10, 15);
@@ -46,7 +44,6 @@ way and ignites an out-of-control spiral toward oblivion.''';
     title: tTitle,
     originalTitle: tOriginalTitle,
     backdropPath: tBackdropPath,
-    homepage: tHomepage,
     overview: tOverview,
     popularity: tPopularity,
     posterPath: tPosterPath,
@@ -55,7 +52,6 @@ way and ignites an out-of-control spiral toward oblivion.''';
     voteAverage: tVoteAverage,
     voteCount: tVoteCount,
     genres: tGenres,
-    imdbId: tImdbId,
     runtime: tRuntime,
   );
 

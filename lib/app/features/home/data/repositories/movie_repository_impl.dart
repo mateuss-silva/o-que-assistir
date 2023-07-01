@@ -18,4 +18,13 @@ class MovieRepositoryImpl implements MovieRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, List<MovieEntity>>> getMovies() async {
+    try {
+      return Right(await repository.getMovies());
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
 }

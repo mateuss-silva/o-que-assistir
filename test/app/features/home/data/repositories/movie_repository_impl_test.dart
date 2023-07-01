@@ -27,8 +27,6 @@ void main() {
     voteAverage: 1,
     releaseDate: DateTime.now(),
     genres: const [],
-    homepage: Uri.parse('https://www.google.com'),
-    imdbId: "23t",
     originalTitle: 'originalTitle',
     popularity: 1,
     status: "Released",
@@ -36,7 +34,9 @@ void main() {
     runtime: 10,
   );
 
-  test('should return remote data source when is success', () async {
+  final tMoviesModels = [tMovieModel];
+
+  test('should return remote data source MovieModel when is success', () async {
     // arrange
     when(() => mockRemoteDataSource.getMovie(any()))
         .thenAnswer((_) async => tMovieModel);
@@ -51,7 +51,7 @@ void main() {
     verifyNoMoreInteractions(mockRemoteDataSource);
   });
 
-  test("should return Server Failure when has error", () async {
+  test("should return Server Failure when get movie has error", () async {
     // arrange
     when(() => mockRemoteDataSource.getMovie(any()))
         .thenThrow(ServerException());
@@ -63,6 +63,36 @@ void main() {
     expect(result, Left(ServerFailure()));
 
     verify(() => mockRemoteDataSource.getMovie(1));
+    verifyNoMoreInteractions(mockRemoteDataSource);
+  });
+
+  test('should return remote data source list of MovieModel when is success', () async {
+    // arrange
+    when(() => mockRemoteDataSource.getMovies())
+        .thenAnswer((_) async => tMoviesModels);
+
+    // act
+    final result = await repository.getMovies();
+
+    // assert
+    expect(result, Right(tMoviesModels));
+
+    verify(() => mockRemoteDataSource.getMovies());
+    verifyNoMoreInteractions(mockRemoteDataSource);
+  });
+
+  test("should return Server Failure when get movies has error", () async {
+    // arrange
+    when(() => mockRemoteDataSource.getMovies())
+        .thenThrow(ServerException());
+
+    // act
+    final result = await repository.getMovies();
+
+    // assert
+    expect(result, Left(ServerFailure()));
+
+    verify(() => mockRemoteDataSource.getMovies());
     verifyNoMoreInteractions(mockRemoteDataSource);
   });
 }

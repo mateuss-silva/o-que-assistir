@@ -11,13 +11,11 @@ void main() {
   const tTitle = 'Fight Club';
   const tOriginalTitle = 'Fight Club';
   const tBackdropPath = "/hZkgoQYus5vegHoetLkCJzb17zJ.jpg";
-  final tHomepage = Uri.parse('http://www.foxmovies.com/movies/fight-club');
   const tGenres = <GenderModel>[
     GenderModel(id: "1", name: 'Drama'),
     GenderModel(id: "2", name: 'Thriller'),
     GenderModel(id: "3", name: 'Comedy')
   ];
-  const tImdbId = 'tt0137523';
   const tPopularity = 73.566;
   const tPosterPath = '/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg';
   final tReleaseDate = DateTime(1999, 10, 15);
@@ -36,7 +34,6 @@ way and ignites an out-of-control spiral toward oblivion.''';
     title: tTitle,
     originalTitle: tOriginalTitle,
     backdropPath: tBackdropPath,
-    homepage: tHomepage,
     overview: tOverview,
     popularity: tPopularity,
     posterPath: tPosterPath,
@@ -45,7 +42,6 @@ way and ignites an out-of-control spiral toward oblivion.''';
     voteAverage: tVoteAverage,
     voteCount: tVoteCount,
     genres: tGenres,
-    imdbId: tImdbId,
     runtime: tRuntime,
   );
   test('should be a subclass of Entity', () async {
@@ -73,7 +69,6 @@ way and ignites an out-of-control spiral toward oblivion.''';
       "title": tTitle,
       "original_title": tOriginalTitle,
       "backdrop_path": tBackdropPath,
-      "homepage": tHomepage.toString(),
       "overview": tOverview,
       "popularity": tPopularity,
       "poster_path": tPosterPath,
@@ -82,10 +77,20 @@ way and ignites an out-of-control spiral toward oblivion.''';
       "vote_average": tVoteAverage,
       "vote_count": tVoteCount,
       "genres": tGenres.map((e) => e.toJson()).toList(),
-      "imdb_id": tImdbId,
       "runtime": tRuntime,
     };
 
     expect(result, expectedMap);
+  });
+
+  test('should return a JSON map containing a list of movie data', () {
+    // arrange
+    final Map<String, dynamic> jsonMap = json.decode(fixture("movies.json"));
+
+    // act
+    final result = MovieModel.fromJsonList(jsonMap['results']);
+
+    // assert
+    expect(result.length, 20);
   });
 }
