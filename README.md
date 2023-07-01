@@ -2,6 +2,11 @@
 
 O aplicativo tem como objetivo mostrar filmes, series e afins. Contendo informações como: sinopse, ano de lançamento, nota, gênero, etc. 
 
+<div>
+<img src="/assets/images/home.png" alt="Home" style="height: 400px; "/>
+<img src="/assets/images/details.png" alt="Details" style="height: 400px; "/>
+</div>
+
 ## Arquitetura
 
 O aplicativo foi desenvolvido utilizando Clean Architecture.
