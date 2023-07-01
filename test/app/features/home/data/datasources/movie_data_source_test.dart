@@ -5,6 +5,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:http/http.dart' as http;
 import 'package:o_que_assistir/app/core/common/constants.dart';
 import 'package:o_que_assistir/app/core/error/exceptions.dart';
+import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_source.dart';
 import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_source_impl.dart';
 import 'package:o_que_assistir/app/features/home/data/models/movie_model.dart';
 
@@ -96,12 +97,12 @@ void main() {
       setupHttpClientGetMoviesSuccess200();
 
       // act
-      movieDataSource.getMovies();
+      movieDataSource.getMovies(category: MovieCategory.popular);
 
       // assert
       verify(() => mockHttpClient.get(
             Uri.parse(
-                '$baseUrl/movie/popular?api_key=$apiKey&language=$language'),
+                '$baseUrl/movie/${MovieCategory.popular.value}?api_key=$apiKey&language=$language'),
             headers: {
               'Content-Type': 'application/json',
             },
@@ -117,7 +118,8 @@ void main() {
       setupHttpClientGetMoviesSuccess200();
 
       // act
-      final result = await movieDataSource.getMovies();
+      final result =
+          await movieDataSource.getMovies(category: MovieCategory.popular);
 
       // assert
       expect(result, equals(tMoviesModels));
@@ -133,7 +135,8 @@ void main() {
       final call = movieDataSource.getMovies;
 
       // assert
-      expect(() => call(), throwsA(const TypeMatcher<ServerException>()));
+      expect(() => call(category: MovieCategory.popular),
+          throwsA(const TypeMatcher<ServerException>()));
     });
   });
 }

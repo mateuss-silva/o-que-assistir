@@ -68,31 +68,31 @@ void main() {
 
   test('should return remote data source list of MovieModel when is success', () async {
     // arrange
-    when(() => mockRemoteDataSource.getMovies())
+    when(() => mockRemoteDataSource.getMovies(category:MovieCategory.popular))
         .thenAnswer((_) async => tMoviesModels);
 
     // act
-    final result = await repository.getMovies();
+    final result = await repository.getMovies(category:MovieCategory.popular);
 
     // assert
     expect(result, Right(tMoviesModels));
 
-    verify(() => mockRemoteDataSource.getMovies());
+    verify(() => mockRemoteDataSource.getMovies(category:MovieCategory.popular));
     verifyNoMoreInteractions(mockRemoteDataSource);
   });
 
   test("should return Server Failure when get movies has error", () async {
     // arrange
-    when(() => mockRemoteDataSource.getMovies())
+    when(() => mockRemoteDataSource.getMovies(category:MovieCategory.popular))
         .thenThrow(ServerException());
 
     // act
-    final result = await repository.getMovies();
+    final result = await repository.getMovies(category:MovieCategory.popular);
 
     // assert
     expect(result, Left(ServerFailure()));
 
-    verify(() => mockRemoteDataSource.getMovies());
+    verify(() => mockRemoteDataSource.getMovies(category:MovieCategory.popular));
     verifyNoMoreInteractions(mockRemoteDataSource);
   });
 }

@@ -28,9 +28,10 @@ class MovieDataSourceImpl implements MovieDataSource {
   }
 
   @override
-  Future<List<MovieModel>> getMovies() async {
+  Future<List<MovieModel>> getMovies({required MovieCategory category}) async {
     final response = await client.get(
-      Uri.parse('$baseUrl/movie/popular?api_key=$apiKey&language=$language'),
+      Uri.parse(
+          '$baseUrl/movie/${category.value}?api_key=$apiKey&language=$language'),
       headers: {
         'Content-Type': 'application/json',
       },

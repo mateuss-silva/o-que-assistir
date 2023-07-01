@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:o_que_assistir/app/core/error/failure.dart';
-import 'package:o_que_assistir/app/core/usecase/usecase.dart';
+import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_source.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
 import 'package:o_que_assistir/app/features/home/domain/usecases/get_movies_usecase.dart';
 import 'package:o_que_assistir/app/features/home/presentation/stores/home_store.dart';
@@ -16,7 +16,7 @@ void main() {
   setUp(() {
     getMoviesUsecase = MockGetMoviesUsecase();
     store = HomeStore(getMoviesUsecase);
-    registerFallbackValue(NoParams());
+    registerFallbackValue(GetMoviesParams(MovieCategory.popular));
   });
 
   final tMovies = <MovieEntity>[
@@ -46,7 +46,7 @@ void main() {
 
     // assert
     expect(store.movies, tMovies);
-    verify(() => getMoviesUsecase(NoParams()));
+    verify(() => getMoviesUsecase(GetMoviesParams(MovieCategory.popular)));
     verifyNoMoreInteractions(getMoviesUsecase);
   });
 
@@ -60,7 +60,7 @@ void main() {
 
     // assert
     expect(store.movies, []);
-    verify(() => getMoviesUsecase(NoParams()));
+    verify(() => getMoviesUsecase(GetMoviesParams(MovieCategory.popular)));
     verifyNoMoreInteractions(getMoviesUsecase);
   });
 }

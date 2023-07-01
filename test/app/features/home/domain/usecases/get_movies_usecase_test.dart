@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:o_que_assistir/app/core/usecase/usecase.dart';
+import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_source.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
 import 'package:o_que_assistir/app/features/home/domain/usecases/get_movies_usecase.dart';
 
@@ -34,17 +34,18 @@ void main() {
     )
   ];
 
-  test('should get movies from the repository', () async {
+  test('should get popular movies from the repository', () async {
     // arrange
-    when(() => mockMovieRepository.getMovies())
+    when(() => mockMovieRepository.getMovies(category: MovieCategory.popular))
         .thenAnswer((_) async => Right(tMovieList));
 
     // act
-    final result = await usecase(NoParams());
+    final result = await usecase(GetMoviesParams(MovieCategory.popular));
 
     // assert
     expect(result, Right(tMovieList));
-    verify(() => mockMovieRepository.getMovies());
+    verify(
+        () => mockMovieRepository.getMovies(category: MovieCategory.popular));
     verifyNoMoreInteractions(mockMovieRepository);
   });
 }

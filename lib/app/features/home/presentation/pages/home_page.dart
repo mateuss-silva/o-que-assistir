@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -55,7 +54,7 @@ class _HomePageState extends State<HomePage> {
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                  "Populares",
+                  "Populares agora",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w300,
@@ -85,13 +84,6 @@ class _HomePageState extends State<HomePage> {
                     return child;
                   },
                 ),
-              ),
-              const SizedBox(height: 32),
-              CupertinoButton(
-                child: const Text("Fight Club Details"),
-                onPressed: () {
-                  Modular.to.pushNamed("/movie-details/550");
-                },
               ),
               const SizedBox(height: 32),
             ],

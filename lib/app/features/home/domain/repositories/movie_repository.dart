@@ -2,10 +2,11 @@ import 'package:dartz/dartz.dart';
 import 'package:o_que_assistir/app/core/error/failure.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
 
-abstract interface class MovieRepository {
+import '../../data/datasources/movie_data_source.dart';
 
-  Future<Either<Failure, List<MovieEntity>>> getMovies();
+abstract interface class MovieRepository {
+  Future<Either<Failure, List<MovieEntity>>> getMovies(
+      {required MovieCategory category});
 
   Future<Either<Failure, MovieEntity>> getMovie(int id);
-  
 }
