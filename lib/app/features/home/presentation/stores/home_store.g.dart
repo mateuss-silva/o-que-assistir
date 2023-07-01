@@ -15,13 +15,37 @@ mixin _$HomeStore on HomeStoreBase, Store {
   bool get loading => (_$loadingComputed ??=
           Computed<bool>(() => super.loading, name: 'HomeStoreBase.loading'))
       .value;
-  Computed<ObservableList<MovieEntity>>? _$moviesComputed;
+  Computed<ObservableList<MovieEntity>>? _$popularMoviesComputed;
 
   @override
-  ObservableList<MovieEntity> get movies => (_$moviesComputed ??=
-          Computed<ObservableList<MovieEntity>>(() => super.movies,
-              name: 'HomeStoreBase.movies'))
+  ObservableList<MovieEntity> get popularMovies => (_$popularMoviesComputed ??=
+          Computed<ObservableList<MovieEntity>>(() => super.popularMovies,
+              name: 'HomeStoreBase.popularMovies'))
       .value;
+  Computed<ObservableList<MovieEntity>>? _$nowPlayingMoviesComputed;
+
+  @override
+  ObservableList<MovieEntity> get nowPlayingMovies =>
+      (_$nowPlayingMoviesComputed ??= Computed<ObservableList<MovieEntity>>(
+              () => super.nowPlayingMovies,
+              name: 'HomeStoreBase.nowPlayingMovies'))
+          .value;
+  Computed<ObservableList<MovieEntity>>? _$topRatedMoviesComputed;
+
+  @override
+  ObservableList<MovieEntity> get topRatedMovies =>
+      (_$topRatedMoviesComputed ??= Computed<ObservableList<MovieEntity>>(
+              () => super.topRatedMovies,
+              name: 'HomeStoreBase.topRatedMovies'))
+          .value;
+  Computed<ObservableList<MovieEntity>>? _$upcomingMoviesComputed;
+
+  @override
+  ObservableList<MovieEntity> get upcomingMovies =>
+      (_$upcomingMoviesComputed ??= Computed<ObservableList<MovieEntity>>(
+              () => super.upcomingMovies,
+              name: 'HomeStoreBase.upcomingMovies'))
+          .value;
 
   late final _$_loadingAtom =
       Atom(name: 'HomeStoreBase._loading', context: context);
@@ -39,19 +63,67 @@ mixin _$HomeStore on HomeStoreBase, Store {
     });
   }
 
-  late final _$_moviesAtom =
-      Atom(name: 'HomeStoreBase._movies', context: context);
+  late final _$_popularMoviesAtom =
+      Atom(name: 'HomeStoreBase._popularMovies', context: context);
 
   @override
-  ObservableList<MovieEntity> get _movies {
-    _$_moviesAtom.reportRead();
-    return super._movies;
+  ObservableList<MovieEntity> get _popularMovies {
+    _$_popularMoviesAtom.reportRead();
+    return super._popularMovies;
   }
 
   @override
-  set _movies(ObservableList<MovieEntity> value) {
-    _$_moviesAtom.reportWrite(value, super._movies, () {
-      super._movies = value;
+  set _popularMovies(ObservableList<MovieEntity> value) {
+    _$_popularMoviesAtom.reportWrite(value, super._popularMovies, () {
+      super._popularMovies = value;
+    });
+  }
+
+  late final _$_nowPlayingMoviesAtom =
+      Atom(name: 'HomeStoreBase._nowPlayingMovies', context: context);
+
+  @override
+  ObservableList<MovieEntity> get _nowPlayingMovies {
+    _$_nowPlayingMoviesAtom.reportRead();
+    return super._nowPlayingMovies;
+  }
+
+  @override
+  set _nowPlayingMovies(ObservableList<MovieEntity> value) {
+    _$_nowPlayingMoviesAtom.reportWrite(value, super._nowPlayingMovies, () {
+      super._nowPlayingMovies = value;
+    });
+  }
+
+  late final _$_topRatedMoviesAtom =
+      Atom(name: 'HomeStoreBase._topRatedMovies', context: context);
+
+  @override
+  ObservableList<MovieEntity> get _topRatedMovies {
+    _$_topRatedMoviesAtom.reportRead();
+    return super._topRatedMovies;
+  }
+
+  @override
+  set _topRatedMovies(ObservableList<MovieEntity> value) {
+    _$_topRatedMoviesAtom.reportWrite(value, super._topRatedMovies, () {
+      super._topRatedMovies = value;
+    });
+  }
+
+  late final _$_upcomingMoviesAtom =
+      Atom(name: 'HomeStoreBase._upcomingMovies', context: context);
+
+  @override
+  ObservableList<MovieEntity> get _upcomingMovies {
+    _$_upcomingMoviesAtom.reportRead();
+    return super._upcomingMovies;
+  }
+
+  @override
+  set _upcomingMovies(ObservableList<MovieEntity> value) {
+    _$_upcomingMoviesAtom.reportWrite(value, super._upcomingMovies, () {
+      super._upcomingMovies = value;
     });
   }
 
@@ -78,11 +150,44 @@ mixin _$HomeStore on HomeStoreBase, Store {
   }
 
   @override
-  void setMovies(List<MovieEntity> value) {
+  void setPopularMovies(List<MovieEntity> value) {
     final _$actionInfo = _$HomeStoreBaseActionController.startAction(
-        name: 'HomeStoreBase.setMovies');
+        name: 'HomeStoreBase.setPopularMovies');
     try {
-      return super.setMovies(value);
+      return super.setPopularMovies(value);
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setNowPlayingMovies(List<MovieEntity> value) {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.setNowPlayingMovies');
+    try {
+      return super.setNowPlayingMovies(value);
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setTopRatedMovies(List<MovieEntity> value) {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.setTopRatedMovies');
+    try {
+      return super.setTopRatedMovies(value);
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setUpcomingMovies(List<MovieEntity> value) {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.setUpcomingMovies');
+    try {
+      return super.setUpcomingMovies(value);
     } finally {
       _$HomeStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -103,7 +208,10 @@ mixin _$HomeStore on HomeStoreBase, Store {
   String toString() {
     return '''
 loading: ${loading},
-movies: ${movies}
+popularMovies: ${popularMovies},
+nowPlayingMovies: ${nowPlayingMovies},
+topRatedMovies: ${topRatedMovies},
+upcomingMovies: ${upcomingMovies}
     ''';
   }
 }

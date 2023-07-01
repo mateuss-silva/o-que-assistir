@@ -45,8 +45,14 @@ void main() {
     await store.getMovies();
 
     // assert
-    expect(store.movies, tMovies);
+    expect(store.popularMovies, tMovies);
+    expect(store.nowPlayingMovies, tMovies);
+    expect(store.topRatedMovies, tMovies);
+    expect(store.upcomingMovies, tMovies);
     verify(() => getMoviesUsecase(GetMoviesParams(MovieCategory.popular)));
+    verify(() => getMoviesUsecase(GetMoviesParams(MovieCategory.nowPlaying)));
+    verify(() => getMoviesUsecase(GetMoviesParams(MovieCategory.topRated)));
+    verify(() => getMoviesUsecase(GetMoviesParams(MovieCategory.upcoming)));
     verifyNoMoreInteractions(getMoviesUsecase);
   });
 
@@ -59,8 +65,14 @@ void main() {
     await store.getMovies();
 
     // assert
-    expect(store.movies, []);
+    expect(store.popularMovies, []);
+    expect(store.nowPlayingMovies, []);
+    expect(store.topRatedMovies, []);
+    expect(store.upcomingMovies, []);
     verify(() => getMoviesUsecase(GetMoviesParams(MovieCategory.popular)));
+    verify(() => getMoviesUsecase(GetMoviesParams(MovieCategory.nowPlaying)));
+    verify(() => getMoviesUsecase(GetMoviesParams(MovieCategory.topRated)));
+    verify(() => getMoviesUsecase(GetMoviesParams(MovieCategory.upcoming)));
     verifyNoMoreInteractions(getMoviesUsecase);
   });
 }

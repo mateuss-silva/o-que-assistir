@@ -53,14 +53,11 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
             children: [
               Stack(
                 children: [
-                  Hero(
-                    tag: store.movie.id,
-                    child: Image.network(
-                      store.movie.posterPath.imageUrl,
-                      height: 512,
-                      width: double.maxFinite,
-                      fit: BoxFit.fitWidth,
-                    ),
+                  Image.network(
+                    store.movie.posterPath.imageUrl,
+                    height: 512,
+                    width: double.maxFinite,
+                    fit: BoxFit.fitWidth,
                   ),
                   CupertinoButton(
                     child: Container(
