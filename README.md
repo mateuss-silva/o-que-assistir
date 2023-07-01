@@ -32,6 +32,7 @@ O gerenciamento de estado foi feito utilizando Mobx.
 
 ## Testes de unidade: Mocktail
 
+- Testes de Stores
 - Testes de models
 - Testes de Usecases
 - Testes de repositories

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
-import 'package:o_que_assistir/app/features/home/presentation/widgets/movie_card_widget.dart';
+import 'package:o_que_assistir/app/features/home/presentation/widgets/movies_widget.dart';
 import '../stores/home_store.dart';
 
 class HomePage extends StatefulWidget {
@@ -51,20 +50,35 @@ class _HomePageState extends State<HomePage> {
           return ListView(
             physics: const BouncingScrollPhysics(),
             children: [
-              const SizedBox(height: 32),
-              _moviesCategory(
+              const SizedBox(height: 16),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "Pesquisar filmes, séries, etc.",
+                    contentPadding: EdgeInsets.zero,
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(32),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              MoviesWidget(
                 movies: store.popularMovies,
                 title: "Populares agora",
               ),
-              _moviesCategory(
+              MoviesWidget(
                 movies: store.nowPlayingMovies,
                 title: "Em cartaz",
               ),
-              _moviesCategory(
+              MoviesWidget(
                 movies: store.topRatedMovies,
                 title: "Mais bem avaliados",
               ),
-              _moviesCategory(
+              MoviesWidget(
                 movies: store.upcomingMovies,
                 title: "Próximos lançamentos",
               ),
@@ -73,51 +87,6 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
-    );
-  }
-
-  Widget _moviesCategory({
-    required List<MovieEntity> movies,
-    required String title,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            title,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w300,
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 200,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: movies.length,
-            separatorBuilder: (context, index) => const Divider(),
-            itemBuilder: (context, index) {
-              final movie = movies[index];
-              final child = MovieCardWidget(movie: movie);
-              if (index == 0) {
-                return Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: child,
-                );
-              } else if (index == movies.length) {
-                return Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: child,
-                );
-              }
-              return child;
-            },
-          ),
-        ),
-      ],
     );
   }
 }
