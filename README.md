@@ -21,7 +21,7 @@ O aplicativo foi desenvolvido utilizando Clean Architecture em conjunto com o de
 <div align="center" style="display: flex; ">
 <img src="/assets/images/tdd.png" alt="TDD" style="width: 200px; height: 150px;"/>
 <img src="/assets/images/clean-arch.png" alt="Clean Architecture" style="width: 325px; height:350px;"/>
-<img src="/assets/images/clean-arch-call-flow.png" alt="Clean Architecture" style="width: 350px; height:350px"/>
+<img src="/assets/images/clean-arch-call-flow.png" alt="Clean Architecture" style="width: 325px; height:325px"/>
 
 </div>
 
