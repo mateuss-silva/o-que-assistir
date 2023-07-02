@@ -44,4 +44,15 @@ void main() {
     };
     expect(result, expectedMap);
   });
+
+  test("should return a valid list of model for the JSON list gender", () {
+    // arrange
+    final List jsonList = json.decode(fixture("movie.json"))['genres'];
+
+    // act
+    final result = GenderModel.fromJsonList(jsonList);
+
+    // assert
+    expect(result, isA<List<GenderModel>>());
+  });
 }

@@ -4,7 +4,7 @@ import 'package:o_que_assistir/app/features/home/data/models/gender_model.dart';
 base class MovieEntity extends Entity {
   final String title;
   final String originalTitle;
-  final String backdropPath;
+  final String? backdropPath;
   final String posterPath;
   final List<GenderModel> genres;
   final String overview;

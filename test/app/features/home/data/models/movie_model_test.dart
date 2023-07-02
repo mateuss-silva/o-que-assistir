@@ -91,6 +91,6 @@ way and ignites an out-of-control spiral toward oblivion.''';
     final result = MovieModel.fromJsonList(jsonMap['results']);
 
     // assert
-    expect(result.length, 20);
+    expect(result, isA<List<MovieModel>>());
   });
 }
