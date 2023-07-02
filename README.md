@@ -19,7 +19,7 @@ O aplicativo foi viabilizado utilizada a API do [The Movie Database](https://www
 O aplicativo foi desenvolvido utilizando Clean Architecture em conjunto com o desenvolvimento orientado a testes (TDD).
 
 <div align="center" style="display: flex; ">
-<img src="/assets/images/tdd.png" alt="TDD" style="width: 200px; height: 150px;"/>
+<img src="/assets/images/tdd.png" alt="TDD" style="width: 175px; height: 125;"/>
 <img src="/assets/images/clean-arch.png" alt="Clean Architecture" style="width: 325px; height:350px;"/>
 <img src="/assets/images/clean-arch-call-flow.png" alt="Clean Architecture" style="width: 325px; height:325px"/>
 
