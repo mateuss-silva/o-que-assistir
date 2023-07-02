@@ -19,10 +19,11 @@ O aplicativo foi viabilizado utilizada a API do [The Movie Database](https://www
 O aplicativo foi desenvolvido utilizando Clean Architecture em conjunto com o desenvolvimento orientado a testes (TDD).
 <img src="/assets/images/tdd.png" align="left" alt="TDD" style="width: 175px; height: 125;"/>
 
+<br clear="left"/>
+
 <div align="center" >
 <img src="/assets/images/clean-arch.png" alt="Clean Architecture" style="width: 400px; height: 400px;"/>
 <img src="/assets/images/clean-arch-call-flow.png" alt="Clean Architecture" style="width: 400px; height:400px"/>
-
 </div>
 
 - Gerenciamento de estado: Mobx;
