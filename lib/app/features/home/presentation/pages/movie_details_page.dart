@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:o_que_assistir/app/core/common/extensions/string_extension.dart';
 import 'package:o_que_assistir/app/features/home/presentation/stores/movie_details_store.dart';
+import 'package:o_que_assistir/app/features/home/presentation/widgets/cast_widget.dart';
 
 class MovieDetailsPage extends StatefulWidget {
   final int movieId;
@@ -39,7 +40,6 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
- 
     return Scaffold(
       body: Observer(
         builder: (_) {
@@ -147,7 +147,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                   ),
                 ),
               ),
-            //CastWidget
+              CastWidget(cast: store.cast),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(

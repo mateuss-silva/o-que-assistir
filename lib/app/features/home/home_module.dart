@@ -1,6 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_source_impl.dart';
 import 'package:o_que_assistir/app/features/home/data/repositories/movie_repository_impl.dart';
+import 'package:o_que_assistir/app/features/home/domain/usecases/get_cast_usecase.dart';
 import 'package:o_que_assistir/app/features/home/domain/usecases/get_movie_usecase.dart';
 import 'package:o_que_assistir/app/features/home/domain/usecases/get_movies_usecase.dart';
 import 'package:o_que_assistir/app/features/home/presentation/pages/home_page.dart';
@@ -16,8 +17,9 @@ class HomeModule extends Module {
     Bind.factory((i) => MovieRepositoryImpl(i<MovieDataSourceImpl>())),
     Bind.factory((i) => GetMovieUsecase(i<MovieRepositoryImpl>())),
     Bind.factory((i) => GetMoviesUsecase(i<MovieRepositoryImpl>())),
+    Bind.factory((i) => GetCastUsecase(i<MovieRepositoryImpl>())),
     Bind.factory((i) => HomeStore(i())),
-    Bind.factory((i) => MovieDetailsStore(i())),
+    Bind.factory((i) => MovieDetailsStore(i(), i())),
   ];
 
   @override

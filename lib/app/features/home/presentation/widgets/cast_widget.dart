@@ -1,41 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:o_que_assistir/app/core/common/extensions/string_extension.dart';
+import 'package:o_que_assistir/app/features/home/domain/entities/actor_entity.dart';
 
 class CastWidget extends StatelessWidget {
-  const CastWidget({super.key});
+  final List<ActorEntity> cast;
+  const CastWidget({super.key, required this.cast});
 
   @override
   Widget build(BuildContext context) {
-    List<({String name, String image})> cast = [
-      (
-        name: "Edward Norton",
-        image: "https://image.tmdb.org/t/p/w500/5XBzD5WuTyVQZeS4VI25z2moMeY.jpg"
-      ),
-      (
-        name: "Brad Pitt",
-        image: "https://image.tmdb.org/t/p/w500/sra9JWUaXGs4NlAueA7CpuYzLCk.jpg"
-      ),
-      (
-        name: "Helena Bonham Carter",
-        image: "https://image.tmdb.org/t/p/w500/DDeITcCpnBd0CkAIRPhggy9bt5.jpg"
-      ),
-      (
-        name: "Meat Loaf",
-        image: "https://image.tmdb.org/t/p/w500/7gKLR1u46OB8WJ6m06LemNBCMx6.jpg"
-      ),
-      (
-        name: "Jared Leto",
-        image: "https://image.tmdb.org/t/p/w500/ca3x0OfIKbJppZh8S1Alx3GfUZO.jpg"
-      ),
-      (
-        name: "Zach Grenier",
-        image: "https://image.tmdb.org/t/p/w500/fSyQKZO39sUsqY283GXiScOg3Hi.jpg"
-      ),
-      (
-        name: "Holt McCallany",
-        image: "https://image.tmdb.org/t/p/w500/a5ax2ICLrV6l0T74OSFvzssCQyQ.jpg"
-      ),
-    ];
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Padding(
           padding: EdgeInsets.only(left: 8.0, bottom: 8.0),
@@ -63,7 +37,12 @@ class CastWidget extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       maxRadius: 24,
-                      foregroundImage: NetworkImage(ator.image),
+                      foregroundImage: ator.profilePath == null
+                          ? null
+                          : NetworkImage(ator.profilePath!.imageUrl),
+                      child: ator.profilePath == null
+                          ? const Icon(Icons.person)
+                          : null,
                     ),
                     Text(
                       ator.name,
