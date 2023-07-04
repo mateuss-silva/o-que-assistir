@@ -38,11 +38,11 @@ Dito isto, pode percebe-se que o aplicativo foi desenvolvido com uma arquitetura
 <img src="/assets/images/clean-arch-call-flow.png" alt="Clean Architecture" style="width: 400px; height:400px"/>
 </div>
 
-- Gerenciamento de estado: Mobx;
+### Gerenciamento de estado: Mobx;
 
 <img src="/assets/images/mobx.png" alt="Mobx" style="height: 200px; "/>
 
-- Injeção de dependência: Modular;
+### Injeção de dependência: Modular;
 
 ### Testes de integração: integration_test
 
