@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.all(8.0),
             child: TextField(
               decoration: InputDecoration(
-                hintText: "Pesquisar filmes e séries...",
+                hintText: "Pesquisar filmes, séries, etc...",
                 contentPadding: EdgeInsets.zero,
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(
