@@ -81,9 +81,10 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
               ),
               Container(
                 alignment: Alignment.center,
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
                 child: Text(
                   store.movie.title,
+                  textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -93,8 +94,8 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
               Align(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
+                  child: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
                       SizedBox(
                         height: 28,

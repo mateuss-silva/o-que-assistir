@@ -18,12 +18,12 @@ class MoviesCategoriesWidget extends StatelessWidget {
           title: "Populares agora",
         ),
         MoviesWidget(
-          movies: store.nowPlayingMovies,
-          title: "Em cartaz",
-        ),
-        MoviesWidget(
           movies: store.topRatedMovies,
           title: "Mais bem avaliados",
+        ),
+        MoviesWidget(
+          movies: store.nowPlayingMovies,
+          title: "Em cartaz",
         ),
         MoviesWidget(
           movies: store.upcomingMovies,

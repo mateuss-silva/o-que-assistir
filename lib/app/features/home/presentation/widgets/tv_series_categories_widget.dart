@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:o_que_assistir/app/features/home/presentation/stores/home_store.dart';
-import 'package:o_que_assistir/app/features/home/presentation/widgets/movies_widget.dart';
+import 'package:o_que_assistir/app/features/home/presentation/widgets/tv_series_widget.dart';
 
 class TVSeriesCategoriesWidget extends StatelessWidget {
   const TVSeriesCategoriesWidget({super.key});
@@ -13,21 +13,21 @@ class TVSeriesCategoriesWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        MoviesWidget(
-          movies: store.popularMovies,
+        TVSeriesWidget(
+          tvSeries: store.popularTVSeries,
           title: "Populares agora",
         ),
-        MoviesWidget(
-          movies: store.nowPlayingMovies,
-          title: "Em cartaz",
-        ),
-        MoviesWidget(
-          movies: store.topRatedMovies,
+        TVSeriesWidget(
+          tvSeries: store.topRatedTVSeries,
           title: "Mais bem avaliados",
         ),
-        MoviesWidget(
-          movies: store.upcomingMovies,
-          title: "Próximos lançamentos",
+        TVSeriesWidget(
+          tvSeries: store.airingTodayTVSeries,
+          title: "No ar hoje",
+        ),
+        TVSeriesWidget(
+          tvSeries: store.onTheAirTVSeries,
+          title: "No Ar",
         ),
       ],
     );

@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:o_que_assistir/app/features/home/presentation/widgets/loading_categories.dart';
 import 'package:o_que_assistir/app/features/home/presentation/widgets/movies_categories_widget.dart';
+import 'package:o_que_assistir/app/features/home/presentation/widgets/tv_series_categories_widget.dart';
 import '../stores/home_store.dart';
 
 class HomePage extends StatefulWidget {
@@ -94,7 +95,7 @@ class _HomePageState extends State<HomePage> {
 
               return store.showMovies
                   ? const MoviesCategoriesWidget()
-                  : Container();
+                  : const TVSeriesCategoriesWidget();
             },
           ),
           const SizedBox(height: 32),

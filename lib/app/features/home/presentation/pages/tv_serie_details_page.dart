@@ -81,9 +81,10 @@ class _TVSerieDetailsPageState extends State<TVSerieDetailsPage> {
               ),
               Container(
                 alignment: Alignment.center,
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
                 child: Text(
                   store.tvSerie.name,
+                  textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -93,8 +94,8 @@ class _TVSerieDetailsPageState extends State<TVSerieDetailsPage> {
               Align(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
+                  child: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
                       SizedBox(
                         height: 28,
@@ -137,6 +138,7 @@ class _TVSerieDetailsPageState extends State<TVSerieDetailsPage> {
                         style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),
+                      const SizedBox(width: 16),
                       Text(
                         store.tvSerie.seasons,
                         style: const TextStyle(

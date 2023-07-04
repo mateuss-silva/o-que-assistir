@@ -19,7 +19,7 @@ final class TVSerieModel extends TVSerieEntity {
 
   factory TVSerieModel.fromJson(Map<String, dynamic> json) {
     return TVSerieModel(
-      id: json['id'],
+      id: json['id'].toString(),
       name: json['name'],
       originalName: json['original_name'],
       backdropPath: json['backdrop_path'],
@@ -28,9 +28,9 @@ final class TVSerieModel extends TVSerieEntity {
       overview: json['overview'],
       popularity: json['popularity'],
       firstAirDate: DateTime.parse(json['first_air_date']),
-      voteAverage: json['vote_average'],
+      voteAverage: json['vote_average'].toDouble(),
       voteCount: json['vote_count'],
-      seasonCount: (json['seasons'] as List).length,
+      seasonCount: (json['seasons'] as List?)?.length,
     );
   }
 

@@ -25,7 +25,7 @@ final class MovieModel extends MovieEntity {
       originalTitle: json['original_title'],
       backdropPath: json['backdrop_path'],
       posterPath: json['poster_path'],
-      genres: GenderModel.fromJsonList((json['genres'] as List?) ?? []),
+      genres: GenderModel.fromJsonList((json['genres'] ?? []) as List),
       overview: json['overview'],
       popularity: json['popularity'],
       releaseDate: DateTime.parse(json['release_date']),

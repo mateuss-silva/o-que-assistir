@@ -12,7 +12,7 @@ class MovieRepositoryImpl implements MovieRepository {
   MovieRepositoryImpl(this.datasource);
 
   @override
-  Future<Either<Failure, TVSerieEntity>> getMovie(int id) async {
+  Future<Either<Failure, MovieEntity>> getMovie(int id) async {
     try {
       return Right(await datasource.getMovie(id));
     } on ServerException {
@@ -21,7 +21,7 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
-  Future<Either<Failure, List<TVSerieEntity>>> getMovies({
+  Future<Either<Failure, List<MovieEntity>>> getMovies({
     required MovieCategory category,
   }) async {
     try {
