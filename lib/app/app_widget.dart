@@ -9,12 +9,13 @@ class AppWidget extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        colorSchemeSeed: Colors.lightBlueAccent,
         useMaterial3: true,
         brightness: Brightness.light,
       ),
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData(
+        colorSchemeSeed: Colors.lightBlueAccent,
         brightness: Brightness.dark,
         useMaterial3: true,
       ),

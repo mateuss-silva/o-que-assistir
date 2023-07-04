@@ -9,7 +9,7 @@ O aplicativo tem como objetivo mostrar filmes, series e afins. Contendo informa�
 
 ### Testes de unidade
 
-Nos testes de unidade foi utilizando o [Mocktail](https://pub.dev/packages/mocktail). O Mocktail é uma biblioteca de teste que fornece uma sintaxe simples para criar mocks. Atualmente o projeto está com 92% de cobertura de testes na análise, mas com uma cobertura bem mais proxima dos 100% ao desconsiderar arquivos ```.*g.dart```. 
+Nos testes de unidade foi utilizando o [Mocktail](https://pub.dev/packages/mocktail), biblioteca de teste que fornece uma sintaxe simples para criar mocks. Atualmente o projeto está com 92% de cobertura de testes na análise da feature movie, assim sendo a feature escolhida para ter os testes e exemplificar como seria a implementação em todo projeto. 
 
 | Teste | Cobertura |
 | --- | --- |

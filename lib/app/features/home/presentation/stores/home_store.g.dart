@@ -15,6 +15,20 @@ mixin _$HomeStore on HomeStoreBase, Store {
   bool get loading => (_$loadingComputed ??=
           Computed<bool>(() => super.loading, name: 'HomeStoreBase.loading'))
       .value;
+  Computed<bool>? _$showMoviesComputed;
+
+  @override
+  bool get showMovies =>
+      (_$showMoviesComputed ??= Computed<bool>(() => super.showMovies,
+              name: 'HomeStoreBase.showMovies'))
+          .value;
+  Computed<List<bool>>? _$showMovieOrSeriesComputed;
+
+  @override
+  List<bool> get showMovieOrSeries => (_$showMovieOrSeriesComputed ??=
+          Computed<List<bool>>(() => super.showMovieOrSeries,
+              name: 'HomeStoreBase.showMovieOrSeries'))
+      .value;
   Computed<ObservableList<MovieEntity>>? _$popularMoviesComputed;
 
   @override
@@ -60,6 +74,22 @@ mixin _$HomeStore on HomeStoreBase, Store {
   set _loading(bool value) {
     _$_loadingAtom.reportWrite(value, super._loading, () {
       super._loading = value;
+    });
+  }
+
+  late final _$_showMoviesAtom =
+      Atom(name: 'HomeStoreBase._showMovies', context: context);
+
+  @override
+  bool get _showMovies {
+    _$_showMoviesAtom.reportRead();
+    return super._showMovies;
+  }
+
+  @override
+  set _showMovies(bool value) {
+    _$_showMoviesAtom.reportWrite(value, super._showMovies, () {
+      super._showMovies = value;
     });
   }
 
@@ -150,6 +180,17 @@ mixin _$HomeStore on HomeStoreBase, Store {
   }
 
   @override
+  void setShowMovies(bool value) {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.setShowMovies');
+    try {
+      return super.setShowMovies(value);
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setPopularMovies(List<MovieEntity> value) {
     final _$actionInfo = _$HomeStoreBaseActionController.startAction(
         name: 'HomeStoreBase.setPopularMovies');
@@ -208,6 +249,8 @@ mixin _$HomeStore on HomeStoreBase, Store {
   String toString() {
     return '''
 loading: ${loading},
+showMovies: ${showMovies},
+showMovieOrSeries: ${showMovieOrSeries},
 popularMovies: ${popularMovies},
 nowPlayingMovies: ${nowPlayingMovies},
 topRatedMovies: ${topRatedMovies},

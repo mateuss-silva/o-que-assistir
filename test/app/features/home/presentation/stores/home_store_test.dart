@@ -19,8 +19,8 @@ void main() {
     registerFallbackValue(GetMoviesParams(MovieCategory.popular));
   });
 
-  final tMovies = <MovieEntity>[
-    MovieEntity(
+  final tMovies = <TVSerieEntity>[
+    TVSerieEntity(
       id: "1",
       title: 'Fight Club',
       originalTitle: 'Fight Club',

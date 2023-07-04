@@ -7,7 +7,6 @@ import 'package:o_que_assistir/app/features/home/domain/usecases/get_movie_useca
 
 import 'mock_movie_repository.dart';
 
-
 void main() {
   late GetMovieUsecase usecase;
   late MockMovieRepository mockMovieRepository;
@@ -39,7 +38,7 @@ aggression into a shocking new form of therapy. Their concept catches on, with
 underground "fight clubs" forming in every town, until an eccentric gets in the 
 way and ignites an out-of-control spiral toward oblivion.''';
 
-  final tMovie = MovieEntity(
+  final tMovie = TVSerieEntity(
     id: tId,
     title: tTitle,
     originalTitle: tOriginalTitle,

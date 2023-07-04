@@ -45,14 +45,13 @@ void main() {
   const tVoteAverage = 8.435;
   const tVoteCount = 26651;
   const tRuntime = 139;
-  const tOverview =
-      '''
+  const tOverview = '''
 A ticking-time-bomb insomniac and a slippery soap salesman channel primal male 
 aggression into a shocking new form of therapy. Their concept catches on, with 
 underground "fight clubs" forming in every town, until an eccentric gets in the 
 way and ignites an out-of-control spiral toward oblivion.''';
 
-  final tMovie = MovieEntity(
+  final tMovie = TVSerieEntity(
     id: tId,
     title: tTitle,
     originalTitle: tOriginalTitle,

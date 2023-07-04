@@ -6,20 +6,20 @@ import 'package:mobx/mobx.dart';
 import 'package:o_que_assistir/app/core/error/failure.dart';
 import 'package:o_que_assistir/app/core/error/failure_extension.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/actor_entity.dart';
-import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
+import 'package:o_que_assistir/app/features/home/domain/entities/tv_serie_entity.dart';
 import 'package:o_que_assistir/app/features/home/domain/usecases/get_cast_usecase.dart';
-import 'package:o_que_assistir/app/features/home/domain/usecases/get_movie_usecase.dart';
+import 'package:o_que_assistir/app/features/home/domain/usecases/get_tv_serie_usecase.dart';
 import 'package:rxdart/rxdart.dart';
 
-part 'movie_details_store.g.dart';
+part 'tv_serie_details_store.g.dart';
 
-class MovieDetailsStore = MovieDetailsStoreBase with _$MovieDetailsStore;
+class TVSerieDetailsStore = TVSerieDetailsStoreBase with _$TVSerieDetailsStore;
 
-abstract class MovieDetailsStoreBase with Store {
-  final GetMovieUsecase getMovieUsecase;
+abstract class TVSerieDetailsStoreBase with Store {
+  final GetTVSerieUsecase getTVSerieUsecase;
   final GetCastUsecase getCastUsecase;
 
-  MovieDetailsStoreBase(this.getMovieUsecase, this.getCastUsecase);
+  TVSerieDetailsStoreBase(this.getTVSerieUsecase, this.getCastUsecase);
 
   @observable
   bool _loading = false;
@@ -28,13 +28,13 @@ abstract class MovieDetailsStoreBase with Store {
   bool get loading => _loading;
 
   @observable
-  MovieEntity? _movie;
+  TVSerieEntity? _tvSerie;
 
   @observable
   ObservableList<ActorEntity> _cast = ObservableList();
 
   @computed
-  MovieEntity get movie => _movie!;
+  TVSerieEntity get tvSerie => _tvSerie!;
 
   @computed
   ObservableList<ActorEntity> get cast => _cast;
@@ -42,18 +42,18 @@ abstract class MovieDetailsStoreBase with Store {
   BehaviorSubject<String?> errorMessageStream = BehaviorSubject();
 
   @action
-  Future<void> getMovie(int id) async {
+  Future<void> getTVSerie(int id) async {
     setLoading(true);
     setErrorMessage(null);
 
-    final movieResponse = await getMovieUsecase(GetMovieParams(id));
+    final tvSerieResponse = await getTVSerieUsecase(GetTVSerieParams(id));
 
     final castResponse =
-        await getCastUsecase(GetCastParams(id: id, isMovie: true));
+        await getCastUsecase(GetCastParams(id: id, isMovie: false));
 
-    movieResponse.fold(
+    tvSerieResponse.fold(
       _setErrorMessageFromFailure,
-      setMovie,
+      setTVSerie,
     );
 
     castResponse.fold(
@@ -70,7 +70,7 @@ abstract class MovieDetailsStoreBase with Store {
   void setErrorMessage(String? value) => errorMessageStream.add(value);
 
   @action
-  void setMovie(MovieEntity value) => _movie = value;
+  void setTVSerie(TVSerieEntity value) => _tvSerie = value;
 
   @action
   void setCast(List<ActorEntity> value) => _cast = value.asObservable();

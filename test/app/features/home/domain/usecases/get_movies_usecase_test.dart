@@ -17,7 +17,7 @@ void main() {
   });
 
   final tMovieList = [
-    MovieEntity(
+    TVSerieEntity(
       id: "1",
       title: 'title',
       overview: 'overview',
