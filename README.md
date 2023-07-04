@@ -3,8 +3,12 @@
 O aplicativo tem como objetivo mostrar filmes, series e afins. Contendo informações como: sinopse, ano de lançamento, nota, gênero, etc. 
 
 <div align="center">
-<img src="/assets/images/home.png" alt="Home" style="height: 400px; "/>
-<img src="/assets/images/details.png" alt="Details" style="height: 400px; "/>
+<img src="/assets/images/home-1.png" alt="Home" style="height: 400px; "/>
+<img src="/assets/images/home-2.png" alt="Home" style="height: 400px; "/>
+<img src="/assets/images/loading.png" alt="Home" style="height: 400px; "/>
+
+<img src="/assets/images/movie-details.png" alt="Details" style="height: 400px; "/>
+<img src="/assets/images/serie-details.png" alt="Details" style="height: 400px; "/>
 </div>
 
 ### Testes de unidade

@@ -5,7 +5,7 @@ import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_sou
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
 import 'package:o_que_assistir/app/features/home/domain/usecases/get_movies_usecase.dart';
 
-import 'mock_movie_repository.dart';
+import 'mocks.dart';
 
 void main() {
   late GetMoviesUsecase usecase;
@@ -17,7 +17,7 @@ void main() {
   });
 
   final tMovieList = [
-    TVSerieEntity(
+    MovieEntity(
       id: "1",
       title: 'title',
       overview: 'overview',

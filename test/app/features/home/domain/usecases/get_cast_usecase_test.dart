@@ -5,15 +5,17 @@ import 'package:o_que_assistir/app/core/error/failure.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/actor_entity.dart';
 import 'package:o_que_assistir/app/features/home/domain/usecases/get_cast_usecase.dart';
 
-import 'mock_movie_repository.dart';
+import 'mocks.dart';
 
 void main() {
   late GetCastUsecase usecase;
-  late MockMovieRepository repository;
+  late MockMovieRepository movieRepository;
+  late MockTVSerieRepository tvSerieRepository;
 
   setUp(() {
-    repository = MockMovieRepository();
-    usecase = GetCastUsecase(repository);
+    movieRepository = MockMovieRepository();
+    tvSerieRepository = MockTVSerieRepository();
+    usecase = GetCastUsecase(movieRepository, tvSerieRepository);
   });
 
   final tActors = [
@@ -33,23 +35,25 @@ void main() {
 
   test('should get a list of actors from the repository', () async {
     // arrange
-    when(()=> repository.getCast(any())).thenAnswer((_) async => Right(tActors));
+    when(() => movieRepository.getCast(any()))
+        .thenAnswer((_) async => Right(tActors));
     // act
-    final result = await usecase(GetCastParams(1));
+    final result = await usecase(GetCastParams(id: 1, isMovie: true));
     // assert
     expect(result, Right(tActors));
-    verify( ()=> repository.getCast(1));
-    verifyNoMoreInteractions(repository);
+    verify(() => movieRepository.getCast(1));
+    verifyNoMoreInteractions(movieRepository);
   });
 
   test('should return a ServerFailure when get cast don"t succeed', () async {
     // arrange
-    when(()=> repository.getCast(any())).thenAnswer((_) async => Left(ServerFailure()));
+    when(() => movieRepository.getCast(any()))
+        .thenAnswer((_) async => Left(ServerFailure()));
     // act
-    final result = await usecase(GetCastParams(1));
+    final result = await usecase(GetCastParams(id: 1, isMovie: true));
     // assert
     expect(result, Left(ServerFailure()));
-    verify( ()=> repository.getCast(1));
-    verifyNoMoreInteractions(repository);
+    verify(() => movieRepository.getCast(1));
+    verifyNoMoreInteractions(movieRepository);
   });
 }

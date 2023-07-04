@@ -5,22 +5,27 @@ import 'package:o_que_assistir/app/core/error/failure.dart';
 import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_source.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
 import 'package:o_que_assistir/app/features/home/domain/usecases/get_movies_usecase.dart';
+import 'package:o_que_assistir/app/features/home/domain/usecases/get_tv_series_usecase.dart';
 import 'package:o_que_assistir/app/features/home/presentation/stores/home_store.dart';
 
 class MockGetMoviesUsecase extends Mock implements GetMoviesUsecase {}
 
+class MockGetTVSeriesUsecase extends Mock implements GetTVSeriesUsecase {}
+
 void main() {
   late HomeStore store;
   late MockGetMoviesUsecase getMoviesUsecase;
+  late MockGetTVSeriesUsecase getTVSeriesUsecase;
 
   setUp(() {
     getMoviesUsecase = MockGetMoviesUsecase();
-    store = HomeStore(getMoviesUsecase);
+    getTVSeriesUsecase = MockGetTVSeriesUsecase();
+    store = HomeStore(getMoviesUsecase, getTVSeriesUsecase);
     registerFallbackValue(GetMoviesParams(MovieCategory.popular));
   });
 
-  final tMovies = <TVSerieEntity>[
-    TVSerieEntity(
+  final tMovies = <MovieEntity>[
+    MovieEntity(
       id: "1",
       title: 'Fight Club',
       originalTitle: 'Fight Club',

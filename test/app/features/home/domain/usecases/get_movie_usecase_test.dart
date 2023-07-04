@@ -5,7 +5,7 @@ import 'package:o_que_assistir/app/features/home/data/models/gender_model.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
 import 'package:o_que_assistir/app/features/home/domain/usecases/get_movie_usecase.dart';
 
-import 'mock_movie_repository.dart';
+import 'mocks.dart';
 
 void main() {
   late GetMovieUsecase usecase;
@@ -38,7 +38,7 @@ aggression into a shocking new form of therapy. Their concept catches on, with
 underground "fight clubs" forming in every town, until an eccentric gets in the 
 way and ignites an out-of-control spiral toward oblivion.''';
 
-  final tMovie = TVSerieEntity(
+  final tMovie = MovieEntity(
     id: tId,
     title: tTitle,
     originalTitle: tOriginalTitle,

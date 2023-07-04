@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
 
 void main() {
-  final movie = TVSerieEntity(
+  final movie = MovieEntity(
     id: "1",
     title: 'title',
     overview: 'overview',

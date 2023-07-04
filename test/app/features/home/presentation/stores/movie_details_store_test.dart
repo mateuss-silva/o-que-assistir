@@ -26,7 +26,7 @@ void main() {
     mockGetCastUsecase = MockGetCastUsecase();
     store = MovieDetailsStore(mockGetMovieUsecase, mockGetCastUsecase);
     registerFallbackValue(GetMovieParams(tMovieId));
-    registerFallbackValue(GetCastParams(tMovieId));
+    registerFallbackValue(GetCastParams(id: tMovieId, isMovie: true));
   });
 
   const tId = "550";
@@ -51,7 +51,7 @@ aggression into a shocking new form of therapy. Their concept catches on, with
 underground "fight clubs" forming in every town, until an eccentric gets in the 
 way and ignites an out-of-control spiral toward oblivion.''';
 
-  final tMovie = TVSerieEntity(
+  final tMovie = MovieEntity(
     id: tId,
     title: tTitle,
     originalTitle: tOriginalTitle,
@@ -135,7 +135,8 @@ way and ignites an out-of-control spiral toward oblivion.''';
 
     //assert
     expect(store.cast, tCast);
-    verify(() => mockGetCastUsecase(GetCastParams(tMovieId)));
+    verify(
+        () => mockGetCastUsecase(GetCastParams(id: tMovieId, isMovie: true)));
     verifyNoMoreInteractions(mockGetCastUsecase);
   });
 
@@ -151,7 +152,8 @@ way and ignites an out-of-control spiral toward oblivion.''';
 
     //assert
     expect(store.errorMessageStream.value, ServerFailure().message);
-    verify(() => mockGetCastUsecase(GetCastParams(tMovieId)));
+    verify(
+        () => mockGetCastUsecase(GetCastParams(id: tMovieId, isMovie: true)));
     verifyNoMoreInteractions(mockGetCastUsecase);
   });
 }
