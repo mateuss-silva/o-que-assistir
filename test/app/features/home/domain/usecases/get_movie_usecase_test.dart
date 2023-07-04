@@ -55,6 +55,10 @@ way and ignites an out-of-control spiral toward oblivion.''';
     runtime: tRuntime,
   );
 
+  test('should be a subclass of usecase', () async {
+    expect(usecase, isA<GetMovieUsecase>());
+  });
+
   test('should get movie details from the repository', () async {
     when(() => mockMovieRepository.getMovie(any()))
         .thenAnswer((_) async => Right(tMovie));

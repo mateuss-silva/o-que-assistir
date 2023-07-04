@@ -8,8 +8,8 @@ import 'package:o_que_assistir/app/features/home/domain/usecases/get_movies_usec
 import 'mock_movie_repository.dart';
 
 void main() {
-  late final GetMoviesUsecase usecase;
-  late final MockMovieRepository mockMovieRepository;
+  late GetMoviesUsecase usecase;
+  late MockMovieRepository mockMovieRepository;
 
   setUp(() {
     mockMovieRepository = MockMovieRepository();
@@ -33,6 +33,10 @@ void main() {
       voteCount: 1,
     )
   ];
+
+  test('should be a subclass of usecase', () async {
+    expect(usecase, isA<GetMoviesUsecase>());
+  });
 
   test('should get popular movies from the repository', () async {
     // arrange

@@ -6,9 +6,9 @@ abstract interface class Usecase<Entity, Params> {
   Future<Either<Failure, Entity>> call(Params params);
 }
 
-abstract base class BaseParams extends Equatable {
+abstract base class BaseParams extends Equatable {}
+
+final class NoParams extends BaseParams {
   @override
   List<Object?> get props => [];
 }
-
-final class NoParams extends BaseParams {}

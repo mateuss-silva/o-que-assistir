@@ -8,12 +8,12 @@ import 'package:o_que_assistir/app/features/home/presentation/pages/home_page.da
 import 'package:o_que_assistir/app/features/home/presentation/pages/movie_details_page.dart';
 import 'package:o_que_assistir/app/features/home/presentation/stores/home_store.dart';
 import 'package:o_que_assistir/app/features/home/presentation/stores/movie_details_store.dart';
-import 'package:http/http.dart' as Http;
+import 'package:http/http.dart' as http;
 
 class HomeModule extends Module {
   @override
   final List<Bind> binds = [
-    Bind.factory((i) => MovieDataSourceImpl(i<Http.Client>())),
+    Bind.factory((i) => MovieDataSourceImpl(i<http.Client>())),
     Bind.factory((i) => MovieRepositoryImpl(i<MovieDataSourceImpl>())),
     Bind.factory((i) => GetMovieUsecase(i<MovieRepositoryImpl>())),
     Bind.factory((i) => GetMoviesUsecase(i<MovieRepositoryImpl>())),

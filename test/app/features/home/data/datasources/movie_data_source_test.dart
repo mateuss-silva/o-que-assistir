@@ -7,6 +7,7 @@ import 'package:o_que_assistir/app/core/common/constants.dart';
 import 'package:o_que_assistir/app/core/error/exceptions.dart';
 import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_source.dart';
 import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_source_impl.dart';
+import 'package:o_que_assistir/app/features/home/data/models/actor_model.dart';
 import 'package:o_que_assistir/app/features/home/data/models/movie_model.dart';
 
 import '../../../../fixtures/fixture_render.dart';
@@ -31,6 +32,11 @@ void main() {
   void setupHttpClientGetMoviesSuccess200() {
     when(() => mockHttpClient.get(any(), headers: any(named: 'headers')))
         .thenAnswer((_) async => http.Response(fixture("movies.json"), 200));
+  }
+
+  void setupHttpClientGetCastSuccess200() {
+    when(() => mockHttpClient.get(any(), headers: any(named: 'headers')))
+        .thenAnswer((_) async => http.Response(fixture("credits.json"), 200));
   }
 
   void setupHttpClientFailure404() {
@@ -137,6 +143,55 @@ void main() {
       // assert
       expect(() => call(category: MovieCategory.popular),
           throwsA(const TypeMatcher<ServerException>()));
+    });
+  });
+
+  group("Get credits", () {
+    const tMovieId = 550;
+    test("should perform a GET on a url with credits being the endpoint", () {
+      // arrange
+      setupHttpClientGetCastSuccess200();
+
+      // act
+      movieDataSource.getCast(tMovieId);
+
+      // assert
+      verify(() => mockHttpClient.get(
+            Uri.parse(
+                '$baseUrl/movie/$tMovieId/credits?api_key=$apiKey&language=$language'),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          ));
+
+      verifyNoMoreInteractions(mockHttpClient);
+    });
+
+    test(
+        'should return List<ActorModel> when the response code is 200 (success)',
+        () async {
+      // arrange
+      setupHttpClientGetCastSuccess200();
+
+      // act
+      final result = await movieDataSource.getCast(tMovieId);
+
+      // assert
+      expect(result, isA<List<ActorModel>>());
+    });
+
+    test(
+        'should throw a ServerException when the response of get credits code is 404 or other',
+        () async {
+      // arrange
+      setupHttpClientFailure404();
+
+      // act
+      final call = movieDataSource.getCast;
+
+      // assert
+      expect(
+          () => call(tMovieId), throwsA(const TypeMatcher<ServerException>()));
     });
   });
 }

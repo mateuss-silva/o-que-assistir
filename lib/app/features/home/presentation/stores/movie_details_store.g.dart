@@ -22,6 +22,13 @@ mixin _$MovieDetailsStore on MovieDetailsStoreBase, Store {
       (_$movieComputed ??= Computed<MovieEntity>(() => super.movie,
               name: 'MovieDetailsStoreBase.movie'))
           .value;
+  Computed<ObservableList<ActorEntity>>? _$castComputed;
+
+  @override
+  ObservableList<ActorEntity> get cast => (_$castComputed ??=
+          Computed<ObservableList<ActorEntity>>(() => super.cast,
+              name: 'MovieDetailsStoreBase.cast'))
+      .value;
 
   late final _$_loadingAtom =
       Atom(name: 'MovieDetailsStoreBase._loading', context: context);
@@ -52,6 +59,22 @@ mixin _$MovieDetailsStore on MovieDetailsStoreBase, Store {
   set _movie(MovieEntity? value) {
     _$_movieAtom.reportWrite(value, super._movie, () {
       super._movie = value;
+    });
+  }
+
+  late final _$_castAtom =
+      Atom(name: 'MovieDetailsStoreBase._cast', context: context);
+
+  @override
+  ObservableList<ActorEntity> get _cast {
+    _$_castAtom.reportRead();
+    return super._cast;
+  }
+
+  @override
+  set _cast(ObservableList<ActorEntity> value) {
+    _$_castAtom.reportWrite(value, super._cast, () {
+      super._cast = value;
     });
   }
 
@@ -89,6 +112,17 @@ mixin _$MovieDetailsStore on MovieDetailsStoreBase, Store {
   }
 
   @override
+  void setCast(List<ActorEntity> value) {
+    final _$actionInfo = _$MovieDetailsStoreBaseActionController.startAction(
+        name: 'MovieDetailsStoreBase.setCast');
+    try {
+      return super.setCast(value);
+    } finally {
+      _$MovieDetailsStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic _setErrorMessageFromFailure(Failure failure) {
     final _$actionInfo = _$MovieDetailsStoreBaseActionController.startAction(
         name: 'MovieDetailsStoreBase._setErrorMessageFromFailure');
@@ -103,7 +137,8 @@ mixin _$MovieDetailsStore on MovieDetailsStoreBase, Store {
   String toString() {
     return '''
 loading: ${loading},
-movie: ${movie}
+movie: ${movie},
+cast: ${cast}
     ''';
   }
 }

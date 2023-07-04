@@ -27,6 +27,10 @@ void main() {
     )
   ];
 
+  test('should be a subclass of usecase', () async {
+    expect(usecase, isA<GetCastUsecase>());
+  });
+
   test('should get a list of actors from the repository', () async {
     // arrange
     when(()=> repository.getCast(any())).thenAnswer((_) async => Right(tActors));
