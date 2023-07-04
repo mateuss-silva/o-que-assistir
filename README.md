@@ -16,7 +16,7 @@ O aplicativo foi viabilizado utilizada a API do [The Movie Database](https://www
 
 ### Arquitetura
 
-O aplicativo foi desenvolvido utilizando Clean Architecture em conjunto com o desenvolvimento orientado a testes (TDD).
+O aplicativo foi desenvolvido utilizando Clean Architecture em conjunto com o desenvolvimento orientado a testes (TDD). Vale salientar que a abordagem utilizada é o Clean Architecture apresentada pelo [Reso Coder](https://resocoder.com/flutter-clean-architecture-tdd/).
 <img src="/assets/images/tdd.png" align="left" alt="TDD" style="width: 175px; height: 125;"/>
 
 <br clear="left"/>
