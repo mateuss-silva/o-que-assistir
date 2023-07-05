@@ -96,6 +96,7 @@ class _TVSerieDetailsPageState extends State<TVSerieDetailsPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: Wrap(
                     crossAxisAlignment: WrapCrossAlignment.center,
+                    spacing: 8,
                     children: [
                       SizedBox(
                         height: 28,
@@ -120,31 +121,26 @@ class _TVSerieDetailsPageState extends State<TVSerieDetailsPage> {
                           ],
                         ),
                       ),
-                      const SizedBox(width: 8),
                       const Text(
                         "Popularidade",
                         style: TextStyle(
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(width: 16),
                       Text(
                         store.tvSerie.firstAirDate.year.toString(),
                         style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(width: 16),
                       Text(
                         store.tvSerie.genres.first.name ?? '',
                         style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(width: 16),
                       Text(
                         store.tvSerie.seasons,
                         style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(width: 16),
                     ],
                   ),
                 ),

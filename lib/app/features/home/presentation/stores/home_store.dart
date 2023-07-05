@@ -29,11 +29,17 @@ abstract class HomeStoreBase with Store {
   @observable
   bool _showMovies = true;
 
+  @observable
+  bool _showSearchBar = false;
+
   @computed
   bool get loading => _loading;
 
   @computed
   bool get showMovies => _showMovies;
+
+  @computed
+  bool get showSearchBar => _showSearchBar;
 
   @computed
   List<bool> get showMovieOrSeries => [showMovies, !showMovies];
@@ -79,7 +85,6 @@ abstract class HomeStoreBase with Store {
   @action
   Future<void> getMovies() async {
     setLoading(true);
-    setErrorMessage(null);
 
     final popularMoviesFuture =
         getMoviesUsecase(GetMoviesParams(MovieCategory.popular));
@@ -131,9 +136,8 @@ abstract class HomeStoreBase with Store {
   }
 
   @action
-  void getTVSeries() async {
+  Future<void> getTVSeries() async {
     setLoading(true);
-    setErrorMessage(null);
 
     final popularTVSeriesFuture =
         getTVSeriesUsecase(GetTVSeriesParams(TVSerieCategory.popular));
@@ -185,6 +189,11 @@ abstract class HomeStoreBase with Store {
   }
 
   @action
+  Future<void> search(String query) async {
+
+  }
+
+  @action
   void setLoading(bool value) => _loading = value;
 
   @action
@@ -227,4 +236,7 @@ abstract class HomeStoreBase with Store {
   @action
   _setErrorMessageFromFailure(Failure failure) =>
       setErrorMessage(failure.message);
+  
+  @action
+  void setShowSearchBar(bool value) => _showSearchBar = value;
 }
