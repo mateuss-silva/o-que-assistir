@@ -7,6 +7,9 @@ O aplicativo tem como objetivo mostrar filmes, series e afins. Contendo informa√
 <img src="/assets/images/home-2.png" alt="Home" style="height: 450px; "/>
 <img src="/assets/images/loading.png" alt="Home" style="height: 450px; "/>
 
+<img src="/assets/images/search-2.png" alt="Home" style="height: 450px; "/>
+<img src="/assets/images/search.png" alt="Home" style="height: 450px; "/>
+
 <img src="/assets/images/movie-details.png" alt="Details" style="height: 450px; "/>
 <img src="/assets/images/serie-details.png" alt="Details" style="height: 450px; "/>
 </div>
