@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:o_que_assistir/app/core/common/extensions/string_extension.dart';
 import 'package:o_que_assistir/app/features/home/presentation/stores/tv_serie_details_store.dart';
 import 'package:o_que_assistir/app/features/home/presentation/widgets/cast_widget.dart';
+import 'package:o_que_assistir/app/features/home/presentation/widgets/poster_widget.dart';
 
 class TVSerieDetailsPage extends StatefulWidget {
   final int tvSerieId;
@@ -54,12 +54,7 @@ class _TVSerieDetailsPageState extends State<TVSerieDetailsPage> {
             children: [
               Stack(
                 children: [
-                  Image.network(
-                    store.tvSerie.posterPath.imageUrl,
-                    height: 512,
-                    width: double.maxFinite,
-                    fit: BoxFit.fitWidth,
-                  ),
+                  PosterWidget(posterPath: store.tvSerie.posterPath),
                   CupertinoButton(
                     child: Container(
                       padding: const EdgeInsets.only(
@@ -127,7 +122,7 @@ class _TVSerieDetailsPageState extends State<TVSerieDetailsPage> {
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        store.tvSerie.firstAirDate.year.toString(),
+                        store.tvSerie.firstAirDate?.year.toString() ?? '',
                         style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),

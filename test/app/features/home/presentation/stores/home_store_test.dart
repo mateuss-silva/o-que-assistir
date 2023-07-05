@@ -5,6 +5,7 @@ import 'package:o_que_assistir/app/core/error/failure.dart';
 import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_source.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
 import 'package:o_que_assistir/app/features/home/domain/usecases/get_movies_usecase.dart';
+import 'package:o_que_assistir/app/features/home/domain/usecases/get_suggestions_usecase.dart';
 import 'package:o_que_assistir/app/features/home/domain/usecases/get_tv_series_usecase.dart';
 import 'package:o_que_assistir/app/features/home/presentation/stores/home_store.dart';
 
@@ -12,15 +13,19 @@ class MockGetMoviesUsecase extends Mock implements GetMoviesUsecase {}
 
 class MockGetTVSeriesUsecase extends Mock implements GetTVSeriesUsecase {}
 
+class MockGetSuggestionsUsecase extends Mock implements GetSuggestionsUsecase {}
+
 void main() {
   late HomeStore store;
   late MockGetMoviesUsecase getMoviesUsecase;
   late MockGetTVSeriesUsecase getTVSeriesUsecase;
+  late MockGetSuggestionsUsecase getSuggestionsUsecase;
 
   setUp(() {
     getMoviesUsecase = MockGetMoviesUsecase();
     getTVSeriesUsecase = MockGetTVSeriesUsecase();
-    store = HomeStore(getMoviesUsecase, getTVSeriesUsecase);
+    getSuggestionsUsecase = MockGetSuggestionsUsecase();
+    store = HomeStore(getMoviesUsecase, getTVSeriesUsecase, getSuggestionsUsecase);
     registerFallbackValue(GetMoviesParams(MovieCategory.popular));
   });
 

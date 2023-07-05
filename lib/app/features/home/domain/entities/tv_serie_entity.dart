@@ -5,10 +5,10 @@ base class TVSerieEntity extends Entity {
   final String name;
   final String originalName;
   final String? backdropPath;
-  final String posterPath;
+  final String? posterPath;
   final List<GenderModel> genres;
   final String overview;
-  final DateTime firstAirDate;
+  final DateTime? firstAirDate;
   final double popularity;
   final double voteAverage;
   final int voteCount;

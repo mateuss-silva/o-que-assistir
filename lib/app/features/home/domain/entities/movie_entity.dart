@@ -5,10 +5,10 @@ base class MovieEntity extends Entity {
   final String title;
   final String originalTitle;
   final String? backdropPath;
-  final String posterPath;
+  final String? posterPath;
   final List<GenderModel> genres;
   final String overview;
-  final DateTime releaseDate;
+  final DateTime? releaseDate;
   final double popularity;
   final double voteAverage;
   final int voteCount;

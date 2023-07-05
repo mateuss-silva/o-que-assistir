@@ -20,7 +20,7 @@ class TVSerieCardWidget extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(4),
               child: Image.network(
-                tvSerie.posterPath.imageUrl,
+                tvSerie.posterPath!.imageUrl,
                 fit: BoxFit.cover,
                 height: 180,
               ),

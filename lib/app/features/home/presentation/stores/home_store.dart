@@ -10,6 +10,7 @@ import 'package:o_que_assistir/app/features/home/data/datasources/tv_serie_data_
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/tv_serie_entity.dart';
 import 'package:o_que_assistir/app/features/home/domain/usecases/get_movies_usecase.dart';
+import 'package:o_que_assistir/app/features/home/domain/usecases/get_suggestions_usecase.dart';
 import 'package:o_que_assistir/app/features/home/domain/usecases/get_tv_series_usecase.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -20,8 +21,13 @@ class HomeStore = HomeStoreBase with _$HomeStore;
 abstract class HomeStoreBase with Store {
   final GetMoviesUsecase getMoviesUsecase;
   final GetTVSeriesUsecase getTVSeriesUsecase;
+  final GetSuggestionsUsecase getSuggestionsUsecase;
 
-  HomeStoreBase(this.getMoviesUsecase, this.getTVSeriesUsecase);
+  HomeStoreBase(
+    this.getMoviesUsecase,
+    this.getTVSeriesUsecase,
+    this.getSuggestionsUsecase,
+  );
 
   @observable
   bool _loading = false;
@@ -32,6 +38,9 @@ abstract class HomeStoreBase with Store {
   @observable
   bool _showSearchBar = false;
 
+  @observable
+  bool _searchingSuggestions = false;
+
   @computed
   bool get loading => _loading;
 
@@ -40,6 +49,9 @@ abstract class HomeStoreBase with Store {
 
   @computed
   bool get showSearchBar => _showSearchBar;
+
+  @computed
+  bool get searchingSuggestions => _searchingSuggestions;
 
   @computed
   List<bool> get showMovieOrSeries => [showMovies, !showMovies];
@@ -62,6 +74,9 @@ abstract class HomeStoreBase with Store {
   @observable
   ObservableList<TVSerieEntity> _airingTodayTVSeries = ObservableList();
 
+  @observable
+  ObservableList _suggestions = ObservableList();
+
   @computed
   ObservableList<MovieEntity> get popularMovies => _popularMovies;
   @computed
@@ -79,6 +94,9 @@ abstract class HomeStoreBase with Store {
   ObservableList<TVSerieEntity> get onTheAirTVSeries => _onTheAirTVSeries;
   @computed
   ObservableList<TVSerieEntity> get airingTodayTVSeries => _airingTodayTVSeries;
+
+  @computed
+  ObservableList get suggestions => _suggestions;
 
   BehaviorSubject<String?> errorMessageStream = BehaviorSubject();
 
@@ -190,7 +208,17 @@ abstract class HomeStoreBase with Store {
 
   @action
   Future<void> search(String query) async {
+    setSearchingSuggestions(true);
 
+    final suggestionsResponse =
+        await getSuggestionsUsecase(GetSuggestionsParams(query: query));
+
+    suggestionsResponse.fold(
+      _setErrorMessageFromFailure,
+      setSuggestions,
+    );
+
+    setSearchingSuggestions(false);
   }
 
   @action
@@ -234,9 +262,15 @@ abstract class HomeStoreBase with Store {
       _airingTodayTVSeries = value.asObservable();
 
   @action
+  void setSuggestions(List value) => _suggestions = value.asObservable();
+
+  @action
   _setErrorMessageFromFailure(Failure failure) =>
       setErrorMessage(failure.message);
-  
+
   @action
   void setShowSearchBar(bool value) => _showSearchBar = value;
+
+  @action
+  void setSearchingSuggestions(bool value) => _searchingSuggestions = value;
 }

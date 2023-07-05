@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:o_que_assistir/app/core/common/constants.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
-import 'package:o_que_assistir/app/features/home/domain/entities/tv_serie_entity.dart';
 import 'package:o_que_assistir/app/features/home/presentation/widgets/loading_categories.dart';
 import 'package:o_que_assistir/app/features/home/presentation/widgets/movies_categories_widget.dart';
 import 'package:o_que_assistir/app/features/home/presentation/widgets/search_bar_widget.dart';
@@ -62,118 +61,106 @@ class _HomePageState extends State<HomePage>
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
-          SliverAppBar(
-            expandedHeight: 150.0,
-            centerTitle: true,
-            pinned: true,
-            surfaceTintColor: Theme.of(context).colorScheme.background,
-            flexibleSpace: FlexibleSpaceBar(
-              centerTitle: true,
-              expandedTitleScale: 1,
-              titlePadding: const EdgeInsets.all(8),
-              title: Observer(builder: (_) {
-                return AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  switchInCurve: Curves.easeOut,
-                  switchOutCurve: Curves.easeOut,
-                  child: store.showSearchBar
-                      ? SearchBarWidget(
-                          onSearch: store.search,
-                          onSubmitted: () {
-                            store.setShowSearchBar(false);
-                            fadeController.reverse();
-                          },
-                          controller: controller,
-                        )
-                      : Align(
-                          alignment: Alignment.bottomLeft,
-                          child: IconButton.filled(
-                            style: IconButton.styleFrom(
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.background,
-                            ),
-                            onPressed: () {
-                              store.setShowSearchBar(true);
-                              fadeController.forward();
-                            },
-                            icon: const Icon(
-                              Icons.search,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                );
-              }),
-              background: Image.network(
-                searchBackdropImage,
-                fit: BoxFit.fitWidth,
-              ),
-            ),
-          ),
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                Stack(
-                  children: [
-                    Column(
-                      children: [
-                        const SizedBox(height: 16),
-                        Observer(builder: (_) {
-                          return Align(
-                            child: ToggleButtons(
-                              borderRadius: BorderRadius.circular(32),
-                              onPressed: _onPressToggle,
-                              isSelected: store.showMovieOrSeries,
-                              children: const [
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 16),
-                                  child: Text("Filmes"),
+                Image.network(
+                  searchBackdropImage,
+                  fit: BoxFit.fitWidth,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
+                  child: Observer(builder: (_) {
+                    return AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      switchInCurve: Curves.easeOut,
+                      switchOutCurve: Curves.easeOut,
+                      child: store.showSearchBar
+                          ? SearchBarWidget(
+                              onSearch: store.search,
+                              onSubmitted: () {
+                                controller.clear();
+                                store.setSuggestions([]);
+                                store.setShowSearchBar(false);
+                                fadeController.reverse();
+                              },
+                              controller: controller,
+                            )
+                          : Align(
+                              alignment: Alignment.bottomLeft,
+                              child: IconButton(
+                                style: IconButton.styleFrom(
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.background,
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 16),
-                                  child: Text("Séries"),
+                                onPressed: () {
+                                  store.setShowSearchBar(true);
+                                  store.setSuggestions([]);
+                                  fadeController.forward();
+                                },
+                                icon: const Icon(
+                                  Icons.search,
+                                  color: Colors.white,
                                 ),
-                              ],
+                              ),
                             ),
-                          );
-                        }),
-                        Observer(
-                          builder: (_) {
-                            if (store.loading) {
-                              return const LoadingCategoriesWidget();
-                            }
-
-                            return store.showMovies
-                                ? const MoviesCategoriesWidget()
-                                : const TVSeriesCategoriesWidget();
-                          },
+                    );
+                  }),
+                ),
+                Observer(builder: (_) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: SearchSuggestionsWidget(
+                      showLoading: store.searchingSuggestions,
+                      suggestions: store.suggestions,
+                      showSuggestions: store.showSearchBar,
+                      onSuggestionSelected: (suggestion) {
+                        store.setShowSearchBar(false);
+                        controller.clear();
+                        store.setSuggestions([]);
+                        if (suggestion is MovieEntity) {
+                          Modular.to
+                              .pushNamed("/movie-details/${suggestion.id}");
+                        } else {
+                          Modular.to
+                              .pushNamed("/tv-serie-details/${suggestion.id}");
+                        }
+                      },
+                    ),
+                  );
+                }),
+                const SizedBox(height: 16),
+                Observer(builder: (_) {
+                  return Align(
+                    child: ToggleButtons(
+                      borderRadius: BorderRadius.circular(32),
+                      onPressed: _onPressToggle,
+                      isSelected: store.showMovieOrSeries,
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          child: Text("Filmes"),
                         ),
-                        const SizedBox(height: 32),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          child: Text("Séries"),
+                        ),
                       ],
                     ),
-                    Observer(builder: (_) {
-                      return Visibility(
-                        visible: store.showSearchBar,
-                        child: FadeTransition(
-                          opacity: animation,
-                          child: SearchSuggestionsWidget(
-                            suggestions: store.popularMovies,
-                            onSuggestionSelected: (suggestion) {
-                              store.setShowSearchBar(false);
-                              if (suggestion is MovieEntity) {
-                                Modular.to.pushNamed(
-                                    "/movie-details/${suggestion.id}");
-                              } else if (suggestion is TVSerieEntity) {
-                                Modular.to.pushNamed(
-                                    "/tv-serie-details/${suggestion.id}");
-                              }
-                            },
-                          ),
-                        ),
-                      );
-                    }),
-                  ],
-                )
+                  );
+                }),
+                Observer(
+                  builder: (_) {
+                    if (store.loading) {
+                      return const LoadingCategoriesWidget();
+                    }
+
+                    return store.showMovies
+                        ? const MoviesCategoriesWidget()
+                        : const TVSeriesCategoriesWidget();
+                  },
+                ),
+                const SizedBox(height: 32),
               ],
             ),
           ),

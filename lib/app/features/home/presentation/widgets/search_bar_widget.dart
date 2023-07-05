@@ -1,22 +1,38 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SearchBarWidget extends StatelessWidget {
+class SearchBarWidget extends StatefulWidget {
   final Function(String) onSearch;
   final Function() onSubmitted;
   final TextEditingController controller;
   const SearchBarWidget({
     super.key,
     required this.onSearch,
-    required this.onSubmitted, required this.controller,
+    required this.onSubmitted,
+    required this.controller,
   });
+
+  @override
+  State<SearchBarWidget> createState() => _SearchBarWidgetState();
+}
+
+class _SearchBarWidgetState extends State<SearchBarWidget> {
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  Timer? timer;
 
   @override
   Widget build(BuildContext context) {
     return CupertinoTextField(
-      onChanged: onSearch,
-      onEditingComplete: onSubmitted,
-      controller: controller,
+      onChanged: (query) => _debounce(() => widget.onSearch(query)),
+      onEditingComplete: widget.onSubmitted,
+      controller: widget.controller,
       autofocus: true,
       placeholder: "Pesquisar filmes, séries, etc...",
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -26,7 +42,10 @@ class SearchBarWidget extends StatelessWidget {
       style: const TextStyle(color: Colors.white),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(8),
+          topRight: Radius.circular(8),
+        ),
         border: Border.all(
           color: Colors.white,
           width: 1,
@@ -40,5 +59,10 @@ class SearchBarWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _debounce(VoidCallback search) {
+    timer?.cancel();
+    timer = Timer(const Duration(milliseconds: 500), search);
   }
 }
