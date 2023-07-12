@@ -12,22 +12,19 @@ void main() {
   const tOriginalTitle = 'Fight Club';
   const tBackdropPath = "/hZkgoQYus5vegHoetLkCJzb17zJ.jpg";
   const tGenres = <GenderModel>[
-    GenderModel(id: "1", name: 'Drama'),
-    GenderModel(id: "2", name: 'Thriller'),
-    GenderModel(id: "3", name: 'Comedy')
+    GenderModel(id: "18", name: "Drama"),
+    GenderModel(id: "53", name: "Thriller"),
+    GenderModel(id: "35", name: "Comedy")
   ];
   const tPopularity = 73.566;
   const tPosterPath = '/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg';
   final tReleaseDate = DateTime(1999, 10, 15);
   const tStatus = 'Released';
   const tVoteAverage = 8.435;
-  const tVoteCount = 26651;
+  const tVoteCount = 26650;
   const tRuntime = 139;
-  const tOverview = '''
-A ticking-time-bomb insomniac and a slippery soap salesman channel primal male 
-aggression into a shocking new form of therapy. Their concept catches on, with 
-underground "fight clubs" forming in every town, until an eccentric gets in the 
-way and ignites an out-of-control spiral toward oblivion.''';
+  const tOverview =
+      'A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground "fight clubs" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.';
 
   final movieModel = MovieModel(
     id: tId,

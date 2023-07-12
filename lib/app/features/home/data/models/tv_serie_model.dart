@@ -26,7 +26,7 @@ final class TVSerieModel extends TVSerieEntity {
       posterPath: json['poster_path'],
       genres: GenderModel.fromJsonList((json['genres'] ?? []) as List),
       overview: json['overview'],
-      popularity: json['popularity'],
+      popularity: json['popularity'].toDouble(),
       firstAirDate: DateTime.tryParse(json['first_air_date']),
       voteAverage: json['vote_average'].toDouble(),
       voteCount: json['vote_count'],

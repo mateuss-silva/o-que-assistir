@@ -15,4 +15,14 @@ base class ActorEntity extends Entity {
     required this.character,
     required this.popularity,
   });
+
+  @override
+  List<Object?> get props => [
+        id,
+        knownFor,
+        name,
+        profilePath,
+        character,
+        popularity,
+      ];
 }

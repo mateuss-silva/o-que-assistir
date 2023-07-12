@@ -35,4 +35,20 @@ base class TVSerieEntity extends Entity {
     required this.voteCount,
     this.seasonCount,
   });
+
+  @override
+  List<Object?> get props => [
+        id,
+        name,
+        originalName,
+        backdropPath,
+        posterPath,
+        genres,
+        overview,
+        popularity,
+        firstAirDate,
+        voteAverage,
+        voteCount,
+        seasonCount,
+      ];
 }

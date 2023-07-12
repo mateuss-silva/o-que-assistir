@@ -16,6 +16,15 @@ base class MovieEntity extends Entity {
   final int? runtime;
   final String? status;
 
+  String get movieDuration {
+    int hoursFromMinutes(int minutes) => minutes ~/ 60;
+    int remainingMinutes(int minutes) => minutes % 60;
+
+    if (runtime == null) return 'N/A';
+
+    return '${hoursFromMinutes(runtime!)}h ${remainingMinutes(runtime!)}m';
+  }
+
   const MovieEntity({
     required super.id,
     required this.title,
@@ -32,10 +41,20 @@ base class MovieEntity extends Entity {
     required this.runtime,
   });
 
-  String movieDuration() {
-    if (runtime == null) return 'N/A';
-    final hours = runtime! ~/ 60;
-    final minutes = runtime! % 60;
-    return '${hours}h ${minutes}m';
-  }
+  @override
+  List<Object?> get props => [
+        id,
+        title,
+        originalTitle,
+        backdropPath,
+        posterPath,
+        genres,
+        overview,
+        popularity,
+        releaseDate,
+        status,
+        voteAverage,
+        voteCount,
+        runtime,
+      ];
 }

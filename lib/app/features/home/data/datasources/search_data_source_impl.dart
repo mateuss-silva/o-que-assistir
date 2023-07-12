@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:o_que_assistir/app/core/common/constants.dart';
+import 'package:o_que_assistir/app/core/entities/entity.dart';
 import 'package:o_que_assistir/app/core/error/exceptions.dart';
 import 'package:o_que_assistir/app/features/home/data/datasources/search_data_source.dart';
 // http
@@ -26,17 +27,33 @@ class SearchDataSourceImpl implements SearchDataSource {
     if (response.statusCode == 200) {
       var results = json.decode(response.body)['results'] as List;
 
-      results.removeWhere((element) => element['media_type'] == 'person');
+      results.removeWhere(Media.typeIsPerson);
 
-      results = results
-          .map((e) => e['media_type'] == 'tv'
-              ? TVSerieModel.fromJson(e)
-              : MovieModel.fromJson(e))
-          .toList();
+      results = results.map(Media.fromType).toList();
 
       return results;
     } else {
       throw ServerException();
     }
   }
+}
+
+class Media {
+  static const movie = 'movie';
+  static const tv = 'tv';
+  static const person = 'person';
+
+  static Entity fromType(data) {
+    switch (data['media_type']) {
+      case movie:
+        return MovieModel.fromJson(data);
+      case tv:
+        return TVSerieModel.fromJson(data);
+      case person:
+      default:
+        throw Exception('Invalid media type');
+    }
+  }
+
+  static bool typeIsPerson(data) => data['media_type'] == Media.person;
 }

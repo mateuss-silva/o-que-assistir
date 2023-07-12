@@ -127,7 +127,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        store.movie.movieDuration(),
+                        store.movie.movieDuration,
                         style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),

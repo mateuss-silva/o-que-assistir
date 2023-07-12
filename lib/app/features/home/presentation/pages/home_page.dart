@@ -19,29 +19,25 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  late final HomeStore store;
-  late final AnimationController fadeController;
-  late final Animation<double> animation;
+  final store = Modular.get<HomeStore>();
+  late final fadeController = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 300),
+  );
+  late final animation = Tween(
+    begin: 0.0,
+    end: 1.0,
+  ).animate(fadeController);
 
   final controller = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    store = Modular.get<HomeStore>();
 
     store.getMovies();
 
     store.errorMessageStream.listen(_showErrorMessage);
-
-    fadeController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    animation = Tween(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(fadeController);
   }
 
   _showErrorMessage(String? message) {
@@ -114,18 +110,7 @@ class _HomePageState extends State<HomePage>
                       showLoading: store.searchingSuggestions,
                       suggestions: store.suggestions,
                       showSuggestions: store.showSearchBar,
-                      onSuggestionSelected: (suggestion) {
-                        store.setShowSearchBar(false);
-                        controller.clear();
-                        store.setSuggestions([]);
-                        if (suggestion is MovieEntity) {
-                          Modular.to
-                              .pushNamed("/movie-details/${suggestion.id}");
-                        } else {
-                          Modular.to
-                              .pushNamed("/tv-serie-details/${suggestion.id}");
-                        }
-                      },
+                      onSuggestionSelected: onClickSuggestion,
                     ),
                   );
                 }),
@@ -180,6 +165,17 @@ class _HomePageState extends State<HomePage>
       store.getMovies();
     } else {
       store.getTVSeries();
+    }
+  }
+
+  onClickSuggestion(suggestion) {
+    store.setShowSearchBar(false);
+    controller.clear();
+    store.setSuggestions([]);
+    if (suggestion is MovieEntity) {
+      Modular.to.pushNamed("/movie-details/${suggestion.id}");
+    } else {
+      Modular.to.pushNamed("/tv-serie-details/${suggestion.id}");
     }
   }
 }

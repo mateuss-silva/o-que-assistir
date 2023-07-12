@@ -15,12 +15,11 @@ class TVSerieDetailsPage extends StatefulWidget {
 }
 
 class _TVSerieDetailsPageState extends State<TVSerieDetailsPage> {
-  late final TVSerieDetailsStore store;
+  final store = Modular.get<TVSerieDetailsStore>();
 
   @override
   void initState() {
     super.initState();
-    store = Modular.get<TVSerieDetailsStore>();
 
     store.getTVSerie(widget.tvSerieId);
 
