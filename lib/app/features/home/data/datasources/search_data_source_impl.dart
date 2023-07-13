@@ -1,7 +1,6 @@
 import 'package:o_que_assistir/app/core/common/constants.dart';
 import 'package:o_que_assistir/app/core/common/result.dart';
 import 'package:o_que_assistir/app/core/common/status_code_extension.dart';
-import 'package:o_que_assistir/app/core/common/types.dart';
 import 'package:o_que_assistir/app/core/error/exceptions.dart';
 import 'package:o_que_assistir/app/features/home/data/datasources/search_data_source.dart';
 import 'package:o_que_assistir/app/features/home/data/factories/media_factory.dart';
@@ -37,16 +36,16 @@ class SearchDataSourceImpl implements SearchDataSource {
         .toList();
   }
 
-  List<Json> suggestionResults(response) =>
+  List suggestionResults(response) =>
       MultipleResult.fromResponse(response).data;
 
-  Iterable<Json> excludePersonFrom(List<Json> data) {
+  Iterable excludePersonFrom(List data) {
     return data.where((data) => !typeIsPerson(createMedia(data)));
   }
 
   bool typeIsPerson(MediaResult media) => media.type.isPerson;
 
-  MediaResult createMedia(Json data) {
+  MediaResult createMedia(data) {
     return (type: MediaType.fromString(data['media_type']), data: data);
   }
 }

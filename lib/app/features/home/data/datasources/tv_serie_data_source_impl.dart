@@ -57,7 +57,7 @@ class TVSerieDataSourceImpl implements TVSerieDataSource {
     );
 
     if (response.statusCode.isSuccess) {
-      return castFromResults(CastResult.fromResponse(response));
+      return castFromResults(CastResult.fromResponse(response).data);
     } else {
       throw ServerException();
     }

@@ -56,7 +56,7 @@ class MovieDataSourceImpl implements MovieDataSource {
     );
 
     if (response.statusCode.isSuccess) {
-      return castFromResults(CastResult.fromResponse(response));
+      return castFromResults(CastResult.fromResponse(response).data);
     } else {
       throw ServerException();
     }
