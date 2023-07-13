@@ -20,14 +20,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   final store = Modular.get<HomeStore>();
+
   late final fadeController = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 300),
   );
-  late final animation = Tween(
-    begin: 0.0,
-    end: 1.0,
-  ).animate(fadeController);
+
+  late final animation = Tween(begin: 0.0, end: 1.0).animate(fadeController);
 
   final controller = TextEditingController();
 
@@ -74,12 +73,7 @@ class _HomePageState extends State<HomePage>
                       child: store.showSearchBar
                           ? SearchBarWidget(
                               onSearch: store.search,
-                              onSubmitted: () {
-                                controller.clear();
-                                store.setSuggestions([]);
-                                store.setShowSearchBar(false);
-                                fadeController.reverse();
-                              },
+                              onSubmitted: closeSearch,
                               controller: controller,
                             )
                           : Align(
@@ -89,11 +83,7 @@ class _HomePageState extends State<HomePage>
                                   backgroundColor:
                                       Theme.of(context).colorScheme.background,
                                 ),
-                                onPressed: () {
-                                  store.setShowSearchBar(true);
-                                  store.setSuggestions([]);
-                                  fadeController.forward();
-                                },
+                                onPressed: initSearch,
                                 icon: const Icon(
                                   Icons.search,
                                   color: Colors.white,
@@ -152,6 +142,19 @@ class _HomePageState extends State<HomePage>
         ],
       ),
     );
+  }
+
+  closeSearch() {
+    controller.clear();
+    store.setSuggestions([]);
+    store.setShowSearchBar(false);
+    fadeController.reverse();
+  }
+
+  void initSearch() {
+    store.setShowSearchBar(true);
+    store.setSuggestions([]);
+    fadeController.forward();
   }
 
   void _onPressToggle(int index) {

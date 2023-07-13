@@ -23,7 +23,7 @@ void main() {
     const expected = "1h 10m";
 
     //act
-    final duration = movie.movieDuration;
+    final duration = movie.duration;
 
     //assert
     expect(duration, expected);

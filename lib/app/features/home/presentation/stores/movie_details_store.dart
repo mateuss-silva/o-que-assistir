@@ -48,8 +48,7 @@ abstract class MovieDetailsStoreBase with Store {
 
     final movieResponse = await getMovieUsecase(GetMovieParams(id));
 
-    final castResponse =
-        await getCastUsecase(GetCastParams(id: id, isMovie: true));
+    final castResponse = await getCastUsecase(GetCastParams(id: id));
 
     movieResponse.fold(
       _setErrorMessageFromFailure,

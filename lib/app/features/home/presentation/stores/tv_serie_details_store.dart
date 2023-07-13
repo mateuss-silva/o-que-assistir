@@ -48,8 +48,7 @@ abstract class TVSerieDetailsStoreBase with Store {
 
     final tvSerieResponse = await getTVSerieUsecase(GetTVSerieParams(id));
 
-    final castResponse =
-        await getCastUsecase(GetCastParams(id: id, isMovie: false));
+    final castResponse = await getCastUsecase(GetCastParams(id: id));
 
     tvSerieResponse.fold(
       _setErrorMessageFromFailure,

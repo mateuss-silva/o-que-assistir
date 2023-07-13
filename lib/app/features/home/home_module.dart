@@ -36,18 +36,23 @@ class HomeModule extends Module {
     Bind.factory((i) => SearchRepositoryImpl(i<SearchDataSourceImpl>())),
 
     // usecases
+    // movie
     Bind.factory((i) => GetMovieUsecase(i<MovieRepositoryImpl>())),
     Bind.factory((i) => GetMoviesUsecase(i<MovieRepositoryImpl>())),
-    Bind.factory((i) =>
-        GetCastUsecase(i<MovieRepositoryImpl>(), i<TVSerieRepositoryImpl>())),
+    Bind.factory((i) => GetMovieCastUsecase(i<MovieRepositoryImpl>())),
+
+    // tv serie
     Bind.factory((i) => GetTVSerieUsecase(i<TVSerieRepositoryImpl>())),
     Bind.factory((i) => GetTVSeriesUsecase(i<TVSerieRepositoryImpl>())),
+    Bind.factory((i) => GetTVSerieCastUsecase(i<TVSerieRepositoryImpl>())),
+
+    // search
     Bind.factory((i) => GetSuggestionsUsecase(i<SearchRepositoryImpl>())),
 
     // stores
     Bind.singleton((i) => HomeStore(i(), i(), i())),
-    Bind.factory((i) => MovieDetailsStore(i(), i())),
-    Bind.factory((i) => TVSerieDetailsStore(i(), i())),
+    Bind.factory((i) => MovieDetailsStore(i(), i<GetMovieCastUsecase>())),
+    Bind.factory((i) => TVSerieDetailsStore(i(), i<GetTVSerieCastUsecase>())),
   ];
 
   @override

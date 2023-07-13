@@ -4,9 +4,10 @@ import 'package:o_que_assistir/app/core/error/failure.dart';
 import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_source.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/actor_entity.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
+import 'package:o_que_assistir/app/features/home/domain/repositories/cast_repository.dart';
 import 'package:o_que_assistir/app/features/home/domain/repositories/movie_repository.dart';
 
-class MovieRepositoryImpl implements MovieRepository {
+class MovieRepositoryImpl implements MovieRepository, CastRepository {
   final MovieDataSource datasource;
 
   MovieRepositoryImpl(this.datasource);

@@ -1,3 +1,4 @@
+import 'package:o_que_assistir/app/core/common/extensions/nullable_extension.dart';
 import 'package:o_que_assistir/app/features/home/data/models/gender_model.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/media_entity.dart';
 
@@ -15,7 +16,7 @@ base class TVSerieEntity extends MediaEntity {
 
   final int? seasonCount;
 
-  String get seasons => seasonCount == null
+  String get seasons => seasonCount.isNull
       ? ""
       : seasonCount == 1
           ? "$seasonCount temporada"

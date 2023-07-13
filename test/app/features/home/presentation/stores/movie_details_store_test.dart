@@ -12,7 +12,7 @@ import 'package:o_que_assistir/app/features/home/presentation/stores/movie_detai
 
 class MockGetMovieUsecase extends Mock implements GetMovieUsecase {}
 
-class MockGetCastUsecase extends Mock implements GetCastUsecase {}
+class MockGetCastUsecase extends Mock implements GetMovieCastUsecase {}
 
 void main() {
   late MovieDetailsStore store;
@@ -26,7 +26,7 @@ void main() {
     mockGetCastUsecase = MockGetCastUsecase();
     store = MovieDetailsStore(mockGetMovieUsecase, mockGetCastUsecase);
     registerFallbackValue(GetMovieParams(tMovieId));
-    registerFallbackValue(GetCastParams(id: tMovieId, isMovie: true));
+    registerFallbackValue(GetCastParams(id: tMovieId));
   });
 
   const tId = "550";
@@ -135,8 +135,7 @@ way and ignites an out-of-control spiral toward oblivion.''';
 
     //assert
     expect(store.cast, tCast);
-    verify(
-        () => mockGetCastUsecase(GetCastParams(id: tMovieId, isMovie: true)));
+    verify(() => mockGetCastUsecase(GetCastParams(id: tMovieId)));
     verifyNoMoreInteractions(mockGetCastUsecase);
   });
 
@@ -152,8 +151,7 @@ way and ignites an out-of-control spiral toward oblivion.''';
 
     //assert
     expect(store.errorMessageStream.value, ServerFailure().message);
-    verify(
-        () => mockGetCastUsecase(GetCastParams(id: tMovieId, isMovie: true)));
+    verify(() => mockGetCastUsecase(GetCastParams(id: tMovieId)));
     verifyNoMoreInteractions(mockGetCastUsecase);
   });
 }

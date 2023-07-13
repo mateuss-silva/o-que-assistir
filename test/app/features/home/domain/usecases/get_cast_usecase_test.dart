@@ -10,12 +10,10 @@ import 'mocks.dart';
 void main() {
   late GetCastUsecase usecase;
   late MockMovieRepository movieRepository;
-  late MockTVSerieRepository tvSerieRepository;
 
   setUp(() {
     movieRepository = MockMovieRepository();
-    tvSerieRepository = MockTVSerieRepository();
-    usecase = GetCastUsecase(movieRepository, tvSerieRepository);
+    usecase = GetMovieCastUsecase(movieRepository);
   });
 
   final tActors = [
@@ -38,7 +36,7 @@ void main() {
     when(() => movieRepository.getCast(any()))
         .thenAnswer((_) async => Right(tActors));
     // act
-    final result = await usecase(GetCastParams(id: 1, isMovie: true));
+    final result = await usecase(GetCastParams(id: 1));
     // assert
     expect(result, Right(tActors));
     verify(() => movieRepository.getCast(1));
@@ -50,7 +48,7 @@ void main() {
     when(() => movieRepository.getCast(any()))
         .thenAnswer((_) async => Left(ServerFailure()));
     // act
-    final result = await usecase(GetCastParams(id: 1, isMovie: true));
+    final result = await usecase(GetCastParams(id: 1));
     // assert
     expect(result, Left(ServerFailure()));
     verify(() => movieRepository.getCast(1));

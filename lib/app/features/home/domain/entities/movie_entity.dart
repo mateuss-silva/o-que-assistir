@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:o_que_assistir/app/core/common/time.dart';
 import 'package:o_que_assistir/app/features/home/data/models/gender_model.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/media_entity.dart';
 
@@ -17,14 +18,8 @@ base class MovieEntity extends MediaEntity {
   final int? runtime;
   final String? status;
 
-  String get movieDuration {
-    int hoursFromMinutes(int minutes) => minutes ~/ 60;
-    int remainingMinutes(int minutes) => minutes % 60;
-
-    if (runtime == null) return 'N/A';
-
-    return '${hoursFromMinutes(runtime!)}h ${remainingMinutes(runtime!)}m';
-  }
+  String get duration =>
+      '${Time.hoursFromMinutes(runtime!)}h ${Time.remainingMinutes(runtime!)}m';
 
   const MovieEntity({
     required super.id,
