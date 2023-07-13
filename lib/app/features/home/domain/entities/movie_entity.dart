@@ -1,7 +1,8 @@
-import 'package:o_que_assistir/app/core/entities/entity.dart';
+import 'package:dartz/dartz.dart';
 import 'package:o_que_assistir/app/features/home/data/models/gender_model.dart';
+import 'package:o_que_assistir/app/features/home/domain/entities/media_entity.dart';
 
-base class MovieEntity extends Entity {
+base class MovieEntity extends MediaEntity {
   final String title;
   final String originalTitle;
   final String? backdropPath;
@@ -39,6 +40,7 @@ base class MovieEntity extends Entity {
     required this.voteAverage,
     required this.voteCount,
     required this.runtime,
+    super.type = MediaType.movie,
   });
 
   @override

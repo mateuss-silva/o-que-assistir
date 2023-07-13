@@ -1,7 +1,7 @@
-import 'package:o_que_assistir/app/core/entities/entity.dart';
 import 'package:o_que_assistir/app/features/home/data/models/gender_model.dart';
+import 'package:o_que_assistir/app/features/home/domain/entities/media_entity.dart';
 
-base class TVSerieEntity extends Entity {
+base class TVSerieEntity extends MediaEntity {
   final String name;
   final String originalName;
   final String? backdropPath;
@@ -34,6 +34,7 @@ base class TVSerieEntity extends Entity {
     required this.voteAverage,
     required this.voteCount,
     this.seasonCount,
+    super.type = MediaType.tv,
   });
 
   @override
