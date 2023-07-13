@@ -2,6 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_source_impl.dart';
 import 'package:o_que_assistir/app/features/home/data/datasources/search_data_source_impl.dart';
 import 'package:o_que_assistir/app/features/home/data/datasources/tv_serie_data_source_impl.dart';
+import 'package:o_que_assistir/app/features/home/data/factories/media_factory.dart';
 import 'package:o_que_assistir/app/features/home/data/repositories/movie_repository_impl.dart';
 import 'package:o_que_assistir/app/features/home/data/repositories/search_repository_impl.dart';
 import 'package:o_que_assistir/app/features/home/data/repositories/tv_serie_repository_impl.dart';
@@ -22,10 +23,12 @@ import 'package:http/http.dart' as http;
 class HomeModule extends Module {
   @override
   final List<Bind> binds = [
+    Bind.factory((i) => MediaFactoryImpl()),
     // datasources
     Bind.factory((i) => MovieDataSourceImpl(i<http.Client>())),
     Bind.factory((i) => TVSerieDataSourceImpl(i<http.Client>())),
-    Bind.factory((i) => SearchDataSourceImpl(i<http.Client>())),
+    Bind.factory(
+        (i) => SearchDataSourceImpl(i<http.Client>(), i<MediaFactoryImpl>())),
 
     // repositories
     Bind.factory((i) => MovieRepositoryImpl(i<MovieDataSourceImpl>())),

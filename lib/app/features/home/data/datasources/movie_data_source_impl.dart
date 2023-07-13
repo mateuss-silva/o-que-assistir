@@ -1,6 +1,6 @@
-import 'dart:convert';
-
 import 'package:o_que_assistir/app/core/common/constants.dart';
+import 'package:o_que_assistir/app/core/common/result.dart';
+import 'package:o_que_assistir/app/core/common/status_code_extension.dart';
 import 'package:o_que_assistir/app/core/error/exceptions.dart';
 import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_source.dart';
 import 'package:o_que_assistir/app/features/home/data/models/actor_model.dart';
@@ -21,8 +21,8 @@ class MovieDataSourceImpl implements MovieDataSource {
       },
     );
 
-    if (response.statusCode == 200) {
-      return MovieModel.fromJson(json.decode(response.body));
+    if (response.statusCode.isSuccess) {
+      return MovieModel.fromJson(SingleResult.fromResponse(response).data);
     } else {
       throw ServerException();
     }
@@ -38,9 +38,8 @@ class MovieDataSourceImpl implements MovieDataSource {
       },
     );
 
-    if (response.statusCode == 200) {
-      final movies = json.decode(response.body)['results'] as List;
-      return MovieModel.fromJsonList(movies);
+    if (response.statusCode.isSuccess) {
+      return moviesFromResults(MultipleResult.fromResponse(response).data);
     } else {
       throw ServerException();
     }
@@ -56,11 +55,14 @@ class MovieDataSourceImpl implements MovieDataSource {
       },
     );
 
-    if (response.statusCode == 200) {
-      final cast = json.decode(response.body)['cast'] as List;
-      return ActorModel.fromJsonList(cast);
+    if (response.statusCode.isSuccess) {
+      return castFromResults(CastResult.fromResponse(response));
     } else {
       throw ServerException();
     }
   }
+
+  moviesFromResults(data) => MovieModel.fromJsonList(data);
+
+  castFromResults(data) => ActorModel.fromJsonList(data);
 }

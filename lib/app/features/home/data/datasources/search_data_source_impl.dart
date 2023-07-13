@@ -1,18 +1,18 @@
-import 'dart:convert';
-
 import 'package:o_que_assistir/app/core/common/constants.dart';
-import 'package:o_que_assistir/app/core/entities/entity.dart';
+import 'package:o_que_assistir/app/core/common/result.dart';
+import 'package:o_que_assistir/app/core/common/status_code_extension.dart';
+import 'package:o_que_assistir/app/core/common/types.dart';
 import 'package:o_que_assistir/app/core/error/exceptions.dart';
 import 'package:o_que_assistir/app/features/home/data/datasources/search_data_source.dart';
-// http
+import 'package:o_que_assistir/app/features/home/data/factories/media_factory.dart';
+import 'package:o_que_assistir/app/features/home/domain/entities/media_entity.dart';
 import 'package:http/http.dart' as http;
-import 'package:o_que_assistir/app/features/home/data/models/movie_model.dart';
-import 'package:o_que_assistir/app/features/home/data/models/tv_serie_model.dart';
 
 class SearchDataSourceImpl implements SearchDataSource {
   final http.Client client;
+  final MediaFactory mediaFactory;
 
-  SearchDataSourceImpl(this.client);
+  SearchDataSourceImpl(this.client, this.mediaFactory);
 
   @override
   Future<List> getSuggestions(String query) async {
@@ -24,36 +24,29 @@ class SearchDataSourceImpl implements SearchDataSource {
       },
     );
 
-    if (response.statusCode == 200) {
-      var results = json.decode(response.body)['results'] as List;
-
-      results.removeWhere(Media.typeIsPerson);
-
-      results = results.map(Media.fromType).toList();
-
-      return results;
+    if (response.statusCode.isSuccess) {
+      return mediaFromResponse(response);
     } else {
       throw ServerException();
     }
   }
-}
 
-class Media {
-  static const movie = 'movie';
-  static const tv = 'tv';
-  static const person = 'person';
-
-  static Entity fromType(data) {
-    switch (data['media_type']) {
-      case movie:
-        return MovieModel.fromJson(data);
-      case tv:
-        return TVSerieModel.fromJson(data);
-      case person:
-      default:
-        throw Exception('Invalid media type');
-    }
+  List<MediaEntity> mediaFromResponse(response) {
+    return excludePersonFrom(suggestionResults(response))
+        .map((e) => mediaFactory.fromType(createMedia(e)))
+        .toList();
   }
 
-  static bool typeIsPerson(data) => data['media_type'] == Media.person;
+  List<Json> suggestionResults(response) =>
+      MultipleResult.fromResponse(response).data;
+
+  Iterable<Json> excludePersonFrom(List<Json> data) {
+    return data.where((data) => !typeIsPerson(createMedia(data)));
+  }
+
+  bool typeIsPerson(MediaResult media) => media.type.isPerson;
+
+  MediaResult createMedia(Json data) {
+    return (type: MediaType.fromString(data['media_type']), data: data);
+  }
 }
