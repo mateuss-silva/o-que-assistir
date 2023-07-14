@@ -4,8 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:o_que_assistir/app/core/common/constants.dart';
 import 'package:o_que_assistir/app/core/common/extensions/nullable_extension.dart';
 import 'package:o_que_assistir/app/core/error/failure_extension.dart';
-import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
-import 'package:o_que_assistir/app/features/home/domain/entities/tv_serie_entity.dart';
+
 import 'package:o_que_assistir/app/features/home/presentation/stores/search_store.dart';
 import 'package:o_que_assistir/app/features/home/presentation/widgets/loading_categories.dart';
 import 'package:o_que_assistir/app/features/home/presentation/widgets/movies_categories_widget.dart';
@@ -90,7 +89,10 @@ class _HomePageState extends State<HomePage> {
                                   backgroundColor:
                                       Theme.of(context).colorScheme.background,
                                 ),
-                                onPressed: searchStore.initSearch,
+                                onPressed: () {
+                                  controller.clear();
+                                  searchStore.initSearch();
+                                },
                                 icon: const Icon(
                                   Icons.search,
                                   color: Colors.white,
@@ -100,14 +102,7 @@ class _HomePageState extends State<HomePage> {
                     );
                   }),
                 ),
-                Observer(builder: (_) {
-                  return SearchSuggestionsWidget(
-                    showLoading: searchStore.searchingSuggestions,
-                    suggestions: searchStore.suggestions,
-                    showSuggestions: searchStore.showSearchBar,
-                    onSuggestionSelected: onClickSuggestion,
-                  );
-                }),
+                const SearchSuggestionsWidget(),
                 const SizedBox(height: 16),
                 Observer(builder: (_) {
                   return Align(
@@ -154,6 +149,7 @@ class _HomePageState extends State<HomePage> {
       );
 
   void _onPressToggle(int index) {
+    //TODO refactor
     var showMoviesSelected = (index == 0);
     if (showMoviesSelected == store.showMovies) {
       return;
@@ -164,23 +160,6 @@ class _HomePageState extends State<HomePage> {
       store.getMovies();
     } else {
       store.getTVSeries();
-    }
-  }
-
-  onClickSuggestion(suggestion) {
-    controller.clear();
-    searchStore.closeSearch();
-    viewDetails(suggestion);
-  }
-
-  void viewDetails(suggestion) {
-    if (suggestion is MovieEntity) {
-      Modular.to.pushNamed("/movie-details/${suggestion.id}");
-    } if (suggestion is TVSerieEntity) {
-      Modular.to.pushNamed("/tv-serie-details/${suggestion.id}");
-    }
-    else{
-      throw Exception("Tipo de entidade não suportada");
     }
   }
 }

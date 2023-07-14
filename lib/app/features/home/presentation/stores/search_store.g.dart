@@ -16,18 +16,18 @@ mixin _$SearchStore on _SearchStoreBase, Store {
       (_$showSearchBarComputed ??= Computed<bool>(() => super.showSearchBar,
               name: '_SearchStoreBase.showSearchBar'))
           .value;
-  Computed<bool>? _$searchingSuggestionsComputed;
+  Computed<bool>? _$searchingComputed;
 
   @override
-  bool get searchingSuggestions => (_$searchingSuggestionsComputed ??=
-          Computed<bool>(() => super.searchingSuggestions,
-              name: '_SearchStoreBase.searchingSuggestions'))
-      .value;
-  Computed<ObservableList<dynamic>>? _$suggestionsComputed;
+  bool get searching =>
+      (_$searchingComputed ??= Computed<bool>(() => super.searching,
+              name: '_SearchStoreBase.searching'))
+          .value;
+  Computed<ObservableList<MediaEntity>>? _$suggestionsComputed;
 
   @override
-  ObservableList<dynamic> get suggestions => (_$suggestionsComputed ??=
-          Computed<ObservableList<dynamic>>(() => super.suggestions,
+  ObservableList<MediaEntity> get suggestions => (_$suggestionsComputed ??=
+          Computed<ObservableList<MediaEntity>>(() => super.suggestions,
               name: '_SearchStoreBase.suggestions'))
       .value;
 
@@ -92,6 +92,28 @@ mixin _$SearchStore on _SearchStoreBase, Store {
       ActionController(name: '_SearchStoreBase', context: context);
 
   @override
+  void initSearch() {
+    final _$actionInfo = _$_SearchStoreBaseActionController.startAction(
+        name: '_SearchStoreBase.initSearch');
+    try {
+      return super.initSearch();
+    } finally {
+      _$_SearchStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void closeSearch() {
+    final _$actionInfo = _$_SearchStoreBaseActionController.startAction(
+        name: '_SearchStoreBase.closeSearch');
+    try {
+      return super.closeSearch();
+    } finally {
+      _$_SearchStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setShowSearchBar(bool value) {
     final _$actionInfo = _$_SearchStoreBaseActionController.startAction(
         name: '_SearchStoreBase.setShowSearchBar');
@@ -128,7 +150,7 @@ mixin _$SearchStore on _SearchStoreBase, Store {
   String toString() {
     return '''
 showSearchBar: ${showSearchBar},
-searchingSuggestions: ${searchingSuggestions},
+searching: ${searching},
 suggestions: ${suggestions}
     ''';
   }

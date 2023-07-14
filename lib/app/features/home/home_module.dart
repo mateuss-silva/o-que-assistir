@@ -52,7 +52,7 @@ class HomeModule extends Module {
 
     // stores
     Bind.singleton((i) => HomeStore(i(), i())),
-    Bind.factory((i) => SearchStore(i())),
+    Bind.singleton((i) => SearchStore(i())),
     Bind.factory((i) => MovieDetailsStore(i(), i<GetMovieCastUsecase>())),
     Bind.factory((i) => TVSerieDetailsStore(i(), i<GetTVSerieCastUsecase>())),
   ];

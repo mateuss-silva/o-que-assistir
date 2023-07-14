@@ -1,7 +1,10 @@
 import 'package:dartz/dartz.dart';
+import 'package:o_que_assistir/app/core/common/date.dart';
+import 'package:o_que_assistir/app/core/common/percentage.dart';
 import 'package:o_que_assistir/app/core/common/time.dart';
 import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_source.dart';
 import 'package:o_que_assistir/app/features/home/data/models/gender_model.dart';
+import 'package:o_que_assistir/app/features/home/domain/entities/gender_entity.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/media_entity.dart';
 
 base class MovieEntity extends MediaEntity {
@@ -23,6 +26,16 @@ base class MovieEntity extends MediaEntity {
 
   String get duration =>
       '${Time.hoursFromMinutes(runtime!)}h ${Time.remainingMinutes(runtime!)}m';
+
+  String get subtitle {
+    return [
+      "Filme",
+      originalTitle,
+      Percentage.zeroToTen(voteAverage),
+      Date.mediaYear(releaseDate),
+      if (GenderEntity.hasGender(genres)) GenderEntity.gender(genres)
+    ].join(" ● ");
+  }
 
   const MovieEntity({
     required super.id,

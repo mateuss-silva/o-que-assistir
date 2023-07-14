@@ -128,7 +128,6 @@ abstract class HomeStoreBase with Store {
     );
   }
 
-
   @action
   void setLoading(bool value) => _loading = value;
 

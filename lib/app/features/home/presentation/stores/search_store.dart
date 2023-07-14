@@ -26,10 +26,10 @@ abstract class _SearchStoreBase with Store {
   bool get showSearchBar => _showSearchBar;
 
   @computed
-  bool get searchingSuggestions => _searchingSuggestions;
+  bool get searching => _searchingSuggestions;
 
   @computed
-  ObservableList get suggestions => _suggestions;
+  ObservableList<MediaEntity> get suggestions => _suggestions;
 
   @action
   Future<void> search(String query, Function(Failure) onError) async {
