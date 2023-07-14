@@ -2,7 +2,6 @@ import 'package:o_que_assistir/app/core/common/date.dart';
 import 'package:o_que_assistir/app/core/common/extensions/nullable_extension.dart';
 import 'package:o_que_assistir/app/core/common/percentage.dart';
 import 'package:o_que_assistir/app/features/home/data/datasources/tv_serie_data_source.dart';
-import 'package:o_que_assistir/app/features/home/data/models/gender_model.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/gender_entity.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/media_entity.dart';
 
@@ -11,7 +10,7 @@ base class TVSerieEntity extends MediaEntity {
   final String originalName;
   final String? backdropPath;
   final String? posterPath;
-  final List<GenderModel> genres;
+  final List<GenderEntity> genres;
   final String overview;
   final DateTime? firstAirDate;
   final double popularity;

@@ -14,6 +14,13 @@ final class GenderModel extends GenderEntity {
     );
   }
 
+  factory GenderModel.fromEntity(GenderEntity entity) {
+    return GenderModel(
+      id: entity.id,
+      name: entity.name,
+    );
+  }
+
   Json toJson() {
     return {
       'id': super.id,

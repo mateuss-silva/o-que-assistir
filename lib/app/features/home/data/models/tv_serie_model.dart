@@ -50,7 +50,7 @@ final class TVSerieModel extends TVSerieEntity {
       'original_name': originalName,
       'backdrop_path': backdropPath,
       'poster_path': posterPath,
-      'genres': genres.map((e) => e.toJson()).toList(),
+      'genres': genres.map((g) => GenderModel.fromEntity(g).toJson()).toList(),
       'overview': overview,
       'popularity': popularity,
       'first_air_date': firstAirDate,
