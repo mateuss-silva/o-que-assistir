@@ -5,6 +5,7 @@ import 'package:o_que_assistir/app/features/home/domain/entities/media_entity.da
 import 'package:o_que_assistir/app/features/home/domain/usecases/get_suggestions_usecase.dart';
 part 'search_store.g.dart';
 
+// ignore: library_private_types_in_public_api
 class SearchStore = _SearchStoreBase with _$SearchStore;
 
 abstract class _SearchStoreBase with Store {
@@ -44,6 +45,18 @@ abstract class _SearchStoreBase with Store {
 
   Future<Either<Failure, List<MediaEntity>>> searchRequest(String query) {
     return getSuggestionsUsecase(GetSuggestionsParams(query: query));
+  }
+
+  @action
+  void initSearch() {
+    setSuggestions([]);
+    setShowSearchBar(true);
+  }
+
+  @action
+  void closeSearch() {
+    setSuggestions([]);
+    setShowSearchBar(false);
   }
 
   @action

@@ -5,6 +5,7 @@ import 'package:o_que_assistir/app/core/common/constants.dart';
 import 'package:o_que_assistir/app/core/common/extensions/nullable_extension.dart';
 import 'package:o_que_assistir/app/core/error/failure_extension.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
+import 'package:o_que_assistir/app/features/home/domain/entities/tv_serie_entity.dart';
 import 'package:o_que_assistir/app/features/home/presentation/stores/search_store.dart';
 import 'package:o_que_assistir/app/features/home/presentation/widgets/loading_categories.dart';
 import 'package:o_que_assistir/app/features/home/presentation/widgets/movies_categories_widget.dart';
@@ -20,17 +21,9 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> {
   final store = Modular.get<HomeStore>();
   final searchStore = Modular.get<SearchStore>();
-
-  late final fadeController = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 300),
-  );
-
-  late final animation = Tween(begin: 0.0, end: 1.0).animate(fadeController);
 
   final controller = TextEditingController();
 
@@ -83,11 +76,11 @@ class _HomePageState extends State<HomePage>
                       switchOutCurve: Curves.easeOut,
                       child: searchStore.showSearchBar
                           ? SearchBarWidget(
-                              onSearch: (q) => searchStore.search(
-                                  q,
-                                  (failure) =>
-                                      _showErrorMessage(failure.message)),
-                              onSubmitted: closeSearch,
+                              onSearch: onSearch,
+                              onSubmitted: () {
+                                controller.clear();
+                                searchStore.closeSearch();
+                              },
                               controller: controller,
                             )
                           : Align(
@@ -97,7 +90,7 @@ class _HomePageState extends State<HomePage>
                                   backgroundColor:
                                       Theme.of(context).colorScheme.background,
                                 ),
-                                onPressed: initSearch,
+                                onPressed: searchStore.initSearch,
                                 icon: const Icon(
                                   Icons.search,
                                   color: Colors.white,
@@ -108,14 +101,11 @@ class _HomePageState extends State<HomePage>
                   }),
                 ),
                 Observer(builder: (_) {
-                  return FadeTransition(
-                    opacity: animation,
-                    child: SearchSuggestionsWidget(
-                      showLoading: searchStore.searchingSuggestions,
-                      suggestions: searchStore.suggestions,
-                      showSuggestions: searchStore.showSearchBar,
-                      onSuggestionSelected: onClickSuggestion,
-                    ),
+                  return SearchSuggestionsWidget(
+                    showLoading: searchStore.searchingSuggestions,
+                    suggestions: searchStore.suggestions,
+                    showSuggestions: searchStore.showSearchBar,
+                    onSuggestionSelected: onClickSuggestion,
                   );
                 }),
                 const SizedBox(height: 16),
@@ -158,18 +148,10 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  closeSearch() {
-    controller.clear();
-    searchStore.setSuggestions([]);
-    searchStore.setShowSearchBar(false);
-    fadeController.reverse();
-  }
-
-  void initSearch() {
-    searchStore.setShowSearchBar(true);
-    searchStore.setSuggestions([]);
-    fadeController.forward();
-  }
+  void onSearch(query) => searchStore.search(
+        query,
+        (failure) => _showErrorMessage(failure.message),
+      );
 
   void _onPressToggle(int index) {
     var showMoviesSelected = (index == 0);
@@ -186,13 +168,19 @@ class _HomePageState extends State<HomePage>
   }
 
   onClickSuggestion(suggestion) {
-    searchStore.setShowSearchBar(false);
     controller.clear();
-    searchStore.setSuggestions([]);
+    searchStore.closeSearch();
+    viewDetails(suggestion);
+  }
+
+  void viewDetails(suggestion) {
     if (suggestion is MovieEntity) {
       Modular.to.pushNamed("/movie-details/${suggestion.id}");
-    } else {
+    } if (suggestion is TVSerieEntity) {
       Modular.to.pushNamed("/tv-serie-details/${suggestion.id}");
+    }
+    else{
+      throw Exception("Tipo de entidade não suportada");
     }
   }
 }
