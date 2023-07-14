@@ -149,13 +149,20 @@ class _HomePageState extends State<HomePage> {
       );
 
   void _onPressToggle(int index) {
-    //TODO refactor
-    var showMoviesSelected = (index == 0);
-    if (showMoviesSelected == store.showMovies) {
-      return;
-    }
-    store.setShowMovies(!store.showMovies);
+    if (!didChangeView(index)) {
+      store.setShowMovies(!store.showMovies);
 
+      getMedia();
+    }
+  }
+
+  bool didChangeView(index) => currentViewIsMovies(index) != showingMovies();
+
+  bool showingMovies() => store.showMovies;
+
+  bool currentViewIsMovies(index) => index == 0;
+
+  void getMedia() {
     if (store.showMovies) {
       store.getMovies();
     } else {
