@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:o_que_assistir/app/core/error/failure.dart';
 import 'package:o_que_assistir/app/core/error/failure_extension.dart';
+import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_source.dart';
 import 'package:o_que_assistir/app/features/home/data/models/gender_model.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/actor_entity.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
@@ -65,6 +66,7 @@ way and ignites an out-of-control spiral toward oblivion.''';
     voteCount: tVoteCount,
     genres: tGenres,
     runtime: tRuntime,
+    category: MovieCategory.any,
   );
 
   final tCast = <ActorEntity>[

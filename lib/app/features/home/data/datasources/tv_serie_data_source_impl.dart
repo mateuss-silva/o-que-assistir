@@ -40,7 +40,8 @@ class TVSerieDataSourceImpl implements TVSerieDataSource {
     );
 
     if (response.statusCode.isSuccess) {
-      return tvSeriesFromResults(MultipleResult.fromResponse(response).data);
+      return tvSeriesFromResults(
+          MultipleResult.fromResponse(response).data, category);
     } else {
       throw ServerException();
     }
@@ -63,7 +64,8 @@ class TVSerieDataSourceImpl implements TVSerieDataSource {
     }
   }
 
-  tvSeriesFromResults(data) => TVSerieModel.fromJsonList(data);
+  tvSeriesFromResults(data, category) =>
+      TVSerieModel.fromJsonList(data, category: category);
 
   castFromResults(data) => ActorModel.fromJsonList(data);
 }

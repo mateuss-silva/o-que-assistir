@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:o_que_assistir/app/core/common/types.dart';
+import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_source.dart';
 import 'package:o_que_assistir/app/features/home/data/models/gender_model.dart';
 import 'package:o_que_assistir/app/features/home/data/models/movie_model.dart';
 
@@ -40,6 +42,7 @@ void main() {
     voteCount: tVoteCount,
     genres: tGenres,
     runtime: tRuntime,
+    category: MovieCategory.any,
   );
   test('should be a subclass of Entity', () async {
     expect(movieModel, isA<MovieModel>());
@@ -47,7 +50,7 @@ void main() {
 
   test('should return a valid model for the JSON movie', () {
     // arrange
-    final Map<String, dynamic> jsonMap = json.decode(fixture("movie.json"));
+    final Json jsonMap = json.decode(fixture("movie.json"));
 
     // act
     final result = MovieModel.fromJson(jsonMap);
@@ -82,7 +85,7 @@ void main() {
 
   test('should return a JSON map containing a list of movie data', () {
     // arrange
-    final Map<String, dynamic> jsonMap = json.decode(fixture("movies.json"));
+    final Json jsonMap = json.decode(fixture("movies.json"));
 
     // act
     final result = MovieModel.fromJsonList(jsonMap['results']);

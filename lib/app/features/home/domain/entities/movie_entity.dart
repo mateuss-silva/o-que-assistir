@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:o_que_assistir/app/core/common/time.dart';
+import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_source.dart';
 import 'package:o_que_assistir/app/features/home/data/models/gender_model.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/media_entity.dart';
 
@@ -18,6 +19,8 @@ base class MovieEntity extends MediaEntity {
   final int? runtime;
   final String? status;
 
+  final MovieCategory category;
+
   String get duration =>
       '${Time.hoursFromMinutes(runtime!)}h ${Time.remainingMinutes(runtime!)}m';
 
@@ -35,6 +38,7 @@ base class MovieEntity extends MediaEntity {
     required this.voteAverage,
     required this.voteCount,
     required this.runtime,
+    required this.category,
     super.type = MediaType.movie,
   });
 
@@ -54,4 +58,8 @@ base class MovieEntity extends MediaEntity {
         voteCount,
         runtime,
       ];
+
+  static List<MovieEntity> byCategory(
+          List<MovieEntity> movies, MovieCategory category) =>
+      movies.where((movie) => movie.category == category).toList();
 }

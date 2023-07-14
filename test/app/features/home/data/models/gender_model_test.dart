@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:o_que_assistir/app/core/common/types.dart';
 import 'package:o_que_assistir/app/features/home/data/models/gender_model.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/gender_entity.dart';
 
@@ -22,7 +23,7 @@ void main() {
 
   test("should return a valid model for the JSON gender", () {
     // arrange
-    final Map<String, dynamic> jsonMap = json.decode(fixture("gender.json"));
+    final Json jsonMap = json.decode(fixture("gender.json"));
 
     // act
     final result = GenderModel.fromJson(jsonMap);

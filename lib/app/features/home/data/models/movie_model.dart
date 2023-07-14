@@ -1,3 +1,5 @@
+import 'package:o_que_assistir/app/core/common/types.dart';
+import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_source.dart';
 import 'package:o_que_assistir/app/features/home/data/models/gender_model.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
 
@@ -16,9 +18,10 @@ final class MovieModel extends MovieEntity {
     required super.voteAverage,
     required super.voteCount,
     required super.runtime,
+    required super.category,
   });
 
-  factory MovieModel.fromJson(Map<String, dynamic> json) {
+  factory MovieModel.fromJson(Json json) {
     return MovieModel(
       id: json['id'].toString(),
       title: json['title'],
@@ -33,10 +36,15 @@ final class MovieModel extends MovieEntity {
       voteAverage: json['vote_average'].toDouble(),
       voteCount: json['vote_count'],
       runtime: json['runtime'],
+      category: MovieCategory.any,
     );
   }
 
-  Map<String, dynamic> toJson() {
+  factory MovieModel.fromJsonWithCategory(Json json, MovieCategory category) {
+    return MovieModel.fromJson(json).copyWithCategory(category);
+  }
+
+  Json toJson() {
     return {
       'id': id,
       'title': title,
@@ -54,7 +62,31 @@ final class MovieModel extends MovieEntity {
     };
   }
 
-  static List<MovieModel> fromJsonList(List list) {
-    return list.map((item) => MovieModel.fromJson(item)).toList();
+  MovieModel copyWithCategory(MovieCategory category) {
+    return MovieModel(
+      id: id,
+      title: title,
+      originalTitle: originalTitle,
+      backdropPath: backdropPath,
+      posterPath: posterPath,
+      genres: genres,
+      overview: overview,
+      popularity: popularity,
+      releaseDate: releaseDate,
+      status: status,
+      voteAverage: voteAverage,
+      voteCount: voteCount,
+      runtime: runtime,
+      category: category,
+    );
+  }
+
+  static List<MovieModel> fromJsonList(
+    List list, {
+    MovieCategory category = MovieCategory.any,
+  }) {
+    return list
+        .map((item) => MovieModel.fromJsonWithCategory(item, category))
+        .toList();
   }
 }

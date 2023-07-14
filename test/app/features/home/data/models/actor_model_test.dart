@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:o_que_assistir/app/core/common/types.dart';
 import 'package:o_que_assistir/app/features/home/data/models/actor_model.dart';
 
 import '../../../../fixtures/fixture_render.dart';
@@ -22,7 +23,7 @@ void main() {
 
   test('should return a valid actor model for the JSON credits', () async {
     // arrange
-    final Map<String, dynamic> jsonMap =
+    final Json jsonMap =
         json.decode(fixture('credits.json'))['cast'][0];
 
     // act

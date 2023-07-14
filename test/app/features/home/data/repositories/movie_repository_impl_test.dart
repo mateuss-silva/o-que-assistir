@@ -34,6 +34,7 @@ void main() {
     status: "Released",
     voteCount: 10,
     runtime: 10,
+    category: MovieCategory.any,
   );
 
   final tMoviesModels = [tMovieModel];

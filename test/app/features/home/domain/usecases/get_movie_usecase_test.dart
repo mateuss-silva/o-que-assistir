@@ -4,6 +4,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:o_que_assistir/app/features/home/data/models/gender_model.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
 import 'package:o_que_assistir/app/features/home/domain/usecases/get_movie_usecase.dart';
+import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_source.dart';
 
 import 'mocks.dart';
 
@@ -52,6 +53,7 @@ way and ignites an out-of-control spiral toward oblivion.''';
     voteCount: tVoteCount,
     genres: tGenres,
     runtime: tRuntime,
+    category: MovieCategory.any,
   );
 
   test('should be a subclass of usecase', () async {

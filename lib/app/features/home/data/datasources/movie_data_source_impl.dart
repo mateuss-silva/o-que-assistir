@@ -39,7 +39,8 @@ class MovieDataSourceImpl implements MovieDataSource {
     );
 
     if (response.statusCode.isSuccess) {
-      return moviesFromResults(MultipleResult.fromResponse(response).data);
+      return moviesFromResults(
+          MultipleResult.fromResponse(response).data, category);
     } else {
       throw ServerException();
     }
@@ -62,7 +63,8 @@ class MovieDataSourceImpl implements MovieDataSource {
     }
   }
 
-  moviesFromResults(data) => MovieModel.fromJsonList(data);
+  moviesFromResults(data, category) =>
+      MovieModel.fromJsonList(data, category: category);
 
   castFromResults(data) => ActorModel.fromJsonList(data);
 }

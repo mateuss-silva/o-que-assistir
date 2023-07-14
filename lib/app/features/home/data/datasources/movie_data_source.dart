@@ -13,7 +13,8 @@ enum MovieCategory {
   popular("popular"),
   nowPlaying("now_playing"),
   topRated("top_rated"),
-  upcoming("upcoming");
+  upcoming("upcoming"),
+  any("any");
 
   final String value;
 

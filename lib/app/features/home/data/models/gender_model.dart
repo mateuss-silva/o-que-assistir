@@ -1,3 +1,4 @@
+import 'package:o_que_assistir/app/core/common/types.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/gender_entity.dart';
 
 final class GenderModel extends GenderEntity {
@@ -6,21 +7,21 @@ final class GenderModel extends GenderEntity {
     required super.name,
   });
 
-  factory GenderModel.fromJson(Map<String, dynamic> jsonMap) {
+  factory GenderModel.fromJson(Json jsonMap) {
     return GenderModel(
       id: jsonMap['id'].toString(),
       name: jsonMap['name'],
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Json toJson() {
     return {
       'id': super.id,
       'name': super.name,
     };
   }
 
-  static  List<GenderModel> fromJsonList(List jsonList) {
+  static List<GenderModel> fromJsonList(List jsonList) {
     return jsonList.map((e) => GenderModel.fromJson(e)).toList();
   }
 }

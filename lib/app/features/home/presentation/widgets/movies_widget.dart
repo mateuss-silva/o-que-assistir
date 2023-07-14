@@ -30,7 +30,11 @@ class MoviesWidget extends StatelessWidget {
             separatorBuilder: (context, index) => const Divider(),
             itemBuilder: (context, index) {
               final movie = movies[index];
-              final child = MovieCardWidget(movie: movie);
+              final child = SizedBox(
+                height: 200,
+                width: 128,
+                child: MovieCardWidget(movie: movie),
+              );
               if (index == 0) {
                 return Padding(
                   padding: const EdgeInsets.only(left: 8.0),

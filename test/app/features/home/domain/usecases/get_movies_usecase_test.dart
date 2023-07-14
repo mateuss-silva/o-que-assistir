@@ -31,6 +31,7 @@ void main() {
       runtime: 1,
       status: 'status',
       voteCount: 1,
+      category: MovieCategory.any,
     )
   ];
 

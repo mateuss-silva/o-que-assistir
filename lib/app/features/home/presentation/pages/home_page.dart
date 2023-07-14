@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:o_que_assistir/app/core/common/constants.dart';
+import 'package:o_que_assistir/app/core/common/extensions/nullable_extension.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
 import 'package:o_que_assistir/app/features/home/presentation/widgets/loading_categories.dart';
 import 'package:o_que_assistir/app/features/home/presentation/widgets/movies_categories_widget.dart';
@@ -59,9 +60,16 @@ class _HomePageState extends State<HomePage>
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                Image.network(
-                  searchBackdropImage,
-                  fit: BoxFit.fitWidth,
+                SizedBox(
+                  height: 220,
+                  child: Image.network(
+                    searchBackdropImage,
+                    fit: BoxFit.fitWidth,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress.isNull) return child;
+                      return const Center(child: CircularProgressIndicator());
+                    },
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 8, right: 8, top: 8),

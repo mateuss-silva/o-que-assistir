@@ -50,14 +50,6 @@ mixin _$HomeStore on HomeStoreBase, Store {
           Computed<ObservableList<MovieEntity>>(() => super.popularMovies,
               name: 'HomeStoreBase.popularMovies'))
       .value;
-  Computed<ObservableList<MovieEntity>>? _$nowPlayingMoviesComputed;
-
-  @override
-  ObservableList<MovieEntity> get nowPlayingMovies =>
-      (_$nowPlayingMoviesComputed ??= Computed<ObservableList<MovieEntity>>(
-              () => super.nowPlayingMovies,
-              name: 'HomeStoreBase.nowPlayingMovies'))
-          .value;
   Computed<ObservableList<MovieEntity>>? _$topRatedMoviesComputed;
 
   @override
@@ -65,6 +57,14 @@ mixin _$HomeStore on HomeStoreBase, Store {
       (_$topRatedMoviesComputed ??= Computed<ObservableList<MovieEntity>>(
               () => super.topRatedMovies,
               name: 'HomeStoreBase.topRatedMovies'))
+          .value;
+  Computed<ObservableList<MovieEntity>>? _$nowPlayingMoviesComputed;
+
+  @override
+  ObservableList<MovieEntity> get nowPlayingMovies =>
+      (_$nowPlayingMoviesComputed ??= Computed<ObservableList<MovieEntity>>(
+              () => super.nowPlayingMovies,
+              name: 'HomeStoreBase.nowPlayingMovies'))
           .value;
   Computed<ObservableList<MovieEntity>>? _$upcomingMoviesComputed;
 
@@ -90,14 +90,6 @@ mixin _$HomeStore on HomeStoreBase, Store {
               () => super.topRatedTVSeries,
               name: 'HomeStoreBase.topRatedTVSeries'))
           .value;
-  Computed<ObservableList<TVSerieEntity>>? _$onTheAirTVSeriesComputed;
-
-  @override
-  ObservableList<TVSerieEntity> get onTheAirTVSeries =>
-      (_$onTheAirTVSeriesComputed ??= Computed<ObservableList<TVSerieEntity>>(
-              () => super.onTheAirTVSeries,
-              name: 'HomeStoreBase.onTheAirTVSeries'))
-          .value;
   Computed<ObservableList<TVSerieEntity>>? _$airingTodayTVSeriesComputed;
 
   @override
@@ -106,6 +98,14 @@ mixin _$HomeStore on HomeStoreBase, Store {
               Computed<ObservableList<TVSerieEntity>>(
                   () => super.airingTodayTVSeries,
                   name: 'HomeStoreBase.airingTodayTVSeries'))
+          .value;
+  Computed<ObservableList<TVSerieEntity>>? _$onTheAirTVSeriesComputed;
+
+  @override
+  ObservableList<TVSerieEntity> get onTheAirTVSeries =>
+      (_$onTheAirTVSeriesComputed ??= Computed<ObservableList<TVSerieEntity>>(
+              () => super.onTheAirTVSeries,
+              name: 'HomeStoreBase.onTheAirTVSeries'))
           .value;
   Computed<ObservableList<dynamic>>? _$suggestionsComputed;
 
@@ -180,132 +180,35 @@ mixin _$HomeStore on HomeStoreBase, Store {
     });
   }
 
-  late final _$_popularMoviesAtom =
-      Atom(name: 'HomeStoreBase._popularMovies', context: context);
+  late final _$_moviesAtom =
+      Atom(name: 'HomeStoreBase._movies', context: context);
 
   @override
-  ObservableList<MovieEntity> get _popularMovies {
-    _$_popularMoviesAtom.reportRead();
-    return super._popularMovies;
+  ObservableList<MovieEntity> get _movies {
+    _$_moviesAtom.reportRead();
+    return super._movies;
   }
 
   @override
-  set _popularMovies(ObservableList<MovieEntity> value) {
-    _$_popularMoviesAtom.reportWrite(value, super._popularMovies, () {
-      super._popularMovies = value;
+  set _movies(ObservableList<MovieEntity> value) {
+    _$_moviesAtom.reportWrite(value, super._movies, () {
+      super._movies = value;
     });
   }
 
-  late final _$_nowPlayingMoviesAtom =
-      Atom(name: 'HomeStoreBase._nowPlayingMovies', context: context);
+  late final _$_tvSeriesAtom =
+      Atom(name: 'HomeStoreBase._tvSeries', context: context);
 
   @override
-  ObservableList<MovieEntity> get _nowPlayingMovies {
-    _$_nowPlayingMoviesAtom.reportRead();
-    return super._nowPlayingMovies;
+  ObservableList<TVSerieEntity> get _tvSeries {
+    _$_tvSeriesAtom.reportRead();
+    return super._tvSeries;
   }
 
   @override
-  set _nowPlayingMovies(ObservableList<MovieEntity> value) {
-    _$_nowPlayingMoviesAtom.reportWrite(value, super._nowPlayingMovies, () {
-      super._nowPlayingMovies = value;
-    });
-  }
-
-  late final _$_topRatedMoviesAtom =
-      Atom(name: 'HomeStoreBase._topRatedMovies', context: context);
-
-  @override
-  ObservableList<MovieEntity> get _topRatedMovies {
-    _$_topRatedMoviesAtom.reportRead();
-    return super._topRatedMovies;
-  }
-
-  @override
-  set _topRatedMovies(ObservableList<MovieEntity> value) {
-    _$_topRatedMoviesAtom.reportWrite(value, super._topRatedMovies, () {
-      super._topRatedMovies = value;
-    });
-  }
-
-  late final _$_upcomingMoviesAtom =
-      Atom(name: 'HomeStoreBase._upcomingMovies', context: context);
-
-  @override
-  ObservableList<MovieEntity> get _upcomingMovies {
-    _$_upcomingMoviesAtom.reportRead();
-    return super._upcomingMovies;
-  }
-
-  @override
-  set _upcomingMovies(ObservableList<MovieEntity> value) {
-    _$_upcomingMoviesAtom.reportWrite(value, super._upcomingMovies, () {
-      super._upcomingMovies = value;
-    });
-  }
-
-  late final _$_popularTVSeriesAtom =
-      Atom(name: 'HomeStoreBase._popularTVSeries', context: context);
-
-  @override
-  ObservableList<TVSerieEntity> get _popularTVSeries {
-    _$_popularTVSeriesAtom.reportRead();
-    return super._popularTVSeries;
-  }
-
-  @override
-  set _popularTVSeries(ObservableList<TVSerieEntity> value) {
-    _$_popularTVSeriesAtom.reportWrite(value, super._popularTVSeries, () {
-      super._popularTVSeries = value;
-    });
-  }
-
-  late final _$_topRatedTVSeriesAtom =
-      Atom(name: 'HomeStoreBase._topRatedTVSeries', context: context);
-
-  @override
-  ObservableList<TVSerieEntity> get _topRatedTVSeries {
-    _$_topRatedTVSeriesAtom.reportRead();
-    return super._topRatedTVSeries;
-  }
-
-  @override
-  set _topRatedTVSeries(ObservableList<TVSerieEntity> value) {
-    _$_topRatedTVSeriesAtom.reportWrite(value, super._topRatedTVSeries, () {
-      super._topRatedTVSeries = value;
-    });
-  }
-
-  late final _$_onTheAirTVSeriesAtom =
-      Atom(name: 'HomeStoreBase._onTheAirTVSeries', context: context);
-
-  @override
-  ObservableList<TVSerieEntity> get _onTheAirTVSeries {
-    _$_onTheAirTVSeriesAtom.reportRead();
-    return super._onTheAirTVSeries;
-  }
-
-  @override
-  set _onTheAirTVSeries(ObservableList<TVSerieEntity> value) {
-    _$_onTheAirTVSeriesAtom.reportWrite(value, super._onTheAirTVSeries, () {
-      super._onTheAirTVSeries = value;
-    });
-  }
-
-  late final _$_airingTodayTVSeriesAtom =
-      Atom(name: 'HomeStoreBase._airingTodayTVSeries', context: context);
-
-  @override
-  ObservableList<TVSerieEntity> get _airingTodayTVSeries {
-    _$_airingTodayTVSeriesAtom.reportRead();
-    return super._airingTodayTVSeries;
-  }
-
-  @override
-  set _airingTodayTVSeries(ObservableList<TVSerieEntity> value) {
-    _$_airingTodayTVSeriesAtom.reportWrite(value, super._airingTodayTVSeries,
-        () {
-      super._airingTodayTVSeries = value;
+  set _tvSeries(ObservableList<TVSerieEntity> value) {
+    _$_tvSeriesAtom.reportWrite(value, super._tvSeries, () {
+      super._tvSeries = value;
     });
   }
 
@@ -313,13 +216,13 @@ mixin _$HomeStore on HomeStoreBase, Store {
       Atom(name: 'HomeStoreBase._suggestions', context: context);
 
   @override
-  ObservableList<dynamic> get _suggestions {
+  ObservableList<MediaEntity> get _suggestions {
     _$_suggestionsAtom.reportRead();
     return super._suggestions;
   }
 
   @override
-  set _suggestions(ObservableList<dynamic> value) {
+  set _suggestions(ObservableList<MediaEntity> value) {
     _$_suggestionsAtom.reportWrite(value, super._suggestions, () {
       super._suggestions = value;
     });
@@ -375,99 +278,55 @@ mixin _$HomeStore on HomeStoreBase, Store {
   }
 
   @override
-  void setPopularMovies(List<MovieEntity> value) {
+  void setMovies(List<MovieEntity> value) {
     final _$actionInfo = _$HomeStoreBaseActionController.startAction(
-        name: 'HomeStoreBase.setPopularMovies');
+        name: 'HomeStoreBase.setMovies');
     try {
-      return super.setPopularMovies(value);
+      return super.setMovies(value);
     } finally {
       _$HomeStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void setNowPlayingMovies(List<MovieEntity> value) {
+  void setTVSeries(List<TVSerieEntity> value) {
     final _$actionInfo = _$HomeStoreBaseActionController.startAction(
-        name: 'HomeStoreBase.setNowPlayingMovies');
+        name: 'HomeStoreBase.setTVSeries');
     try {
-      return super.setNowPlayingMovies(value);
+      return super.setTVSeries(value);
     } finally {
       _$HomeStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void setTopRatedMovies(List<MovieEntity> value) {
-    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
-        name: 'HomeStoreBase.setTopRatedMovies');
-    try {
-      return super.setTopRatedMovies(value);
-    } finally {
-      _$HomeStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setUpcomingMovies(List<MovieEntity> value) {
-    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
-        name: 'HomeStoreBase.setUpcomingMovies');
-    try {
-      return super.setUpcomingMovies(value);
-    } finally {
-      _$HomeStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setPopularTVSeries(List<TVSerieEntity> value) {
-    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
-        name: 'HomeStoreBase.setPopularTVSeries');
-    try {
-      return super.setPopularTVSeries(value);
-    } finally {
-      _$HomeStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setTopRatedTVSeries(List<TVSerieEntity> value) {
-    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
-        name: 'HomeStoreBase.setTopRatedTVSeries');
-    try {
-      return super.setTopRatedTVSeries(value);
-    } finally {
-      _$HomeStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setOnTheAirTVSeries(List<TVSerieEntity> value) {
-    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
-        name: 'HomeStoreBase.setOnTheAirTVSeries');
-    try {
-      return super.setOnTheAirTVSeries(value);
-    } finally {
-      _$HomeStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setAiringTodayTVSeries(List<TVSerieEntity> value) {
-    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
-        name: 'HomeStoreBase.setAiringTodayTVSeries');
-    try {
-      return super.setAiringTodayTVSeries(value);
-    } finally {
-      _$HomeStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setSuggestions(List<dynamic> value) {
+  void setSuggestions(List<MediaEntity> value) {
     final _$actionInfo = _$HomeStoreBaseActionController.startAction(
         name: 'HomeStoreBase.setSuggestions');
     try {
       return super.setSuggestions(value);
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void clearMovies() {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.clearMovies');
+    try {
+      return super.clearMovies();
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void clearTVSeries() {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+        name: 'HomeStoreBase.clearTVSeries');
+    try {
+      return super.clearTVSeries();
     } finally {
       _$HomeStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -515,13 +374,13 @@ showSearchBar: ${showSearchBar},
 searchingSuggestions: ${searchingSuggestions},
 showMovieOrSeries: ${showMovieOrSeries},
 popularMovies: ${popularMovies},
-nowPlayingMovies: ${nowPlayingMovies},
 topRatedMovies: ${topRatedMovies},
+nowPlayingMovies: ${nowPlayingMovies},
 upcomingMovies: ${upcomingMovies},
 popularTVSeries: ${popularTVSeries},
 topRatedTVSeries: ${topRatedTVSeries},
-onTheAirTVSeries: ${onTheAirTVSeries},
 airingTodayTVSeries: ${airingTodayTVSeries},
+onTheAirTVSeries: ${onTheAirTVSeries},
 suggestions: ${suggestions}
     ''';
   }

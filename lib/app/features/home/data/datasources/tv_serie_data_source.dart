@@ -13,7 +13,8 @@ enum TVSerieCategory {
   airingToday("airing_today"),
   onTheAir("on_the_air"),
   topRated("top_rated"),
-  popular("popular");
+  popular("popular"),
+  any("any");
 
   final String value;
 

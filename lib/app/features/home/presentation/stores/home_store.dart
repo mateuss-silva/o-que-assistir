@@ -2,11 +2,13 @@
 
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 import 'package:o_que_assistir/app/core/error/failure.dart';
 import 'package:o_que_assistir/app/core/error/failure_extension.dart';
 import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_source.dart';
 import 'package:o_que_assistir/app/features/home/data/datasources/tv_serie_data_source.dart';
+import 'package:o_que_assistir/app/features/home/domain/entities/media_entity.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/tv_serie_entity.dart';
 import 'package:o_que_assistir/app/features/home/domain/usecases/get_movies_usecase.dart';
@@ -57,43 +59,41 @@ abstract class HomeStoreBase with Store {
   List<bool> get showMovieOrSeries => [showMovies, !showMovies];
 
   @observable
-  ObservableList<MovieEntity> _popularMovies = ObservableList();
+  ObservableList<MovieEntity> _movies = ObservableList();
   @observable
-  ObservableList<MovieEntity> _nowPlayingMovies = ObservableList();
+  ObservableList<TVSerieEntity> _tvSeries = ObservableList();
   @observable
-  ObservableList<MovieEntity> _topRatedMovies = ObservableList();
-  @observable
-  ObservableList<MovieEntity> _upcomingMovies = ObservableList();
-
-  @observable
-  ObservableList<TVSerieEntity> _popularTVSeries = ObservableList();
-  @observable
-  ObservableList<TVSerieEntity> _topRatedTVSeries = ObservableList();
-  @observable
-  ObservableList<TVSerieEntity> _onTheAirTVSeries = ObservableList();
-  @observable
-  ObservableList<TVSerieEntity> _airingTodayTVSeries = ObservableList();
-
-  @observable
-  ObservableList _suggestions = ObservableList();
+  ObservableList<MediaEntity> _suggestions = ObservableList();
 
   @computed
-  ObservableList<MovieEntity> get popularMovies => _popularMovies;
+  ObservableList<MovieEntity> get popularMovies =>
+      MovieEntity.byCategory(_movies, MovieCategory.popular).asObservable();
   @computed
-  ObservableList<MovieEntity> get nowPlayingMovies => _nowPlayingMovies;
+  ObservableList<MovieEntity> get topRatedMovies =>
+      MovieEntity.byCategory(_movies, MovieCategory.topRated).asObservable();
   @computed
-  ObservableList<MovieEntity> get topRatedMovies => _topRatedMovies;
+  ObservableList<MovieEntity> get nowPlayingMovies =>
+      MovieEntity.byCategory(_movies, MovieCategory.nowPlaying).asObservable();
   @computed
-  ObservableList<MovieEntity> get upcomingMovies => _upcomingMovies;
+  ObservableList<MovieEntity> get upcomingMovies =>
+      MovieEntity.byCategory(_movies, MovieCategory.upcoming).asObservable();
 
   @computed
-  ObservableList<TVSerieEntity> get popularTVSeries => _popularTVSeries;
+  ObservableList<TVSerieEntity> get popularTVSeries =>
+      TVSerieEntity.byCategory(_tvSeries, TVSerieCategory.popular)
+          .asObservable();
   @computed
-  ObservableList<TVSerieEntity> get topRatedTVSeries => _topRatedTVSeries;
+  ObservableList<TVSerieEntity> get topRatedTVSeries =>
+      TVSerieEntity.byCategory(_tvSeries, TVSerieCategory.topRated)
+          .asObservable();
   @computed
-  ObservableList<TVSerieEntity> get onTheAirTVSeries => _onTheAirTVSeries;
+  ObservableList<TVSerieEntity> get airingTodayTVSeries =>
+      TVSerieEntity.byCategory(_tvSeries, TVSerieCategory.airingToday)
+          .asObservable();
   @computed
-  ObservableList<TVSerieEntity> get airingTodayTVSeries => _airingTodayTVSeries;
+  ObservableList<TVSerieEntity> get onTheAirTVSeries =>
+      TVSerieEntity.byCategory(_tvSeries, TVSerieCategory.onTheAir)
+          .asObservable();
 
   @computed
   ObservableList get suggestions => _suggestions;
@@ -103,107 +103,55 @@ abstract class HomeStoreBase with Store {
   @action
   Future<void> getMovies() async {
     setLoading(true);
+    clearMovies();
 
-    final popularMoviesFuture =
-        getMoviesUsecase(GetMoviesParams(MovieCategory.popular));
-
-    final nowPlayingMoviesFuture =
-        getMoviesUsecase(GetMoviesParams(MovieCategory.nowPlaying));
-
-    final topRatedMoviesFuture =
-        getMoviesUsecase(GetMoviesParams(MovieCategory.topRated));
-
-    final upcomingMoviesFuture =
-        getMoviesUsecase(GetMoviesParams(MovieCategory.upcoming));
-
-    final responses = await Future.wait(
-      [
-        popularMoviesFuture,
-        nowPlayingMoviesFuture,
-        topRatedMoviesFuture,
-        upcomingMoviesFuture,
-      ],
-    );
-
-    final popularMoviesResponse = responses[0];
-    final nowPlayingMoviesResponse = responses[1];
-    final topRatedMoviesResponse = responses[2];
-    final upcomingMoviesResponse = responses[3];
-
-    popularMoviesResponse.fold(
-      _setErrorMessageFromFailure,
-      setPopularMovies,
-    );
-
-    nowPlayingMoviesResponse.fold(
-      _setErrorMessageFromFailure,
-      setNowPlayingMovies,
-    );
-
-    topRatedMoviesResponse.fold(
-      _setErrorMessageFromFailure,
-      setTopRatedMovies,
-    );
-
-    upcomingMoviesResponse.fold(
-      _setErrorMessageFromFailure,
-      setUpcomingMovies,
-    );
+    handleMoviesResponse(await moviesRequest());
 
     setLoading(false);
+  }
+
+  handleMoviesResponse(List<Either<Failure, List<MovieEntity>>> responses) {
+    for (var response in responses) {
+      response.fold(_setErrorMessageFromFailure, setMovies);
+    }
+  }
+
+  Future<List<Either<Failure, List<MovieEntity>>>> moviesRequest() {
+    return Future.wait(
+      [
+        getMoviesUsecase(GetMoviesParams(MovieCategory.popular)),
+        getMoviesUsecase(GetMoviesParams(MovieCategory.nowPlaying)),
+        getMoviesUsecase(GetMoviesParams(MovieCategory.topRated)),
+        getMoviesUsecase(GetMoviesParams(MovieCategory.upcoming)),
+      ],
+    );
   }
 
   @action
   Future<void> getTVSeries() async {
     setLoading(true);
+    clearTVSeries();
 
-    final popularTVSeriesFuture =
-        getTVSeriesUsecase(GetTVSeriesParams(TVSerieCategory.popular));
-
-    final topRatedTVSeriesFuture =
-        getTVSeriesUsecase(GetTVSeriesParams(TVSerieCategory.topRated));
-
-    final onTheAirTVSeriesFuture =
-        getTVSeriesUsecase(GetTVSeriesParams(TVSerieCategory.onTheAir));
-
-    final airingTodayTVSeriesFuture =
-        getTVSeriesUsecase(GetTVSeriesParams(TVSerieCategory.airingToday));
-
-    final responses = await Future.wait(
-      [
-        popularTVSeriesFuture,
-        topRatedTVSeriesFuture,
-        onTheAirTVSeriesFuture,
-        airingTodayTVSeriesFuture,
-      ],
-    );
-
-    final popularTVSeriesResponse = responses[0];
-    final topRatedTVSeriesResponse = responses[1];
-    final onTheAirTVSeriesResponse = responses[2];
-    final airingTodayTVSeriesResponse = responses[3];
-
-    popularTVSeriesResponse.fold(
-      _setErrorMessageFromFailure,
-      setPopularTVSeries,
-    );
-
-    topRatedTVSeriesResponse.fold(
-      _setErrorMessageFromFailure,
-      setTopRatedTVSeries,
-    );
-
-    onTheAirTVSeriesResponse.fold(
-      _setErrorMessageFromFailure,
-      setOnTheAirTVSeries,
-    );
-
-    airingTodayTVSeriesResponse.fold(
-      _setErrorMessageFromFailure,
-      setAiringTodayTVSeries,
-    );
+    handleTVSeriesResponse(await tvSeriesRequest());
 
     setLoading(false);
+  }
+
+  handleTVSeriesResponse(List<Either<Failure, List<TVSerieEntity>>> responses) {
+    for (var response in responses) {
+      response.fold(_setErrorMessageFromFailure, setTVSeries);
+    }
+  }
+
+  tvSeriesRequest() {
+    return Future.wait(
+      [
+        getTVSeriesUsecase(GetTVSeriesParams(TVSerieCategory.popular)),
+        getTVSeriesUsecase(GetTVSeriesParams(TVSerieCategory.topRated)),
+        getTVSeriesUsecase(GetTVSeriesParams(TVSerieCategory.onTheAir)),
+        getTVSeriesUsecase(GetTVSeriesParams(TVSerieCategory.airingToday)),
+      ],
+    );
   }
 
   @action
@@ -230,39 +178,17 @@ abstract class HomeStoreBase with Store {
   void setErrorMessage(String? value) => errorMessageStream.add(value);
 
   @action
-  void setPopularMovies(List<MovieEntity> value) =>
-      _popularMovies = value.asObservable();
+  void setMovies(List<MovieEntity> value) => _movies.addAll(value);
+  @action
+  void setTVSeries(List<TVSerieEntity> value) => _tvSeries.addAll(value);
+  @action
+  void setSuggestions(List<MediaEntity> value) =>
+      _suggestions = value.asObservable();
 
   @action
-  void setNowPlayingMovies(List<MovieEntity> value) =>
-      _nowPlayingMovies = value.asObservable();
-
+  void clearMovies() => _movies.clear();
   @action
-  void setTopRatedMovies(List<MovieEntity> value) =>
-      _topRatedMovies = value.asObservable();
-
-  @action
-  void setUpcomingMovies(List<MovieEntity> value) =>
-      _upcomingMovies = value.asObservable();
-
-  @action
-  void setPopularTVSeries(List<TVSerieEntity> value) =>
-      _popularTVSeries = value.asObservable();
-
-  @action
-  void setTopRatedTVSeries(List<TVSerieEntity> value) =>
-      _topRatedTVSeries = value.asObservable();
-
-  @action
-  void setOnTheAirTVSeries(List<TVSerieEntity> value) =>
-      _onTheAirTVSeries = value.asObservable();
-
-  @action
-  void setAiringTodayTVSeries(List<TVSerieEntity> value) =>
-      _airingTodayTVSeries = value.asObservable();
-
-  @action
-  void setSuggestions(List value) => _suggestions = value.asObservable();
+  void clearTVSeries() => _tvSeries.clear();
 
   @action
   _setErrorMessageFromFailure(Failure failure) =>

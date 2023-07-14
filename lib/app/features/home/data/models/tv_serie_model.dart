@@ -1,3 +1,5 @@
+import 'package:o_que_assistir/app/core/common/types.dart';
+import 'package:o_que_assistir/app/features/home/data/datasources/tv_serie_data_source.dart';
 import 'package:o_que_assistir/app/features/home/data/models/gender_model.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/tv_serie_entity.dart';
 
@@ -14,10 +16,11 @@ final class TVSerieModel extends TVSerieEntity {
     required super.firstAirDate,
     required super.voteAverage,
     required super.voteCount,
+    required super.category,
     super.seasonCount,
   });
 
-  factory TVSerieModel.fromJson(Map<String, dynamic> json) {
+  factory TVSerieModel.fromJson(Json json) {
     return TVSerieModel(
       id: json['id'].toString(),
       name: json['name'],
@@ -31,10 +34,16 @@ final class TVSerieModel extends TVSerieEntity {
       voteAverage: json['vote_average'].toDouble(),
       voteCount: json['vote_count'],
       seasonCount: (json['seasons'] as List?)?.length,
+      category: TVSerieCategory.any,
     );
   }
 
-  Map<String, dynamic> toJson() {
+  factory TVSerieModel.fromJsonWithCategory(
+      Json json, TVSerieCategory category) {
+    return TVSerieModel.fromJson(json).copyWithCategory(category);
+  }
+
+  Json toJson() {
     return {
       'id': id,
       'name': name,
@@ -51,7 +60,30 @@ final class TVSerieModel extends TVSerieEntity {
     };
   }
 
-  static List<TVSerieModel> fromJsonList(List<dynamic> json) {
-    return json.map((e) => TVSerieModel.fromJson(e)).toList();
+  TVSerieModel copyWithCategory(TVSerieCategory category) {
+    return TVSerieModel(
+      id: id,
+      name: name,
+      originalName: originalName,
+      backdropPath: backdropPath,
+      posterPath: posterPath,
+      genres: genres,
+      overview: overview,
+      popularity: popularity,
+      firstAirDate: firstAirDate,
+      voteAverage: voteAverage,
+      voteCount: voteCount,
+      seasonCount: seasonCount,
+      category: category,
+    );
+  }
+
+  static List<TVSerieModel> fromJsonList(
+    List<dynamic> list, {
+    TVSerieCategory category = TVSerieCategory.any,
+  }) {
+    return list
+        .map((e) => TVSerieModel.fromJsonWithCategory(e, category))
+        .toList();
   }
 }

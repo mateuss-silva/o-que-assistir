@@ -25,7 +25,8 @@ void main() {
     getMoviesUsecase = MockGetMoviesUsecase();
     getTVSeriesUsecase = MockGetTVSeriesUsecase();
     getSuggestionsUsecase = MockGetSuggestionsUsecase();
-    store = HomeStore(getMoviesUsecase, getTVSeriesUsecase, getSuggestionsUsecase);
+    store =
+        HomeStore(getMoviesUsecase, getTVSeriesUsecase, getSuggestionsUsecase);
     registerFallbackValue(GetMoviesParams(MovieCategory.popular));
   });
 
@@ -44,21 +45,25 @@ void main() {
       voteAverage: 8.435,
       voteCount: 26651,
       runtime: 139,
+      category: MovieCategory.popular,
     ),
   ];
 
   test('should get data from the usecase', () async {
     // arrange
-    when(() => getMoviesUsecase(any())).thenAnswer((_) async => Right(tMovies));
+    when(() => getMoviesUsecase(any()))
+        .thenAnswer((_) async => Right(List.empty()));
+    when(() => getMoviesUsecase(GetMoviesParams(MovieCategory.popular)))
+        .thenAnswer((_) async => Right(tMovies));
 
     // act
     await store.getMovies();
 
     // assert
     expect(store.popularMovies, tMovies);
-    expect(store.nowPlayingMovies, tMovies);
-    expect(store.topRatedMovies, tMovies);
-    expect(store.upcomingMovies, tMovies);
+    expect(store.nowPlayingMovies, List.empty());
+    expect(store.topRatedMovies, List.empty());
+    expect(store.upcomingMovies, List.empty());
     verify(() => getMoviesUsecase(GetMoviesParams(MovieCategory.popular)));
     verify(() => getMoviesUsecase(GetMoviesParams(MovieCategory.nowPlaying)));
     verify(() => getMoviesUsecase(GetMoviesParams(MovieCategory.topRated)));

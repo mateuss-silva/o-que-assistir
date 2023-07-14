@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
+import 'package:o_que_assistir/app/features/home/data/datasources/movie_data_source.dart';
 
 void main() {
   final movie = MovieEntity(
@@ -16,6 +17,7 @@ void main() {
     status: "Released",
     voteCount: 10,
     runtime: 70,
+    category: MovieCategory.any,
   );
 
   test("should get a string with the movie duration formatted", () {

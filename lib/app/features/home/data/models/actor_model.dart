@@ -1,3 +1,4 @@
+import 'package:o_que_assistir/app/core/common/types.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/actor_entity.dart';
 
 final class ActorModel extends ActorEntity {
@@ -10,7 +11,7 @@ final class ActorModel extends ActorEntity {
     required super.popularity,
   });
 
-  factory ActorModel.fromJson(Map<String, dynamic> jsonMap) {
+  factory ActorModel.fromJson(Json jsonMap) {
     return ActorModel(
       id: jsonMap['id'].toString(),
       knownFor: jsonMap['known_for_department'],
@@ -21,7 +22,7 @@ final class ActorModel extends ActorEntity {
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Json toJson() {
     return {
       'id': super.id,
       'known_for_department': super.knownFor,

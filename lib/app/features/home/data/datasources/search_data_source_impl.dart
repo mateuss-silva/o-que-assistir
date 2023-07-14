@@ -14,7 +14,7 @@ class SearchDataSourceImpl implements SearchDataSource {
   SearchDataSourceImpl(this.client, this.mediaFactory);
 
   @override
-  Future<List> getSuggestions(String query) async {
+  Future<List<MediaEntity>> getSuggestions(String query) async {
     final response = await client.get(
       Uri.parse(
           '$baseUrl/search/multi?api_key=$apiKey&query=$query&language=$language'),
