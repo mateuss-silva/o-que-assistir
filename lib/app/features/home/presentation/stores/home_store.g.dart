@@ -22,20 +22,6 @@ mixin _$HomeStore on HomeStoreBase, Store {
       (_$showMoviesComputed ??= Computed<bool>(() => super.showMovies,
               name: 'HomeStoreBase.showMovies'))
           .value;
-  Computed<bool>? _$showSearchBarComputed;
-
-  @override
-  bool get showSearchBar =>
-      (_$showSearchBarComputed ??= Computed<bool>(() => super.showSearchBar,
-              name: 'HomeStoreBase.showSearchBar'))
-          .value;
-  Computed<bool>? _$searchingSuggestionsComputed;
-
-  @override
-  bool get searchingSuggestions => (_$searchingSuggestionsComputed ??=
-          Computed<bool>(() => super.searchingSuggestions,
-              name: 'HomeStoreBase.searchingSuggestions'))
-      .value;
   Computed<List<bool>>? _$showMovieOrSeriesComputed;
 
   @override
@@ -107,13 +93,6 @@ mixin _$HomeStore on HomeStoreBase, Store {
               () => super.onTheAirTVSeries,
               name: 'HomeStoreBase.onTheAirTVSeries'))
           .value;
-  Computed<ObservableList<dynamic>>? _$suggestionsComputed;
-
-  @override
-  ObservableList<dynamic> get suggestions => (_$suggestionsComputed ??=
-          Computed<ObservableList<dynamic>>(() => super.suggestions,
-              name: 'HomeStoreBase.suggestions'))
-      .value;
 
   late final _$_loadingAtom =
       Atom(name: 'HomeStoreBase._loading', context: context);
@@ -144,39 +123,6 @@ mixin _$HomeStore on HomeStoreBase, Store {
   set _showMovies(bool value) {
     _$_showMoviesAtom.reportWrite(value, super._showMovies, () {
       super._showMovies = value;
-    });
-  }
-
-  late final _$_showSearchBarAtom =
-      Atom(name: 'HomeStoreBase._showSearchBar', context: context);
-
-  @override
-  bool get _showSearchBar {
-    _$_showSearchBarAtom.reportRead();
-    return super._showSearchBar;
-  }
-
-  @override
-  set _showSearchBar(bool value) {
-    _$_showSearchBarAtom.reportWrite(value, super._showSearchBar, () {
-      super._showSearchBar = value;
-    });
-  }
-
-  late final _$_searchingSuggestionsAtom =
-      Atom(name: 'HomeStoreBase._searchingSuggestions', context: context);
-
-  @override
-  bool get _searchingSuggestions {
-    _$_searchingSuggestionsAtom.reportRead();
-    return super._searchingSuggestions;
-  }
-
-  @override
-  set _searchingSuggestions(bool value) {
-    _$_searchingSuggestionsAtom.reportWrite(value, super._searchingSuggestions,
-        () {
-      super._searchingSuggestions = value;
     });
   }
 
@@ -212,22 +158,6 @@ mixin _$HomeStore on HomeStoreBase, Store {
     });
   }
 
-  late final _$_suggestionsAtom =
-      Atom(name: 'HomeStoreBase._suggestions', context: context);
-
-  @override
-  ObservableList<MediaEntity> get _suggestions {
-    _$_suggestionsAtom.reportRead();
-    return super._suggestions;
-  }
-
-  @override
-  set _suggestions(ObservableList<MediaEntity> value) {
-    _$_suggestionsAtom.reportWrite(value, super._suggestions, () {
-      super._suggestions = value;
-    });
-  }
-
   late final _$getMoviesAsyncAction =
       AsyncAction('HomeStoreBase.getMovies', context: context);
 
@@ -242,14 +172,6 @@ mixin _$HomeStore on HomeStoreBase, Store {
   @override
   Future<void> getTVSeries() {
     return _$getTVSeriesAsyncAction.run(() => super.getTVSeries());
-  }
-
-  late final _$searchAsyncAction =
-      AsyncAction('HomeStoreBase.search', context: context);
-
-  @override
-  Future<void> search(String query) {
-    return _$searchAsyncAction.run(() => super.search(query));
   }
 
   late final _$HomeStoreBaseActionController =
@@ -300,17 +222,6 @@ mixin _$HomeStore on HomeStoreBase, Store {
   }
 
   @override
-  void setSuggestions(List<MediaEntity> value) {
-    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
-        name: 'HomeStoreBase.setSuggestions');
-    try {
-      return super.setSuggestions(value);
-    } finally {
-      _$HomeStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void clearMovies() {
     final _$actionInfo = _$HomeStoreBaseActionController.startAction(
         name: 'HomeStoreBase.clearMovies');
@@ -344,34 +255,10 @@ mixin _$HomeStore on HomeStoreBase, Store {
   }
 
   @override
-  void setShowSearchBar(bool value) {
-    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
-        name: 'HomeStoreBase.setShowSearchBar');
-    try {
-      return super.setShowSearchBar(value);
-    } finally {
-      _$HomeStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setSearchingSuggestions(bool value) {
-    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
-        name: 'HomeStoreBase.setSearchingSuggestions');
-    try {
-      return super.setSearchingSuggestions(value);
-    } finally {
-      _$HomeStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 loading: ${loading},
 showMovies: ${showMovies},
-showSearchBar: ${showSearchBar},
-searchingSuggestions: ${searchingSuggestions},
 showMovieOrSeries: ${showMovieOrSeries},
 popularMovies: ${popularMovies},
 topRatedMovies: ${topRatedMovies},
@@ -380,8 +267,7 @@ upcomingMovies: ${upcomingMovies},
 popularTVSeries: ${popularTVSeries},
 topRatedTVSeries: ${topRatedTVSeries},
 airingTodayTVSeries: ${airingTodayTVSeries},
-onTheAirTVSeries: ${onTheAirTVSeries},
-suggestions: ${suggestions}
+onTheAirTVSeries: ${onTheAirTVSeries}
     ''';
   }
 }

@@ -17,6 +17,7 @@ import 'package:o_que_assistir/app/features/home/presentation/pages/movie_detail
 import 'package:o_que_assistir/app/features/home/presentation/pages/tv_serie_details_page.dart';
 import 'package:o_que_assistir/app/features/home/presentation/stores/home_store.dart';
 import 'package:o_que_assistir/app/features/home/presentation/stores/movie_details_store.dart';
+import 'package:o_que_assistir/app/features/home/presentation/stores/search_store.dart';
 import 'package:o_que_assistir/app/features/home/presentation/stores/tv_serie_details_store.dart';
 import 'package:http/http.dart' as http;
 
@@ -50,7 +51,8 @@ class HomeModule extends Module {
     Bind.factory((i) => GetSuggestionsUsecase(i<SearchRepositoryImpl>())),
 
     // stores
-    Bind.singleton((i) => HomeStore(i(), i(), i())),
+    Bind.singleton((i) => HomeStore(i(), i())),
+    Bind.factory((i) => SearchStore(i())),
     Bind.factory((i) => MovieDetailsStore(i(), i<GetMovieCastUsecase>())),
     Bind.factory((i) => TVSerieDetailsStore(i(), i<GetTVSerieCastUsecase>())),
   ];

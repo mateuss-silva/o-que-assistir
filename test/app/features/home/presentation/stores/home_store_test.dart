@@ -19,14 +19,11 @@ void main() {
   late HomeStore store;
   late MockGetMoviesUsecase getMoviesUsecase;
   late MockGetTVSeriesUsecase getTVSeriesUsecase;
-  late MockGetSuggestionsUsecase getSuggestionsUsecase;
 
   setUp(() {
     getMoviesUsecase = MockGetMoviesUsecase();
     getTVSeriesUsecase = MockGetTVSeriesUsecase();
-    getSuggestionsUsecase = MockGetSuggestionsUsecase();
-    store =
-        HomeStore(getMoviesUsecase, getTVSeriesUsecase, getSuggestionsUsecase);
+    store = HomeStore(getMoviesUsecase, getTVSeriesUsecase);
     registerFallbackValue(GetMoviesParams(MovieCategory.popular));
   });
 

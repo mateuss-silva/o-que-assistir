@@ -3,7 +3,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:o_que_assistir/app/core/common/constants.dart';
 import 'package:o_que_assistir/app/core/common/extensions/nullable_extension.dart';
+import 'package:o_que_assistir/app/core/error/failure_extension.dart';
 import 'package:o_que_assistir/app/features/home/domain/entities/movie_entity.dart';
+import 'package:o_que_assistir/app/features/home/presentation/stores/search_store.dart';
 import 'package:o_que_assistir/app/features/home/presentation/widgets/loading_categories.dart';
 import 'package:o_que_assistir/app/features/home/presentation/widgets/movies_categories_widget.dart';
 import 'package:o_que_assistir/app/features/home/presentation/widgets/search_bar_widget.dart';
@@ -21,6 +23,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   final store = Modular.get<HomeStore>();
+  final searchStore = Modular.get<SearchStore>();
 
   late final fadeController = AnimationController(
     vsync: this,
@@ -78,9 +81,12 @@ class _HomePageState extends State<HomePage>
                       duration: const Duration(milliseconds: 300),
                       switchInCurve: Curves.easeOut,
                       switchOutCurve: Curves.easeOut,
-                      child: store.showSearchBar
+                      child: searchStore.showSearchBar
                           ? SearchBarWidget(
-                              onSearch: store.search,
+                              onSearch: (q) => searchStore.search(
+                                  q,
+                                  (failure) =>
+                                      _showErrorMessage(failure.message)),
                               onSubmitted: closeSearch,
                               controller: controller,
                             )
@@ -105,9 +111,9 @@ class _HomePageState extends State<HomePage>
                   return FadeTransition(
                     opacity: animation,
                     child: SearchSuggestionsWidget(
-                      showLoading: store.searchingSuggestions,
-                      suggestions: store.suggestions,
-                      showSuggestions: store.showSearchBar,
+                      showLoading: searchStore.searchingSuggestions,
+                      suggestions: searchStore.suggestions,
+                      showSuggestions: searchStore.showSearchBar,
                       onSuggestionSelected: onClickSuggestion,
                     ),
                   );
@@ -154,14 +160,14 @@ class _HomePageState extends State<HomePage>
 
   closeSearch() {
     controller.clear();
-    store.setSuggestions([]);
-    store.setShowSearchBar(false);
+    searchStore.setSuggestions([]);
+    searchStore.setShowSearchBar(false);
     fadeController.reverse();
   }
 
   void initSearch() {
-    store.setShowSearchBar(true);
-    store.setSuggestions([]);
+    searchStore.setShowSearchBar(true);
+    searchStore.setSuggestions([]);
     fadeController.forward();
   }
 
@@ -180,9 +186,9 @@ class _HomePageState extends State<HomePage>
   }
 
   onClickSuggestion(suggestion) {
-    store.setShowSearchBar(false);
+    searchStore.setShowSearchBar(false);
     controller.clear();
-    store.setSuggestions([]);
+    searchStore.setSuggestions([]);
     if (suggestion is MovieEntity) {
       Modular.to.pushNamed("/movie-details/${suggestion.id}");
     } else {
