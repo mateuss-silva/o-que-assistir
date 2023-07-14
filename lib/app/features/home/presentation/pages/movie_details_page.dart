@@ -15,12 +15,11 @@ class MovieDetailsPage extends StatefulWidget {
 }
 
 class _MovieDetailsPageState extends State<MovieDetailsPage> {
-  late final MovieDetailsStore store;
+  final store = Modular.get<MovieDetailsStore>();
 
   @override
   void initState() {
     super.initState();
-    store = Modular.get<MovieDetailsStore>();
 
     store.getMovie(widget.movieId);
 
@@ -68,9 +67,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                         color: Colors.white,
                       ),
                     ),
-                    onPressed: () {
-                      Modular.to.pop();
-                    },
+                    onPressed: () => Modular.to.pop(),
                   ),
                 ],
               ),
@@ -107,7 +104,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                                   const AlwaysStoppedAnimation(Colors.green),
                             ),
                             Text(
-                              '${(store.movie.voteAverage * 10).floor()}%',
+                              store.movie.voteAveragePercentage,
                               style: const TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold,
@@ -122,7 +119,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        (store.movie.releaseDate?.year ?? '????').toString(),
+                        store.movie.releaseDateYear,
                         style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),
@@ -132,7 +129,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        store.movie.genres.first.name ?? '',
+                        store.movie.gender,
                         style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),

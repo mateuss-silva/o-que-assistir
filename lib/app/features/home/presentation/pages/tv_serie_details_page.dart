@@ -67,9 +67,7 @@ class _TVSerieDetailsPageState extends State<TVSerieDetailsPage> {
                         color: Colors.white,
                       ),
                     ),
-                    onPressed: () {
-                      Modular.to.pop();
-                    },
+                    onPressed: () => Modular.to.pop(),
                   ),
                 ],
               ),
@@ -106,7 +104,7 @@ class _TVSerieDetailsPageState extends State<TVSerieDetailsPage> {
                                   const AlwaysStoppedAnimation(Colors.green),
                             ),
                             Text(
-                              '${(store.tvSerie.voteAverage * 10).floor()}%',
+                              store.tvSerie.voteAveragePercentage,
                               style: const TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold,
@@ -121,12 +119,12 @@ class _TVSerieDetailsPageState extends State<TVSerieDetailsPage> {
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        store.tvSerie.firstAirDate?.year.toString() ?? '',
+                        store.tvSerie.releaseDateYear,
                         style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        store.tvSerie.genres.first.name ?? '',
+                        store.tvSerie.gender,
                         style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),

@@ -26,13 +26,21 @@ base class TVSerieEntity extends MediaEntity {
           ? "$seasonCount temporada"
           : "$seasonCount temporadas";
 
+  String get voteAveragePercentage => Percentage.zeroToTen(voteAverage);
+
+  String get releaseDateYear => Date.mediaYear(firstAirDate);
+
+  String get gender => GenderEntity.hasGender(genres)
+      ? GenderEntity.gender(genres)
+      : "Gênero desconhecido";
+
   String get subtitle {
     return [
       "Série",
       originalName,
-      Percentage.zeroToTen(voteAverage),
-      Date.mediaYear(firstAirDate),
-      if (GenderEntity.hasGender(genres)) GenderEntity.gender(genres)
+      voteAveragePercentage,
+      releaseDateYear,
+      gender,
     ].join(" ● ");
   }
 

@@ -27,13 +27,21 @@ base class MovieEntity extends MediaEntity {
   String get duration =>
       '${Time.hoursFromMinutes(runtime!)}h ${Time.remainingMinutes(runtime!)}m';
 
+  String get voteAveragePercentage => Percentage.zeroToTen(voteAverage);
+
+  String get releaseDateYear => Date.mediaYear(releaseDate);
+
+  String get gender => GenderEntity.hasGender(genres)
+      ? GenderEntity.gender(genres)
+      : "Gênero desconhecido";
+
   String get subtitle {
     return [
       "Filme",
       originalTitle,
-      Percentage.zeroToTen(voteAverage),
-      Date.mediaYear(releaseDate),
-      if (GenderEntity.hasGender(genres)) GenderEntity.gender(genres)
+      voteAveragePercentage,
+      releaseDateYear,
+      gender,
     ].join(" ● ");
   }
 
